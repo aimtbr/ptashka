@@ -1,0 +1,47 @@
+{
+  "name": "ptashka",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npx webpack --mode=production",
+    "dev": "npx webpack serve --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aimtbr/ptashka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aimtbr/ptashka/issues"
+  },
+  "homepage": "https://github.com/aimtbr/ptashka#readme",
+  "dependencies": {
+    "localforage": "^1.10.0",
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "core-js": "^3.21.1",
+    "css-loader": "^6.7.0",
+    "dotenv-webpack": "^7.1.0",
+    "html-loader": "^3.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "regenerator-runtime": "^0.13.9",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}

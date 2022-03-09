@@ -1,0 +1,14 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.home-heading {
+  font-size: 4rem;
+  text-align: center;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
