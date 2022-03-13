@@ -50,9 +50,10 @@ module.exports = (env, argv) => {
         publicPath: '/',
       },
       devServer: {
-        static: { directory: path.resolve(__dirname, 'assets') },
+        static: [{ directory: path.resolve(__dirname, 'assets') }],
         host,
         port,
+        open: true,
         hot: true,
         historyApiFallback: true,
       },

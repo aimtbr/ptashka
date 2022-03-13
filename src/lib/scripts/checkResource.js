@@ -1,1 +1,0 @@
-const checkResource = async(() => {})();
