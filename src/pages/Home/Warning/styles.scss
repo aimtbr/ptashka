@@ -1,0 +1,16 @@
+.home-body-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin-top: 1rem;
+  background-color: rgba(255, 0, 0, 0.26);
+
+  &__message {
+    overflow-wrap: anywhere;
+  }
+
+  &__button {
+    margin-left: 1rem;
+  }
+}

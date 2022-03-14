@@ -81,11 +81,24 @@ module.exports = (env, argv) => {
             use: [styleLoader, 'css-loader', 'sass-loader'],
           },
           {
-            test: /\.(png|jpe?g|svg|gif|woff|woff2|eot|ttf|otf)$/,
+            test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|otf)$/,
             include: [path.resolve(__dirname, 'assets')],
             exclude: [
               path.resolve(__dirname, 'node_modules'),
               path.resolve(__dirname, 'src'),
+            ],
+            type: 'asset/resource',
+          },
+          {
+            test: /\.svg$/,
+            include: [path.resolve(__dirname, 'assets', 'icons')],
+            use: ['@svgr/webpack'],
+          },
+          {
+            test: /\.svg$/,
+            exclude: [
+              path.resolve(__dirname, 'assets', 'icons'),
+              path.resolve(__dirname, 'node_modules'),
             ],
             type: 'asset/resource',
           },

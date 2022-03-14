@@ -1,24 +1,24 @@
 import React from 'react';
 import { v4 as generateUUID } from 'uuid';
 
-import { PtashkaItem } from './PtashkaItem';
+import { ResourceItem } from './ResourceItem';
 
 import './styles.scss';
 
 const PtashkaList = (props) => {
   const { list } = props;
 
-  const PtashkaItems = () => {
-    return list.map((item) => {
+  const ResourceItems = () => {
+    return list.map((resource) => {
       const uniqueId = generateUUID();
 
-      return <PtashkaItem key={uniqueId} item={item} />;
+      return <ResourceItem key={uniqueId} resource={resource} />;
     });
   };
 
   return (
-    <ul className="home-body-ptashka-list">
-      <PtashkaItems />
+    <ul className="home-body-resource-list">
+      <ResourceItems />
     </ul>
   );
 };

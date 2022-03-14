@@ -9,3 +9,18 @@ export const domainToPattern = (domain) => {
 
   return pattern;
 };
+
+export const throttle = () => {
+  // TODO: implement
+};
+
+export const setCustomInterval = (func, delay, leading = false, ...args) => {
+  const isLeading = leading === true;
+  if (isLeading) {
+    func(...args);
+  }
+
+  const intervalId = setInterval(func, delay, ...args);
+
+  return intervalId;
+};

