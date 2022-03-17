@@ -3,39 +3,74 @@ import React, { useState } from 'react';
 import { ResourceList } from './ResourceList';
 import { Warning } from './Warning';
 import { Input, Button } from '../../components';
+import { LENGTH_MAX_URL, LENGTH_MIN_URL } from '../../lib/constants.js';
+import { PATTERN_URL } from '../../lib/patterns.js';
+import { isURL } from '../../lib/validations.js';
 
 import './styles.scss';
 
 const Home = () => {
-  const [resourceList, setResourceList] = useState([]);
+  const defaultResource = 'https://';
 
-  const [resource, setResource] = useState(
-    // 'https://webhook.site/81d016ce-da41-454f-843e-1096abc2fc0b'
-    'https://vk.com'
-  );
+  const initialResource = '';
+  const initialResourceList = [];
+  const initialWarning = '';
 
-  const [warning, setWarning] = useState('');
+  // 'https://webhook.site/81d016ce-da41-454f-843e-1096abc2fc0b'
+  const [resource, setResource] = useState(initialResource);
 
-  const addResource = (resource) => {
+  const [resourceList, setResourceList] = useState(initialResourceList);
+
+  const [warning, setWarning] = useState(initialWarning);
+
+  const addResource = async (resource) => {
+    if (!isURL(resource)) {
+      // setWarning('The provided resource is not a URL.');
+      setWarning('Введена адреса не є коректним посиланням на веб-сайт.');
+
+      return;
+    }
+
     const resourceUrl = new URL(resource);
 
-    const { origin } = resourceUrl;
+    const { origin, searchParams } = resourceUrl;
 
     const isUrlExists = resourceList.some((resource) => {
       const url = new URL(resource);
 
       return url.origin === origin;
     });
+
     if (isUrlExists) {
-      setWarning(`Ptashka is already working on '${origin}'.`);
+      // setWarning(`Ptashka is already working on '${origin}'.`);
+      setWarning(`Пташка вже працює над '${origin}'.`);
 
       return;
     }
 
-    setResourceList((list) => [...list, resource]);
+    const searchParamsEncoded = new URLSearchParams('');
+
+    searchParams.forEach((value, key) => {
+      const valueEncoded = encodeURIComponent(value);
+      const keyEncoded = encodeURIComponent(key);
+
+      searchParamsEncoded.append(keyEncoded, valueEncoded);
+    });
+
+    resourceUrl.search = `?${searchParamsEncoded}`;
+
+    const resourceUrlHref = resourceUrl.toString();
+
+    setResourceList((list) => [...list, resourceUrlHref]);
+
+    await resetResource();
   };
 
-  const handleResourceChange = (event) => {
+  const resetResource = async () => {
+    setResource(initialResource);
+  };
+
+  const handleResourceChange = async (event) => {
     const { value } = event.target;
 
     const httpProtocol = 'http://';
@@ -56,31 +91,66 @@ const Home = () => {
 
     // VALIDATE THE URL ON SUBMIT
 
-    addResource(resource);
+    await addResource(resource);
+  };
+
+  const handleInputFocus = async () => {
+    const isResourceUnchanged = resource === initialResource;
+
+    if (isResourceUnchanged) {
+      setResource(defaultResource);
+    }
+  };
+
+  const handleInputBlur = async () => {
+    const isDefaultResourceEntered = resource === defaultResource;
+
+    if (isDefaultResourceEntered) {
+      await resetResource();
+    }
   };
 
   return (
     <div className="home">
+      <Warning message={warning} setMessage={setWarning} />
+
       <header className="home-header">
-        <h1 className="home-header-heading">
-          <span className="home-header-heading__span">P</span>TASHKA
-        </h1>
+        <h1 className="home-header-heading">PTASHKA</h1>
       </header>
 
       <main className="home-body" role="main">
-        <form className="home-body-form" onSubmit={handleFormSubmit}>
-          <Input
-            className="home-body-form__input"
-            type="url"
-            placeholder="Website URL address"
-            value={resource}
-            onChange={handleResourceChange}
-          />
+        <div className="home-body-heading">
+          <h2 className="home-body-heading__text">
+            Підтримай Україну перевіривши російські та білоруські веб-сайти на
+            стресостійкість 😉
+          </h2>
+        </div>
 
-          <Button className="home-body-form__button">Send Ptashka</Button>
-        </form>
+        <div className="home-body-header">
+          <form className="home-body-header-form" onSubmit={handleFormSubmit}>
+            <Input
+              className="home-body-header-form__input"
+              type="url"
+              // title="For example, 'https://www.gosuslugi.ru'"
+              title="Наприклад, 'https://www.gosuslugi.ru'"
+              minLength={LENGTH_MIN_URL}
+              maxLength={LENGTH_MAX_URL}
+              pattern={PATTERN_URL.source}
+              // placeholder="Enter a website link"
+              placeholder="Введіть посилання на веб-сайт"
+              spellcheck={false}
+              value={resource}
+              onChange={handleResourceChange}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+            />
 
-        <Warning message={warning} setMessage={setWarning} />
+            <Button className="home-body-header-form__button">
+              {/* Send Ptashka */}
+              Надіслати Пташку
+            </Button>
+          </form>
+        </div>
 
         <ResourceList list={resourceList} />
       </main>

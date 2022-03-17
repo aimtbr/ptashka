@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
+import { Button } from '../../../components';
+
 import './styles.scss';
 
 const Warning = (props) => {
   const initialMessage = '';
-  const initialCounter = 100;
+  const initialCounter = 1000;
+
+  // TODO: fix the counter not being reset
 
   const { message = initialMessage, setMessage } = props;
 
   const [counter, setCounter] = useState(initialCounter);
+
   const isMessageExists = message.length > 0;
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const Warning = (props) => {
     let nextCounter = counter;
 
     const intervalId = setInterval(() => {
-      if (nextCounter === 1) {
+      if (nextCounter <= 1) {
         resetWarning();
         resetCounter();
 
@@ -47,13 +52,13 @@ const Warning = (props) => {
   return isMessageExists ? (
     <div className="home-body-warning">
       <div className="home-body-warning__message">{message}</div>
-      <button
+      <Button
         className="home-body-warning__button"
         type="button"
         onClick={resetWarning}
       >
         {counter}
-      </button>
+      </Button>
     </div>
   ) : null;
 };

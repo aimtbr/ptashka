@@ -11,4 +11,9 @@
 .home-body-resource-list-item-state {
   width: 3rem;
   height: 3rem;
+
+  &__icon {
+    width: 2rem;
+    height: 2rem;
+  }
 }

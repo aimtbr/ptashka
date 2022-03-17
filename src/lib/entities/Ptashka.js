@@ -61,7 +61,9 @@ class Ptashka extends EventTarget {
 
   async send() {
     if (this.isStatusRunning) {
-      throw new Error(`The Ptashka is already working on ${this.url}.`);
+      console.error(`The Ptashka is already working on ${this.url}.`);
+
+      return;
     }
 
     this.#setStatusRunning();
@@ -145,6 +147,8 @@ class Ptashka extends EventTarget {
         (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
     };
 
+    // TODO: use setTimeout if successful, otherwise retry 5 times and abort
+
     this.interval = setCustomInterval(sendRequests, INTERVAL_PERIOD, true);
 
     return this;
@@ -152,7 +156,9 @@ class Ptashka extends EventTarget {
 
   async pause() {
     if (!this.isStatusRunning) {
-      throw new Error(`The Ptashka is not working on ${this.url} yet.`);
+      console.error(`The Ptashka is not working on ${this.url} yet.`);
+
+      return;
     }
 
     this.#setStatusPaused();
@@ -165,7 +171,9 @@ class Ptashka extends EventTarget {
 
   async resume() {
     if (!this.isStatusPaused) {
-      throw new Error(`The Ptashka working on ${this.url} is not paused yet.`);
+      console.error(`The Ptashka working on ${this.url} is not paused yet.`);
+
+      return;
     }
 
     await this.send();
@@ -281,7 +289,7 @@ class Ptashka extends EventTarget {
     };
 
     const searchParamsKey = Date.now();
-    const searchParamsValue = `%D0%A1%D0%9B%D0%90%D0%92%D0%90%20%D0%A3%D0%9A%D0%A0%D0%90%D0%87%D0%9D%D0%86!%20${Date.now()}`;
+    const searchParamsValue = `СЛАВА УКРАЇНІ! ${Date.now()}`;
 
     const requestUrl = new URL(this.url);
 

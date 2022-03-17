@@ -1,10 +1,17 @@
 import { WORKER_UNAVAILABLE, RESOURCE_EXISTS } from './constants.js';
 
-export const errorWorkerUnavailable = () => ({
-  type: WORKER_UNAVAILABLE,
-});
+const composeError = (type, message) => {
+  const error = { type, message };
 
-export const errorResourceExists = (resource) => ({
-  type: RESOURCE_EXISTS,
-  resource,
-});
+  return (...params) => {
+    
+  };
+};
+
+export const errorWorkerUnavailable = composeError(() => ({
+  type: WORKER_UNAVAILABLE,
+}));
+
+export const errorResourceExists = composeError(RESOURCE_EXISTS, '', );
+
+export const 

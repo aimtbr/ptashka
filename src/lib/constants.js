@@ -7,6 +7,10 @@ export const LANGUAGE_UA = 'ua';
 export const LANGUAGE_EN = 'en';
 export const DEFAULT_LANGUAGE = LANGUAGE_UA;
 
-// ERRORS
+// ERROR TYPES
 export const WORKER_UNAVAILABLE = 'WORKER_UNAVAILABLE';
 export const RESOURCE_EXISTS = 'RESOURCE_EXISTS';
+
+// LENGTH VALUES
+export const LENGTH_MIN_URL = 10;
+export const LENGTH_MAX_URL = 1024;

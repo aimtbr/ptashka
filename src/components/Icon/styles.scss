@@ -1,6 +1,10 @@
 .icon {
-  display: inline-block;
+  display: inline-flex;
+  object-fit: cover;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   width: auto;
-  object-fit: cover;
+  text-align: center;
 }
