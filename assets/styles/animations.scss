@@ -1,0 +1,94 @@
+// CREATE THE NAMED ANIMATIONS BELOW
+// For example, the 'create-animation(bubble)' mixin will be translated to '@keyframes bubble'
+@include create-animation(bubble) {
+  from {
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+  }
+
+  75% {
+    border-radius: 50%;
+  }
+
+  to {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+// TODO: implement
+@include create-animation(fill-right) {
+  from {
+    transform: skew();
+    width: 50%;
+  }
+
+  to {
+    width: 100%;
+    transform: none;
+  }
+}
+
+// CREATE LINKS TO THE NAMED ANIMATIONS BELOW
+@mixin animate-bubble {
+  position: relative;
+
+  &::before {
+    @include use-animation(bubble, 0.2s, (forwards, backwards));
+
+    position: absolute;
+    content: '';
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+@mixin animate-fill-right {
+  position: relative;
+
+  &::before {
+    @include use-animation(fill-right, 0.2s, (forwards, backwards));
+
+    position: absolute;
+    content: '';
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+// HELPERS
+@mixin create-animation($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin use-animation($name, $duration, $fill-mode) {
+  -webkit-animation-name: $name;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-fill-mode: $fill-mode;
+
+  -moz-animation-name: $name;
+  -moz-animation-duration: $duration;
+  -moz-animation-fill-mode: $fill-mode;
+
+  -ms-animation-name: $name;
+  -ms-animation-duration: $duration;
+  -ms-animation-fill-mode: $fill-mode;
+
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-fill-mode: $fill-mode;
+}

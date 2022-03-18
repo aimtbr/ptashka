@@ -14,3 +14,8 @@ export const RESOURCE_EXISTS = 'RESOURCE_EXISTS';
 // LENGTH VALUES
 export const LENGTH_MIN_URL = 10;
 export const LENGTH_MAX_URL = 1024;
+
+// PTASHKA
+export const PTASHKA_STATUS_READY = 'READY';
+export const PTASHKA_STATUS_RUNNING = 'RUNNING';
+export const PTASHKA_STATUS_PAUSED = 'PAUSED';

@@ -1,4 +1,9 @@
 import { setCustomInterval } from '../helpers.js';
+import {
+  PTASHKA_STATUS_READY,
+  PTASHKA_STATUS_RUNNING,
+  PTASHKA_STATUS_PAUSED,
+} from '../constants.js';
 
 /*
 -- FLOW --
@@ -9,10 +14,6 @@ import { setCustomInterval } from '../helpers.js';
 */
 
 // CONSTANTS
-const STATUS_READY = 'READY';
-const STATUS_RUNNING = 'RUNNING';
-const STATUS_PAUSED = 'PAUSED';
-
 const INTERVAL_PERIOD = 5000; // 5 sec
 
 // depending on the batch resize direction, increase or decrease
@@ -41,7 +42,7 @@ class Ptashka extends EventTarget {
   }
 
   url = '';
-  status = STATUS_READY;
+  status = PTASHKA_STATUS_READY;
   sent = 0;
   interval = null;
   startedAt = new Date().toISOString();
@@ -222,11 +223,11 @@ class Ptashka extends EventTarget {
 
   // GETTERS
   get isStatusRunning() {
-    return this.status === STATUS_RUNNING;
+    return this.status === PTASHKA_STATUS_RUNNING;
   }
 
   get isStatusPaused() {
-    return this.status === STATUS_PAUSED;
+    return this.status === PTASHKA_STATUS_PAUSED;
   }
 
   get #isBatchSizeDirectionIncreasing() {
@@ -245,11 +246,11 @@ class Ptashka extends EventTarget {
   });
 
   #setStatusRunning() {
-    this.#setStatus(STATUS_RUNNING);
+    this.#setStatus(PTASHKA_STATUS_RUNNING);
   }
 
   #setStatusPaused() {
-    this.#setStatus(STATUS_PAUSED);
+    this.#setStatus(PTASHKA_STATUS_PAUSED);
   }
 
   #setSent = this.#watchPropChange('sent', (value) => {

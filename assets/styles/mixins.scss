@@ -8,3 +8,7 @@
     display: none;
   }
 }
+
+@mixin notification-layer {
+  z-index: 500;
+}

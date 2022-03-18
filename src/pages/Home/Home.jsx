@@ -12,7 +12,7 @@ import './styles.scss';
 const Home = () => {
   const defaultResource = 'https://';
 
-  const initialResource = '';
+  const initialResource = 'https://ok.ru';
   const initialResourceList = [];
   const initialWarning = '';
 
@@ -138,7 +138,7 @@ const Home = () => {
               pattern={PATTERN_URL.source}
               // placeholder="Enter a website link"
               placeholder="Введіть посилання на веб-сайт"
-              spellcheck={false}
+              spellCheck={false}
               value={resource}
               onChange={handleResourceChange}
               onFocus={handleInputFocus}
