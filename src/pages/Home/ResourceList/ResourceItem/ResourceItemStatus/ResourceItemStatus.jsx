@@ -9,19 +9,21 @@ import {
 const ResourceItemStatus = (props) => {
   const { className, status } = props;
 
-  const getStatusClassName = () => {
+  const statusClassName = `${className}__status`;
+
+  const getStatusModifier = () => {
     const statuses = {
-      [PTASHKA_STATUS_READY]: `${className}_ready`,
-      [PTASHKA_STATUS_RUNNING]: `${className}_running`,
-      [PTASHKA_STATUS_PAUSED]: `${className}_paused`,
+      [PTASHKA_STATUS_READY]: `${statusClassName}_ready`,
+      [PTASHKA_STATUS_RUNNING]: `${statusClassName}_running`,
+      [PTASHKA_STATUS_PAUSED]: `${statusClassName}_paused`,
     };
 
-    const statusClassName = statuses[status];
+    const statusClassNameModifier = statuses[status];
 
-    return statusClassName;
+    return statusClassNameModifier;
   };
 
-  const statusClassNames = [className, getStatusClassName()];
+  const statusClassNames = [statusClassName, getStatusModifier()].join(' ');
 
   return <div className={statusClassNames}>{status}</div>;
 };

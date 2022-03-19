@@ -18,9 +18,10 @@ const ResourceItem = (props) => {
 
   const { url, sent, status, startedAt, pausedAt } = data;
 
-  useEffect(() => {
-    console.log('RENDER');
+  // TODO: format the date
+  // const startedAtFormatted =
 
+  useEffect(() => {
     ptashka.onchange = (change) => {
       const { key, value } = change;
 
@@ -44,7 +45,9 @@ const ResourceItem = (props) => {
 
   return (
     <li className={`${itemClassName}`}>
-      <div className={`${itemClassName}__url`}>{url}</div>
+      <a className={`${itemClassName}__url`} target="_blank" href={url}>
+        {url}
+      </a>
 
       <div className={`${itemClassName}__sent`}>{sent}</div>
 

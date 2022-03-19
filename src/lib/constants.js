@@ -16,6 +16,6 @@ export const LENGTH_MIN_URL = 10;
 export const LENGTH_MAX_URL = 1024;
 
 // PTASHKA
-export const PTASHKA_STATUS_READY = 'READY';
-export const PTASHKA_STATUS_RUNNING = 'RUNNING';
-export const PTASHKA_STATUS_PAUSED = 'PAUSED';
+export const PTASHKA_STATUS_READY = 'ready';
+export const PTASHKA_STATUS_RUNNING = 'running';
+export const PTASHKA_STATUS_PAUSED = 'paused';

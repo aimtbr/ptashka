@@ -4,8 +4,5 @@
   padding: 0.5rem 1rem;
   background-color: rgba(255 255 255 / 40%);
   border: 1px solid black;
-
-  &:focus {
-    outline: $color-main solid 1px;
-  }
+  outline: none;
 }

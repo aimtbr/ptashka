@@ -1,3 +1,40 @@
+// HELPERS
+@mixin create-animation($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin use-animation($name, $duration, $fill-mode) {
+  -webkit-animation-name: $name;
+  -webkit-animation-duration: $duration;
+  -webkit-animation-fill-mode: $fill-mode;
+
+  -moz-animation-name: $name;
+  -moz-animation-duration: $duration;
+  -moz-animation-fill-mode: $fill-mode;
+
+  -ms-animation-name: $name;
+  -ms-animation-duration: $duration;
+  -ms-animation-fill-mode: $fill-mode;
+
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-fill-mode: $fill-mode;
+}
+
 // CREATE THE NAMED ANIMATIONS BELOW
 // For example, the 'create-animation(bubble)' mixin will be translated to '@keyframes bubble'
 @include create-animation(bubble) {
@@ -54,41 +91,4 @@
     content: '';
     background-color: rgba(255, 255, 255, 0.4);
   }
-}
-
-// HELPERS
-@mixin create-animation($name) {
-  @-webkit-keyframes #{$name} {
-    @content;
-  }
-
-  @-moz-keyframes #{$name} {
-    @content;
-  }
-
-  @-ms-keyframes #{$name} {
-    @content;
-  }
-
-  @keyframes #{$name} {
-    @content;
-  }
-}
-
-@mixin use-animation($name, $duration, $fill-mode) {
-  -webkit-animation-name: $name;
-  -webkit-animation-duration: $duration;
-  -webkit-animation-fill-mode: $fill-mode;
-
-  -moz-animation-name: $name;
-  -moz-animation-duration: $duration;
-  -moz-animation-fill-mode: $fill-mode;
-
-  -ms-animation-name: $name;
-  -ms-animation-duration: $duration;
-  -ms-animation-fill-mode: $fill-mode;
-
-  animation-name: $name;
-  animation-duration: $duration;
-  animation-fill-mode: $fill-mode;
 }

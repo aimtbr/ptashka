@@ -5,22 +5,32 @@ import { ResourceItem } from './ResourceItem';
 
 import './styles.scss';
 
-const PtashkaList = (props) => {
+const ResourceList = (props) => {
   const { list } = props;
+
+  const listClassName = 'home-body-resource-list';
+
+  const isListEmpty = list.length === 0;
 
   const ResourceItems = () => {
     return list.map((resource) => {
       const uniqueId = generateUUID();
 
-      return <ResourceItem key={uniqueId} resource={resource} />;
+      return (
+        <ResourceItem
+          key={uniqueId}
+          className={listClassName}
+          resource={resource}
+        />
+      );
     });
   };
 
-  return (
-    <ul className="home-body-resource-list">
+  return isListEmpty ? null : (
+    <ul className={listClassName}>
       <ResourceItems />
     </ul>
   );
 };
 
-export default PtashkaList;
+export default ResourceList;
