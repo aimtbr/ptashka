@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { LANGUAGE_EN } from '../../lib/constants.js';
+import { LOCALE_UA } from '../../lib/constants.js';
 import { appTypes } from '../actions';
 import { persistReducerExtended } from '../storage.js';
 
@@ -10,7 +10,7 @@ const persistConfig = {
 };
 
 const initialState = {
-  localization: LANGUAGE_EN,
+  locale: LOCALE_UA,
 };
 
 const reducers = combineReducers({});

@@ -1,1 +1,1 @@
-export { default as ResourceItemStatus } from './ResourceItemStatus.jsx';
+export { default } from './ResourceItemStatus.jsx';

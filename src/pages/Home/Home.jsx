@@ -33,17 +33,20 @@ const Home = () => {
 
     const resourceUrl = new URL(resource);
 
-    const { origin, searchParams } = resourceUrl;
+    const { origin, pathname, searchParams } = resourceUrl;
 
     const isUrlExists = resourceList.some((resource) => {
       const url = new URL(resource);
 
-      return url.origin === origin;
+      const isOriginEqual = url.origin === origin;
+      const isPathnameEqual = url.pathname === pathname;
+
+      return isOriginEqual && isPathnameEqual;
     });
 
     if (isUrlExists) {
       // setWarning(`Ptashka is already working on '${origin}'.`);
-      setWarning(`Пташка вже працює над '${origin}'.`);
+      setWarning(`Пташка вже працює над '${resource}'.`);
 
       return;
     }

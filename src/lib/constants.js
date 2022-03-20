@@ -1,11 +1,13 @@
+import { localeToObject } from './converters.js';
+
 // NODE_ENV VALUES
 export const ENV_PRODUCTION = 'production';
 export const ENV_DEVELOPMENT = 'development';
 
 // LOCALIZATION
-export const LANGUAGE_UA = 'ua';
-export const LANGUAGE_EN = 'en';
-export const DEFAULT_LANGUAGE = LANGUAGE_UA;
+export const LOCALE_UA = localeToObject('uk-UA');
+export const LOCALE_EN = localeToObject('en-US');
+export const DEFAULT_LOCALE = LOCALE_UA;
 
 // ERROR TYPES
 export const WORKER_UNAVAILABLE = 'WORKER_UNAVAILABLE';

@@ -9,23 +9,23 @@ import {
 const ResourceItemStatus = (props) => {
   const { className, status } = props;
 
-  const statusClassName = `${className}__status`;
+  const defaultClassName = `${className}__status`;
 
-  const getStatusModifier = () => {
-    const statuses = {
-      [PTASHKA_STATUS_READY]: `${statusClassName}_ready`,
-      [PTASHKA_STATUS_RUNNING]: `${statusClassName}_running`,
-      [PTASHKA_STATUS_PAUSED]: `${statusClassName}_paused`,
+  const getClassNameModifier = () => {
+    const modifiers = {
+      [PTASHKA_STATUS_READY]: `${defaultClassName}_ready`,
+      [PTASHKA_STATUS_RUNNING]: `${defaultClassName}_running`,
+      [PTASHKA_STATUS_PAUSED]: `${defaultClassName}_paused`,
     };
 
-    const statusClassNameModifier = statuses[status];
+    const classNameModifier = modifiers[status];
 
-    return statusClassNameModifier;
+    return classNameModifier;
   };
 
-  const statusClassNames = [statusClassName, getStatusModifier()].join(' ');
+  const classNames = [defaultClassName, getClassNameModifier()].join(' ');
 
-  return <div className={statusClassNames}>{status}</div>;
+  return <div className={classNames}>{status}</div>;
 };
 
 export default ResourceItemStatus;

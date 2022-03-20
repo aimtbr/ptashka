@@ -2,7 +2,9 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import { Ptashka } from '../../../../lib/entities';
 import { Button, Icon } from '../../../../components';
-import { ResourceItemStatus } from './ResourceItemStatus';
+import ResourceItemSent from './ResourceItemSent';
+import ResourceItemStatus from './ResourceItemStatus';
+import ResourceItemStartedAt from './ResourceItemStartedAt';
 
 import playIcon from '/assets/icons/play.svg';
 import pauseIcon from '/assets/icons/pause.svg';
@@ -12,14 +14,13 @@ const ResourceItem = (props) => {
 
   const itemClassName = `${className}-item`;
 
-  const ptashka = useMemo(() => new Ptashka(resource), [resource]);
+  const ptashka = useMemo(() => {
+    return new Ptashka(resource);
+  }, [resource]);
 
   const [data, setData] = useState(ptashka.toJSON());
 
   const { url, sent, status, startedAt, pausedAt } = data;
-
-  // TODO: format the date
-  // const startedAtFormatted =
 
   useEffect(() => {
     ptashka.onchange = (change) => {
@@ -49,11 +50,11 @@ const ResourceItem = (props) => {
         {url}
       </a>
 
-      <div className={`${itemClassName}__sent`}>{sent}</div>
+      <ResourceItemSent className={itemClassName} sent={sent} />
 
       <ResourceItemStatus className={itemClassName} status={status} />
 
-      <div className={`${itemClassName}__started-at`}>{startedAt}</div>
+      <ResourceItemStartedAt className={itemClassName} startedAt={startedAt} />
 
       <Button
         className={`${itemClassName}-state`}

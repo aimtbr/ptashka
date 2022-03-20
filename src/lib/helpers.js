@@ -1,18 +1,6 @@
 import { ENV_PRODUCTION } from './constants.js';
 
-export const isProduction = process.env.NODE_ENV === ENV_PRODUCTION;
-
-export const domainToPattern = (domain) => {
-  const domainPattern = domain.replaceAll('.', '\\.');
-
-  const pattern = new RegExp(`^https?:\/\/(\w+\.)*${domainPattern}\/?$`);
-
-  return pattern;
-};
-
-export const throttle = () => {
-  // TODO: implement
-};
+export const isProduction = () => process.env.NODE_ENV === ENV_PRODUCTION;
 
 export const setCustomInterval = (func, delay, leading = false, ...args) => {
   const isLeading = leading === true;
@@ -26,28 +14,32 @@ export const setCustomInterval = (func, delay, leading = false, ...args) => {
 };
 
 // TODO: implement
-export const composeClassName = (parentClassName) => {
-  const parentPointer = '&';
-  const parentSeparator = '-';
-  const childSeparator = '__';
-  const modifierSeparator = '_';
-  const classSeparator = ' ';
+// export const throttle = () => {
+// };
 
-  const isChild = (className) => className.indexOf(parentPointer) !== -1;
-  const hasModifier = (className) =>
-    className.indexOf(modifierSeparator) !== -1;
+// TODO: implement
+// export const composeClassName = (parentClassName) => {
+//   const parentPointer = '&';
+//   const parentSeparator = '-';
+//   const childSeparator = '__';
+//   const modifierSeparator = '_';
+//   const classSeparator = ' ';
 
-  return (elementClassName) => {
-    const classes = elementClassName.split(classSeparator);
+//   const isChild = (className) => className.indexOf(parentPointer) !== -1;
+//   const hasModifier = (className) =>
+//     className.indexOf(modifierSeparator) !== -1;
 
-    const aggregatedClasses = classes.map((className) => {
-      let extendedClassName = className;
+//   return (elementClassName) => {
+//     const classes = elementClassName.split(classSeparator);
 
-      if (isChild(className)) {
-        extendedClassName = className.replace(parentPointer, parentClassName);
-      }
-    });
+//     const aggregatedClasses = classes.map((className) => {
+//       let extendedClassName = className;
 
-    return className;
-  };
-};
+//       if (isChild(className)) {
+//         extendedClassName = className.replace(parentPointer, parentClassName);
+//       }
+//     });
+
+//     return className;
+//   };
+// };

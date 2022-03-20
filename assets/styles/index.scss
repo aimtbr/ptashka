@@ -35,11 +35,12 @@ body {
 a {
   $link-color: rgb(255, 0, 140);
 
+  color: $link-color;
+  text-decoration: none;
   border-bottom: 1px dashed transparent;
   cursor: pointer;
 
   &:hover {
-    color: $link-color;
     border-bottom-color: $link-color;
   }
 }

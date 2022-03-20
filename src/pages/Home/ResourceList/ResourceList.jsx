@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { v4 as generateUUID } from 'uuid';
 
 import { ResourceItem } from './ResourceItem';
@@ -10,15 +10,13 @@ const ResourceList = (props) => {
 
   const listClassName = 'home-body-resource-list';
 
-  const isListEmpty = list.length === 0;
-
   const ResourceItems = () => {
     return list.map((resource) => {
       const uniqueId = generateUUID();
 
       return (
         <ResourceItem
-          key={uniqueId}
+          // key={uniqueId}
           className={listClassName}
           resource={resource}
         />
@@ -26,7 +24,7 @@ const ResourceList = (props) => {
     });
   };
 
-  return isListEmpty ? null : (
+  return (
     <ul className={listClassName}>
       <ResourceItems />
     </ul>

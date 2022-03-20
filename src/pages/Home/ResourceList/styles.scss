@@ -3,13 +3,13 @@
   max-height: 30rem;
   overflow: auto;
   list-style: none;
-  padding: 0 1rem;
+  padding: 0;
 
   &-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
 
     &:hover {
       background-color: rgba(0, 255, 255, 0.125);
@@ -45,7 +45,6 @@
       height: 3rem;
 
       &__icon {
-        width: 2rem;
         height: 2rem;
       }
     }

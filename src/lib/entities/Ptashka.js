@@ -20,7 +20,7 @@ const INTERVAL_PERIOD = 5000; // 5 sec
 // the batch size by multiplying the breakpoint by the factor
 const BATCH_STEP_FACTOR = 0.5;
 // maximum batch size
-const BATCH_SIZE_LIMIT = 100000;
+const BATCH_SIZE_LIMIT = 5000;
 // if the direction is 1, then the batch size is growing
 // else if the direction is -1, then the batch size is shrinking
 const BATCH_SIZE_DIRECTION_GROW = 1;

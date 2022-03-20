@@ -8,7 +8,7 @@ import rootReducer from './reducers';
 
 const middleware = [thunk];
 
-const composeEnhancers = isProduction
+const composeEnhancers = isProduction()
   ? compose
   : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
