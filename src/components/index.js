@@ -1,4 +1,4 @@
-export { Input } from './Input';
+export { Input, InputURL } from './Inputs';
 export { Button } from './Button';
 export { Icon } from './Icon';
 export { Anchor } from './Anchor';
