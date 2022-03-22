@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { v4 as generateUUID } from 'uuid';
 
 import { ResourceItem } from './ResourceItem';
@@ -10,25 +10,32 @@ const ResourceList = (props) => {
 
   const listClassName = 'home-body-resource-list';
 
-  const ResourceItems = () => {
-    return list.map((resource) => {
-      const uniqueId = generateUUID();
+  const isListEmpty = list.length === 0;
 
-      return (
-        <ResourceItem
-          key={uniqueId}
-          className={listClassName}
-          resource={resource}
-          deleteResource={deleteResource}
-        />
-      );
-    });
-  };
+  const listItems = list.map((resource) => {
+    const uniqueId = resource;
 
-  return (
-    <ul className={listClassName}>
-      <ResourceItems />
-    </ul>
+    return (
+      <ResourceItem
+        key={uniqueId}
+        className={listClassName}
+        resource={resource}
+        deleteResource={deleteResource}
+      />
+    );
+  });
+
+  return isListEmpty ? null : (
+    <>
+      <div className={`${listClassName}-header`}>
+        <div>Веб-сайт</div>
+        <div>Надіслано</div>
+        <div>Статус</div>
+        <div>Час старту</div>
+      </div>
+
+      <ul className={listClassName}>{listItems}</ul>
+    </>
   );
 };
 
