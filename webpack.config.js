@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
       output: {
         filename: '[name].[contenthash].js',
         publicPath: '/',
+        clean: true,
       },
       devServer: {
         static: [{ directory: path.resolve(__dirname, 'assets') }],

@@ -12,3 +12,7 @@
 @mixin notification-layer {
   z-index: 500;
 }
+
+@mixin header-layer {
+  z-index: 400;
+}

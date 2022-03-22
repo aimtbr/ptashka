@@ -6,7 +6,7 @@ import { ResourceItem } from './ResourceItem';
 import './styles.scss';
 
 const ResourceList = (props) => {
-  const { list } = props;
+  const { list, deleteResource } = props;
 
   const listClassName = 'home-body-resource-list';
 
@@ -16,9 +16,10 @@ const ResourceList = (props) => {
 
       return (
         <ResourceItem
-          // key={uniqueId}
+          key={uniqueId}
           className={listClassName}
           resource={resource}
+          deleteResource={deleteResource}
         />
       );
     });

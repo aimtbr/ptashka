@@ -1,26 +1,34 @@
 import React, { useEffect, useState, useMemo } from 'react';
 
 import { Ptashka } from '../../../../lib/entities';
-import { Button, Icon } from '../../../../components';
+import { Button, Icon, Anchor } from '../../../../components';
 import ResourceItemSent from './ResourceItemSent';
 import ResourceItemStatus from './ResourceItemStatus';
 import ResourceItemStartedAt from './ResourceItemStartedAt';
 
 import playIcon from '/assets/icons/play.svg';
 import pauseIcon from '/assets/icons/pause.svg';
+import bombIcon from '/assets/icons/bomb.svg';
 
 const ResourceItem = (props) => {
-  const { className, resource } = props;
+  const { className, resource, deleteResource } = props;
 
   const itemClassName = `${className}-item`;
 
-  const ptashka = useMemo(() => {
-    return new Ptashka(resource);
-  }, [resource]);
+  // TODO: the 'resource' is being changed each time the input value changes
+
+  const ptashka = useMemo(() => new Ptashka(resource), []);
 
   const [data, setData] = useState(ptashka.toJSON());
 
   const { url, sent, status, startedAt, pausedAt } = data;
+
+  const stateTitle = ptashka.isStatusPaused
+    ? // ? "Resume the process"
+      'Відновити процес'
+    : // : "Pause the process"
+      'Призупинити процес';
+  const stateIcon = ptashka.isStatusPaused ? playIcon : pauseIcon;
 
   useEffect(() => {
     ptashka.onchange = (change) => {
@@ -36,7 +44,7 @@ const ResourceItem = (props) => {
     };
   }, []);
 
-  const toggleState = () => {
+  const handleStateChange = () => {
     if (ptashka.isStatusPaused) {
       ptashka.resume();
     } else {
@@ -44,11 +52,13 @@ const ResourceItem = (props) => {
     }
   };
 
+  const handleDeletion = () => deleteResource(resource);
+
   return (
     <li className={`${itemClassName}`}>
-      <a className={`${itemClassName}__url`} target="_blank" href={url}>
+      <Anchor className={`${itemClassName}__url`} target="_blank" href={url}>
         {url}
-      </a>
+      </Anchor>
 
       <ResourceItemSent className={itemClassName} sent={sent} />
 
@@ -58,13 +68,19 @@ const ResourceItem = (props) => {
 
       <Button
         className={`${itemClassName}-state`}
-        type="button"
-        onClick={toggleState}
+        title={stateTitle}
+        onClick={handleStateChange}
       >
-        <Icon
-          className={`${itemClassName}-state__icon`}
-          icon={ptashka.isStatusPaused ? playIcon : pauseIcon}
-        />
+        <Icon className={`${itemClassName}-state__icon`} icon={stateIcon} />
+      </Button>
+
+      <Button
+        className={`${itemClassName}-delete`}
+        title="Видалити процес"
+        // title="Delete the process"
+        onClick={handleDeletion}
+      >
+        <Icon icon={bombIcon} />
       </Button>
 
       {/* <div className={`${itemClassName}__paused-at`}>{pausedAt}</div> */}

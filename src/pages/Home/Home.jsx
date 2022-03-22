@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { ResourceList } from './ResourceList';
 import { Warning } from './Warning';
 import { Input, Button } from '../../components';
-import { LENGTH_MAX_URL, LENGTH_MIN_URL } from '../../lib/constants.js';
+import {
+  URL_MAX_LENGTH,
+  URL_MIN_LENGTH,
+  RESOURCE_LIST_MAX_LENGTH,
+} from '../../lib/constants.js';
 import { PATTERN_URL } from '../../lib/patterns.js';
 import { isURL } from '../../lib/validations.js';
 
@@ -24,6 +28,16 @@ const Home = () => {
   const [warning, setWarning] = useState(initialWarning);
 
   const addResource = async (resource) => {
+    const isResourceListFull = resourceList.length === RESOURCE_LIST_MAX_LENGTH;
+
+    if (isResourceListFull) {
+      setWarning(
+        `Досягнута максимальна кількість веб-сайтів: ${RESOURCE_LIST_MAX_LENGTH}.`
+      );
+
+      return;
+    }
+
     if (!isURL(resource)) {
       // setWarning('The provided resource is not a URL.');
       setWarning('Введена адреса не є коректним посиланням на веб-сайт.');
@@ -64,9 +78,21 @@ const Home = () => {
 
     const resourceUrlHref = resourceUrl.toString();
 
-    setResourceList((list) => [...list, resourceUrlHref]);
+    setResourceList([...resourceList, resourceUrlHref]);
 
     await resetResource();
+  };
+
+  const deleteResource = async (resource) => {
+    const isResourceExists = resourceList.includes(resource);
+
+    if (isResourceExists) {
+      const filteredResourceList = resourceList.filter(
+        (oldResource) => oldResource !== resource
+      );
+
+      setResourceList(filteredResourceList);
+    }
   };
 
   const resetResource = async () => {
@@ -130,14 +156,19 @@ const Home = () => {
         </div>
 
         <div className="home-body-header">
-          <form className="home-body-header-form" onSubmit={handleFormSubmit}>
+          <form
+            className="home-body-header-form"
+            onSubmit={handleFormSubmit}
+            onBlur={handleInputBlur}
+          >
             <Input
               className="home-body-header-form__input"
+              list="home-body-header-form__input"
               type="url"
               // title="For example, 'https://www.gosuslugi.ru'"
               title="Наприклад, 'https://www.gosuslugi.ru'"
-              minLength={LENGTH_MIN_URL}
-              maxLength={LENGTH_MAX_URL}
+              minLength={URL_MIN_LENGTH}
+              maxLength={URL_MAX_LENGTH}
               pattern={PATTERN_URL.source}
               // placeholder="Enter a website link"
               placeholder="Введіть посилання на веб-сайт"
@@ -145,17 +176,22 @@ const Home = () => {
               value={resource}
               onChange={handleResourceChange}
               onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
             />
 
-            <Button className="home-body-header-form__button">
+            <datalist id="home-body-header-form__input">
+              <option value="https://ok.ru" />
+              <option value="https://www.gosuslugi.ru" />
+              <option value="https://vk.com" />
+            </datalist>
+
+            <Button className="home-body-header-form__button" type="submit">
               {/* Send Ptashka */}
               Надіслати Пташку
             </Button>
           </form>
         </div>
 
-        <ResourceList list={resourceList} />
+        <ResourceList list={resourceList} deleteResource={deleteResource} />
       </main>
 
       <footer className="home-footer"></footer>

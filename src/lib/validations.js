@@ -1,5 +1,5 @@
 import { PATTERN_URL } from './patterns.js';
-import { LENGTH_MIN_URL, LENGTH_MAX_URL } from './constants.js';
+import { URL_MIN_LENGTH, URL_MAX_LENGTH } from './constants.js';
 
 const conductTests = (tests) =>
   tests.every((test) => {
@@ -24,7 +24,7 @@ const composeValidation = (validation) => {
 
 const isURL = composeValidation((url) => {
   const isLengthValid = () =>
-    url.length && url.length >= LENGTH_MIN_URL && url.length < LENGTH_MAX_URL;
+    url.length && url.length >= URL_MIN_LENGTH && url.length < URL_MAX_LENGTH;
 
   const isPatternValid = () => PATTERN_URL.test(url);
 

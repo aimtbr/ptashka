@@ -13,9 +13,11 @@ export const DEFAULT_LOCALE = LOCALE_UA;
 export const WORKER_UNAVAILABLE = 'WORKER_UNAVAILABLE';
 export const RESOURCE_EXISTS = 'RESOURCE_EXISTS';
 
-// LENGTH VALUES
-export const LENGTH_MIN_URL = 10;
-export const LENGTH_MAX_URL = 1024;
+// MIN/MAX VALUES
+export const URL_MIN_LENGTH = 10;
+export const URL_MAX_LENGTH = 1024;
+
+export const RESOURCE_LIST_MAX_LENGTH = 5;
 
 // PTASHKA
 export const PTASHKA_STATUS_READY = 'ready';
