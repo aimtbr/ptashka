@@ -1,0 +1,67 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+
+.home-body-resource-list-header {
+  display: flex;
+  justify-content: center;
+  height: 3rem;
+
+  &-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+    overflow: auto;
+    border-bottom: 1px solid silver;
+
+    &-cell {
+      @include hide-scrollbar;
+
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-shrink: 0;
+      overflow: auto;
+      overflow-wrap: anywhere;
+      white-space: nowrap;
+      margin: 0 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &_url {
+        flex-grow: 1;
+        width: 30%;
+      }
+
+      &_sent {
+        justify-content: flex-start;
+        width: 10%;
+      }
+
+      &_status {
+        min-width: fit-content;
+        width: 20%;
+      }
+
+      &_started-at {
+        justify-content: flex-start;
+        min-width: fit-content;
+        width: 15%;
+      }
+
+      &_state {
+        width: 3rem;
+      }
+
+      &_delete {
+        width: 3rem;
+      }
+    }
+  }
+}

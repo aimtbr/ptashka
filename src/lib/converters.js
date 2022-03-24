@@ -43,7 +43,7 @@ export const localeToObject = (locale) => {
   const localeObject = {
     language,
     country,
-    tag: locale,
+    code: locale,
   };
 
   return localeObject;

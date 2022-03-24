@@ -31,9 +31,6 @@ const BATCH_SIZE_DIRECTION_SHRINK = -1;
 const BATCH_SIZE_DIRECTION_GROW_FACTOR = 4;
 const BATCH_SIZE_DIRECTION_SHRINK_FACTOR = 0.5;
 
-// TODO: Retrieve the Content-Length
-// TODO: Find proxies
-
 class Ptashka extends EventTarget {
   constructor(url) {
     super();

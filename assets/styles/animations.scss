@@ -36,11 +36,19 @@
 }
 
 // CREATE THE NAMED ANIMATIONS BELOW
-// For example, the 'create-animation(bubble)' mixin will be translated to '@keyframes bubble'
-@include create-animation(bubble) {
+// For example, the 'create-animation(bubble-in)' mixin will be translated to '@keyframes bubble-in'
+@include create-animation(bubble-in) {
   from {
-    width: 0;
-    height: 0;
+    border-radius: 10%;
+  }
+
+  to {
+    border-radius: 50%;
+  }
+}
+
+@include create-animation(bubble-out) {
+  from {
     border-radius: 50%;
   }
 
@@ -49,8 +57,6 @@
   }
 
   to {
-    width: 100%;
-    height: 100%;
     border-radius: 0;
   }
 }
@@ -69,26 +75,53 @@
 }
 
 // CREATE LINKS TO THE NAMED ANIMATIONS BELOW
-@mixin animate-bubble {
+@mixin animate-bubble-in(
+  $background-color: rgba(255, 255, 255, 0.4),
+  $duration: 0.2s
+) {
   position: relative;
 
   &::before {
-    @include use-animation(bubble, 0.2s, (forwards, backwards));
+    @include use-animation(bubble-in, $duration, (forwards, backwards));
 
     position: absolute;
     content: '';
-    background-color: rgba(255, 255, 255, 0.4);
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    pointer-events: none;
   }
 }
 
-@mixin animate-fill-right {
+@mixin animate-bubble-out(
+  $background-color: rgba(255, 255, 255, 0.4),
+  $duration: 0.2s
+) {
   position: relative;
 
   &::before {
-    @include use-animation(fill-right, 0.2s, (forwards, backwards));
+    @include use-animation(bubble-out, $duration, (forwards, backwards));
 
     position: absolute;
     content: '';
-    background-color: rgba(255, 255, 255, 0.4);
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    pointer-events: none;
+  }
+}
+
+@mixin animate-fill-right(
+  $background-color: rgba(255, 255, 255, 0.4),
+  $duration: 0.2s
+) {
+  position: relative;
+
+  &::before {
+    @include use-animation(fill-right, $duration, (forwards, backwards));
+
+    position: absolute;
+    content: '';
+    background-color: $background-color;
   }
 }

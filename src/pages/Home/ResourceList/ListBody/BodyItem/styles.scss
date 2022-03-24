@@ -1,0 +1,131 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+@use '/assets/styles/animations' as *;
+
+.home-body-resource-list-body-item {
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+
+  &:hover {
+    background-color: $color-3;
+  }
+
+  &-content {
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    width: 60%;
+
+    &-cell {
+      @include hide-scrollbar;
+
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-shrink: 0;
+      overflow: auto;
+      overflow-wrap: anywhere;
+      white-space: nowrap;
+      margin: 0 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &_url {
+        flex-grow: 1;
+        width: 30%;
+        justify-content: flex-start;
+      }
+
+      &_sent {
+        justify-content: flex-start;
+        width: 10%;
+        // cursor: help;
+      }
+
+      &_status {
+        min-width: fit-content;
+        width: 20%;
+      }
+
+      &_started-at {
+        justify-content: flex-start;
+        font-size: 0.875rem;
+        min-width: fit-content;
+        width: 15%;
+      }
+    }
+
+    &-status {
+      transition: background-color 0.5s ease;
+      text-transform: capitalize;
+      font-size: 0.875rem;
+      border: 2px solid $border-color-default;
+      border-radius: 15px;
+      padding: 0.25rem 1.25rem;
+      background-color: silver;
+      user-select: none;
+
+      &_ready {
+        background-color: #a3deff;
+      }
+
+      &_running {
+        background-color: #96ffbf;
+      }
+
+      &_paused {
+        background-color: #ffeb80;
+      }
+    }
+
+    &-state {
+      height: 3rem;
+      width: 3rem;
+
+      .icon {
+        transition: transform 0.1s ease;
+        height: 75%;
+      }
+
+      &:hover {
+        @include animate-bubble-in;
+      }
+
+      &:active {
+        .icon {
+          transform: scale(0.875);
+        }
+      }
+    }
+
+    &-delete {
+      height: 3rem;
+      width: 3rem;
+
+      .icon {
+        transition: transform 0.2s ease;
+        fill: red;
+        height: 70%;
+      }
+
+      &:hover {
+        .icon {
+          transform: scale(1.25);
+        }
+      }
+
+      &:active {
+        .icon {
+          transform: none;
+        }
+      }
+    }
+  }
+}

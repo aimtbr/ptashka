@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 
 import { ResourceList } from './ResourceList';
 import { Warning } from './Warning';
-import { Input, Button } from '../../components';
-import {
-  URL_MAX_LENGTH,
-  URL_MIN_LENGTH,
-  RESOURCE_LIST_MAX_LENGTH,
-} from '../../lib/constants.js';
-import { PATTERN_URL } from '../../lib/patterns.js';
+import { InputURL, Button } from '../../components';
+import { RESOURCE_LIST_MAX_LENGTH } from '../../lib/constants.js';
 import { isURL } from '../../lib/validations.js';
 
 import './styles.scss';
@@ -78,7 +73,7 @@ const Home = () => {
 
     const resourceUrlHref = resourceUrl.toString();
 
-    setResourceList([...resourceList, resourceUrlHref]);
+    setResourceList([resourceUrlHref, ...resourceList]);
 
     await resetResource();
   };
@@ -161,18 +156,13 @@ const Home = () => {
             onSubmit={handleFormSubmit}
             onBlur={handleInputBlur}
           >
-            <Input
+            <InputURL
               className="home-body-header-form__input"
               list="home-body-header-form__input"
-              type="url"
               // title="For example, 'https://www.gosuslugi.ru'"
               title="Наприклад, 'https://www.gosuslugi.ru'"
-              minLength={URL_MIN_LENGTH}
-              maxLength={URL_MAX_LENGTH}
-              pattern={PATTERN_URL.source}
               // placeholder="Enter a website link"
               placeholder="Введіть посилання на веб-сайт"
-              spellCheck={false}
               value={resource}
               onChange={handleResourceChange}
               onFocus={handleInputFocus}
@@ -181,7 +171,6 @@ const Home = () => {
             <datalist id="home-body-header-form__input">
               <option value="https://ok.ru" />
               <option value="https://www.gosuslugi.ru" />
-              <option value="https://vk.com" />
             </datalist>
 
             <Button className="home-body-header-form__button" type="submit">

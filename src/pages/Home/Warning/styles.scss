@@ -42,7 +42,7 @@
     background-color: transparentize($button-background-color, 0.4);
 
     &:hover {
-      @include animate-bubble;
+      @include animate-bubble-out;
     }
   }
 }

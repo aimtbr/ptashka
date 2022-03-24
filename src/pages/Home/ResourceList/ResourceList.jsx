@@ -1,7 +1,7 @@
 import React from 'react';
-import { v4 as generateUUID } from 'uuid';
 
-import { ResourceItem } from './ResourceItem';
+import { ListHeader } from './ListHeader';
+import { ListBody } from './ListBody';
 
 import './styles.scss';
 
@@ -12,30 +12,16 @@ const ResourceList = (props) => {
 
   const isListEmpty = list.length === 0;
 
-  const listItems = list.map((resource) => {
-    const uniqueId = resource;
+  return isListEmpty ? null : (
+    <div className={listClassName}>
+      <ListHeader baseClassName={listClassName} />
 
-    return (
-      <ResourceItem
-        key={uniqueId}
-        className={listClassName}
-        resource={resource}
+      <ListBody
+        baseClassName={listClassName}
+        list={list}
         deleteResource={deleteResource}
       />
-    );
-  });
-
-  return isListEmpty ? null : (
-    <>
-      <div className={`${listClassName}-header`}>
-        <div>Веб-сайт</div>
-        <div>Надіслано</div>
-        <div>Статус</div>
-        <div>Час старту</div>
-      </div>
-
-      <ul className={listClassName}>{listItems}</ul>
-    </>
+    </div>
   );
 };
 

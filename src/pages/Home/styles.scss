@@ -20,7 +20,7 @@
     padding: 0 2rem;
     height: $header-height;
     width: 100%;
-    background-color: transparentize($color-primary, 0.05);
+    background-color: transparentize($color-1, 0.05);
 
     &-heading {
       margin: 0;
@@ -35,9 +35,9 @@
 
       &::first-letter {
         font-size: 1.5rem;
-        color: $color-secondary;
+        color: $color-2;
         letter-spacing: 0;
-        text-shadow: $color-secondary 0 0 3px;
+        text-shadow: $color-2 0 0 3px;
         padding: 0 0.125rem;
         margin-right: 2px;
         background-color: $font-color-default;
@@ -86,7 +86,7 @@
         top: 2rem;
         bottom: 2rem;
       }
-      background-color: $color-primary;
+      background-color: $color-1;
 
       &-form {
         transition: outline-color 0.2s ease;
