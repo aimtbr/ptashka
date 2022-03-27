@@ -17,9 +17,9 @@ export const RESOURCE_EXISTS = 'RESOURCE_EXISTS';
 export const URL_MIN_LENGTH = 10;
 export const URL_MAX_LENGTH = 1024;
 
-export const RESOURCE_LIST_MAX_LENGTH = 5;
+export const RESOURCE_LIST_MAX_LENGTH = 3;
 
 // PTASHKA
-export const PTASHKA_STATUS_READY = 'ready';
-export const PTASHKA_STATUS_RUNNING = 'running';
-export const PTASHKA_STATUS_PAUSED = 'paused';
+export const PTASHKA_STATUS_READY = 'Готовий';
+export const PTASHKA_STATUS_RUNNING = 'Працює';
+export const PTASHKA_STATUS_PAUSED = 'Призупинений';

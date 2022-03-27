@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { Home } from './pages';
+import { Warning } from './components';
 import { store, persistor } from './store';
 
 import 'normalize.css';
@@ -12,7 +13,10 @@ import '/assets/styles';
 const app = (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <Home />
+      <div className="app">
+        <Warning />
+        <Home />
+      </div>
     </PersistGate>
   </Provider>
 );

@@ -10,11 +10,11 @@ localforage.config({
 
 export const storage = localforage;
 
-export const persistReducerExtended = (config, ...args) => {
+export const composePersistConfig = (config) => {
   const configExtended = {
     storage,
     ...config,
   };
 
-  return persistReducer(configExtended, ...args);
+  return configExtended;
 };

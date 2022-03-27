@@ -1,61 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-import { Button } from '../../../components';
+import { Button } from '/src/components';
 
 import './styles.scss';
 
 const Warning = (props) => {
-  const initialMessage = '';
-  const initialCounter = 1000;
+  const { message, isVisible, hideWarning } = props;
 
-  // TODO: fix the counter not being reset
-
-  const { message = initialMessage, setMessage } = props;
+  const initialCounter = 5;
 
   const [counter, setCounter] = useState(initialCounter);
 
-  const isMessageExists = message.length > 0;
-
   useEffect(() => {
-    if (isMessageExists) {
+    if (isVisible) {
       startCounter();
     }
-  }, [message]);
+  }, [isVisible]);
 
   const startCounter = () => {
     const delay = 1000; // 1 sec
+    const deadline = 0;
+    const step = -1;
 
-    let nextCounter = counter;
+    let nextCounter = initialCounter;
 
     const intervalId = setInterval(() => {
-      if (nextCounter <= 1) {
-        resetWarning();
+      nextCounter = nextCounter + step;
+
+      setCounter(nextCounter);
+
+      if (nextCounter === deadline) {
+        hideWarning();
+
         resetCounter();
 
         clearInterval(intervalId);
       }
-
-      nextCounter = nextCounter - 1;
-
-      setCounter(nextCounter);
     }, delay);
-  };
-
-  const resetWarning = () => {
-    setMessage(initialMessage);
   };
 
   const resetCounter = () => {
     setCounter(initialCounter);
   };
 
-  return isMessageExists ? (
+  return isVisible ? (
     <div className="home-body-warning">
       <div className="home-body-warning__message">{message}</div>
       <Button
         className="home-body-warning__button"
         type="button"
-        onClick={resetWarning}
+        onClick={hideWarning}
       >
         {counter}
       </Button>

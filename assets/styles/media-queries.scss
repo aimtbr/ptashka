@@ -1,0 +1,126 @@
+@media screen and (max-width: 1440px) {
+  .home-body-resource-list {
+    &-header-content,
+    &-body-item-content {
+      width: 75%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home-body {
+    &-heading__text {
+      width: 70%;
+      font-size: 2rem;
+    }
+
+    &-main-form {
+      width: 65%;
+    }
+
+    &-resource-list {
+      &-header-content,
+      &-body-item-content {
+        width: 85%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    &-header {
+      &-heading {
+        margin-left: 5%;
+        font-size: 1.125rem;
+      }
+    }
+
+    &-body {
+      &-heading__text {
+        width: 80%;
+        font-size: 1.75rem;
+      }
+
+      &-main-form {
+        width: 80%;
+        border-radius: 15px;
+
+        &__input {
+          height: 4.5rem;
+          line-height: 4.5rem;
+          padding: {
+            left: 1.5rem;
+            right: 1.5rem;
+          }
+        }
+
+        &__button {
+          font-size: 0.875rem;
+        }
+      }
+
+      &-resource-list {
+        &-header-content,
+        &-body-item-content {
+          width: 95%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .home {
+    &-header {
+      &-heading {
+        margin-left: 0;
+        font-size: 1rem;
+      }
+    }
+
+    &-body {
+      &-heading__text {
+        width: 90%;
+        font-size: 1.375rem;
+      }
+
+      &-main-form {
+        width: 95%;
+        border-radius: 5px;
+
+        &__input {
+          height: 4rem;
+          line-height: 4rem;
+          padding: {
+            left: 1.25rem;
+            right: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .home-body {
+    &-heading__text {
+      width: 95%;
+      font-size: 1.25rem;
+    }
+
+    &-main-form {
+      width: 95%;
+      border-radius: 10px;
+
+      &__input {
+        height: 3.5rem;
+        line-height: 3.5rem;
+        padding: {
+          left: 1rem;
+          right: 1rem;
+        }
+      }
+    }
+  }
+}

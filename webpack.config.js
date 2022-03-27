@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-  const { NODE_ENV, PORT, APP_TITLE } = process.env;
+  const { NODE_ENV, HOST, PORT, APP_TITLE } = process.env;
 
   const environment = argv.mode || NODE_ENV;
 
@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
 
   const mode = environment;
   const port = PORT;
-  const host = '127.0.0.1';
+  const host = HOST;
   let devtool = 'inline-source-map';
   let styleLoader = 'style-loader';
 

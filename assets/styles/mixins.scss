@@ -9,6 +9,14 @@
   }
 }
 
+@mixin paintSVG($color) {
+  &,
+  & * {
+    color: $color;
+    fill: $color;
+  }
+}
+
 @mixin notification-layer {
   z-index: 500;
 }

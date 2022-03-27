@@ -84,11 +84,18 @@ class Ptashka extends EventTarget {
         })
       );
 
-      const isRequestAborted = responses.some(
-        (response) => response.reason.name === 'AbortError'
-      );
-      if (isRequestAborted) {
-        return this;
+      const isAnyRequestAborted = responses.some((response) => {
+        const isResponseRejected = response?.reason && response.reason?.name;
+
+        if (isResponseRejected) {
+          return response.reason.name === 'AbortError';
+        }
+
+        return false;
+      });
+
+      if (isAnyRequestAborted) {
+        return;
       }
 
       this.#setSent(this.sent + this.batchSize);
@@ -149,7 +156,15 @@ class Ptashka extends EventTarget {
 
     this.interval = setCustomInterval(sendRequests, INTERVAL_PERIOD, true);
 
-    return this;
+    // const retrySendRequests = async () => {
+
+    // };
+
+    // try {
+    //   const response = await sendRequests();
+    // } catch {
+
+    // }
   }
 
   async pause() {
@@ -162,7 +177,7 @@ class Ptashka extends EventTarget {
     this.#setStatusPaused();
 
     // abort the fetch requests
-    this.controller.abort();
+    this.#reconstructController();
 
     this.#resetInterval();
   }
@@ -278,7 +293,7 @@ class Ptashka extends EventTarget {
     const requestOptions = {
       mode: 'no-cors',
       credentials: 'include',
-      cache: 'no-cache',
+      cache: 'no-store',
       headers: {
         Authorization:
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
@@ -296,6 +311,12 @@ class Ptashka extends EventTarget {
     const request = new Request(requestUrl, requestOptions);
 
     return request;
+  }
+
+  #reconstructController() {
+    this.controller.abort();
+
+    this.controller = new AbortController();
   }
 
   #resetInterval() {

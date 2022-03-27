@@ -1,21 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { LOCALE_UA } from '../../lib/constants.js';
 import { appTypes } from '../actions';
-import { persistReducerExtended } from '../storage.js';
 
-const persistConfig = {
-  key: 'app',
-  version: 1,
-};
+import locale from './locale.js';
+import warning from './warning.js';
 
-const initialState = {
-  locale: LOCALE_UA,
-};
+const reducers = combineReducers({ locale, warning });
 
-const reducers = combineReducers({});
-
-const reducer = (state = initialState, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case appTypes.APP_RESET: {
       state = undefined;
@@ -24,11 +16,9 @@ const reducer = (state = initialState, action) => {
     }
 
     default: {
-      return state;
+      return reducers(state, action);
     }
   }
-
-  return reducers(state, action);
 };
 
-export default persistReducerExtended(persistConfig, reducer);
+export default reducer;

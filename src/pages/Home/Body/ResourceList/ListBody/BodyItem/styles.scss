@@ -8,7 +8,11 @@
   height: 4rem;
 
   &:hover {
-    background-color: $color-3;
+    background-color: $color-2;
+  }
+
+  &:not(:last-child) &-content {
+    border-bottom: 1px solid $color-1;
   }
 
   &-content {
@@ -24,6 +28,7 @@
       justify-content: center;
       text-align: center;
       flex-shrink: 0;
+      min-width: fit-content;
       overflow: auto;
       overflow-wrap: anywhere;
       white-space: nowrap;
@@ -50,14 +55,12 @@
       }
 
       &_status {
-        min-width: fit-content;
         width: 20%;
       }
 
       &_started-at {
         justify-content: flex-start;
         font-size: 0.875rem;
-        min-width: fit-content;
         width: 15%;
       }
     }
@@ -90,12 +93,14 @@
       width: 3rem;
 
       .icon {
+        @include paintSVG($color-3);
+
         transition: transform 0.1s ease;
         height: 75%;
       }
 
       &:hover {
-        @include animate-bubble-in;
+        @include animate-bubble-in(transparentize($color-1, 0.375));
       }
 
       &:active {
@@ -110,20 +115,24 @@
       width: 3rem;
 
       .icon {
-        transition: transform 0.2s ease;
-        fill: red;
-        height: 70%;
+        @include paintSVG($color-3);
+
+        transition: transform 0.1s ease;
+        height: 85%;
+        padding-bottom: 9%;
       }
 
       &:hover {
+        @include animate-bubble-in(transparentize($color-red, 0.875));
+
         .icon {
-          transform: scale(1.25);
+          @include paintSVG(red);
         }
       }
 
       &:active {
         .icon {
-          transform: none;
+          transform: scale(0.875);
         }
       }
     }
