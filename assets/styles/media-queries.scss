@@ -8,6 +8,11 @@
 }
 
 @media screen and (max-width: 1024px) {
+  // TEMP
+  .home-header-message-text {
+    font-size: 55px;
+  }
+
   .home-body {
     &-heading__text {
       width: 70%;
@@ -28,6 +33,11 @@
 }
 
 @media screen and (max-width: 768px) {
+  // TEMP
+  .home-header-message-text {
+    font-size: 40px;
+  }
+
   .home {
     &-header {
       &-heading {
@@ -85,6 +95,15 @@
 }
 
 @media screen and (max-width: 425px) {
+  // TEMP
+  .home-header-message-text {
+    font-size: 30px;
+
+    &__beloved::before {
+      bottom: 0.5em;
+    }
+  }
+
   .home {
     &-header {
       &-heading {
