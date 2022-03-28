@@ -1,19 +1,19 @@
 import React from 'react';
 
+import { Header } from './Header';
 import { Body } from './Body';
+import { Footer } from './Footer';
 
 import './styles.scss';
 
 const Home = () => {
   return (
     <div className="home">
-      <header className="home-header">
-        <h1 className="home-header-heading">PTASHKA</h1>
-      </header>
+      <Header />
 
       <Body />
 
-      <footer className="home-footer"></footer>
+      <Footer />
     </div>
   );
 };

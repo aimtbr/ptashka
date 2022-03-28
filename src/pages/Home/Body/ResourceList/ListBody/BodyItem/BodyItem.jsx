@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 
 import { Ptashka } from '/src/lib/entities';
 import { Button, Icon } from '/src/components';
@@ -22,6 +22,8 @@ const BodyItem = (props) => {
   const className = `${baseClassName}-item`;
   const contentClassName = `${className}-content`;
 
+  const itemRef = useRef(null);
+
   const ptashka = useMemo(() => new Ptashka(resource), []);
 
   const [data, setData] = useState(ptashka.toJSON());
@@ -36,6 +38,8 @@ const BodyItem = (props) => {
   const stateIcon = ptashka.isStatusPaused ? playIcon : pauseIcon;
 
   useEffect(() => {
+    itemRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
     ptashka.onchange = (change) => {
       const { key, value } = change;
 
@@ -60,7 +64,7 @@ const BodyItem = (props) => {
   const handleDeletion = () => deleteResource(resource);
 
   return (
-    <li className={className}>
+    <li className={className} ref={itemRef}>
       <div className={contentClassName}>
         <ItemCellUrl baseClassName={contentClassName} url={url} />
 

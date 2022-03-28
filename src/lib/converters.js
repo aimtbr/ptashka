@@ -35,6 +35,19 @@ export const dateToReadable = (date, locale = DEFAULT_LOCALE) => {
   return dateReadable;
 };
 
+export const urlToReadable = (url) => {
+  const urlInstance = new URL(url);
+
+  const { protocol, host, pathname, search } = urlInstance;
+
+  // pathname may be the '/' character
+  const pathnameFormatted = pathname && pathname.length > 1 ? pathname : '';
+
+  const urlReadable = `${protocol}//${host}${pathnameFormatted}${search}`;
+
+  return urlReadable;
+};
+
 export const localeToObject = (locale) => {
   const localeSeparator = '-';
 

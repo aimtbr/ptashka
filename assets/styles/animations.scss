@@ -43,11 +43,8 @@
   from {
     width: 100%;
     height: 100%;
+    border-width: 0;
     border-radius: 10%;
-  }
-
-  50% {
-    border-width: 1px;
   }
 
   to {
@@ -60,15 +57,22 @@
 
 @include create-animation(bubble-out) {
   from {
+    width: 0;
+    height: 0;
     border-radius: 50%;
+    opacity: 1;
   }
 
   75% {
     border-radius: 50%;
+    opacity: 1;
   }
 
   to {
-    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+    opacity: 0.75;
   }
 }
 
@@ -86,10 +90,7 @@
 }
 
 // CREATE LINKS TO THE NAMED ANIMATIONS BELOW
-@mixin animate-bubble-in(
-  $background-color: rgba(255, 255, 255, 0.25),
-  $duration: 0.2s
-) {
+@mixin animate-bubble-in($fill-color: white, $duration: 0.2s) {
   position: relative;
 
   & > * {
@@ -101,15 +102,15 @@
 
     position: absolute;
     content: '';
-    border: 0 solid rgba(255, 255, 255, 0.75);
-    background-color: $background-color;
+    border: 0 solid transparentize($fill-color, 0.35);
+    background-color: transparentize($fill-color, 0.85);
     pointer-events: none;
   }
 }
 
 @mixin animate-bubble-out(
   $background-color: rgba(255, 255, 255, 0.375),
-  $duration: 0.2s
+  $duration: 0.3s
 ) {
   position: relative;
 
@@ -118,8 +119,6 @@
 
     position: absolute;
     content: '';
-    width: 100%;
-    height: 100%;
     background-color: $background-color;
     pointer-events: none;
   }

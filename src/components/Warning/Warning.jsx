@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Button } from '/src/components';
 
@@ -7,7 +7,7 @@ import './styles.scss';
 const Warning = (props) => {
   const { message, isVisible, hideWarning } = props;
 
-  const initialCounter = 5;
+  const initialCounter = 10;
 
   const [counter, setCounter] = useState(initialCounter);
 

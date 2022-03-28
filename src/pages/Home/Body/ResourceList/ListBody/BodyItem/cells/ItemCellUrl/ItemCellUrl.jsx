@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Anchor } from '/src/components';
+import { urlToReadable } from '/src/lib/converters.js';
 import { ItemCell } from '../../ItemCell';
 
 const ItemCellUrl = (props) => {
@@ -8,10 +9,12 @@ const ItemCellUrl = (props) => {
 
   const className = `${baseClassName}-url`;
 
+  const urlReadable = urlToReadable(url);
+
   return (
     <ItemCell baseClassName={baseClassName} type="url">
       <Anchor className={className} target="_blank" href={url}>
-        {url}
+        {urlReadable}
       </Anchor>
     </ItemCell>
   );

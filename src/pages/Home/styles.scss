@@ -123,10 +123,12 @@
         $height: 5rem;
 
         padding: 0 2rem;
-        border: none;
         border-radius: 0;
-        border-top-left-radius: inherit;
-        border-bottom-left-radius: inherit;
+        border: none;
+        border: {
+          top-left-radius: inherit;
+          bottom-left-radius: inherit;
+        }
         background-color: transparent;
         width: 100%;
         height: $height;

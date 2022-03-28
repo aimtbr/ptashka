@@ -20,6 +20,7 @@
     align-items: center;
     overflow: auto;
     width: 60%;
+    padding: 0 1rem;
 
     &-cell {
       @include hide-scrollbar;
@@ -100,7 +101,7 @@
       }
 
       &:hover {
-        @include animate-bubble-in(transparentize($color-1, 0.375));
+        @include animate-bubble-in($color-3);
       }
 
       &:active {
@@ -123,7 +124,7 @@
       }
 
       &:hover {
-        @include animate-bubble-in(transparentize($color-red, 0.875));
+        @include animate-bubble-in($color-red);
 
         .icon {
           @include paintSVG(red);

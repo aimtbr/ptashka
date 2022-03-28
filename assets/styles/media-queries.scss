@@ -43,27 +43,41 @@
       }
 
       &-main-form {
+        $input-height: 4.5rem;
+
+        flex-direction: column;
         width: 80%;
         border-radius: 15px;
 
         &__input {
-          height: 4.5rem;
-          line-height: 4.5rem;
+          height: $input-height;
+          line-height: $input-height;
           padding: {
             left: 1.5rem;
             right: 1.5rem;
           }
+          border: {
+            top-left-radius: inherit;
+            top-right-radius: inherit;
+            bottom-left-radius: 0;
+            bottom-right-radius: 0;
+          }
         }
 
         &__button {
-          font-size: 0.875rem;
+          height: $input-height;
+          width: 100%;
+          border: {
+            top-right-radius: 0;
+            bottom-left-radius: inherit;
+          }
         }
       }
 
       &-resource-list {
         &-header-content,
         &-body-item-content {
-          width: 95%;
+          width: 100%;
         }
       }
     }
@@ -86,16 +100,23 @@
       }
 
       &-main-form {
+        $input-height: 4rem;
+
         width: 95%;
         border-radius: 5px;
 
         &__input {
-          height: 4rem;
-          line-height: 4rem;
+          height: $input-height;
+          line-height: $input-height;
           padding: {
             left: 1.25rem;
             right: 1.25rem;
           }
+        }
+
+        &__button {
+          height: $input-height;
+          font-size: 0.875rem;
         }
       }
     }
@@ -110,16 +131,23 @@
     }
 
     &-main-form {
+      $input-height: 3.5rem;
+
       width: 95%;
       border-radius: 10px;
 
       &__input {
-        height: 3.5rem;
-        line-height: 3.5rem;
+        font-size: 0.875rem;
+        height: $input-height;
+        line-height: $input-height;
         padding: {
           left: 1rem;
           right: 1rem;
         }
+      }
+
+      &__button {
+        height: $input-height;
       }
     }
   }
