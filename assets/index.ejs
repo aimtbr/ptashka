@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
   <head>
     <title><%= htmlWebpackPlugin.options.title %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
+
     <meta name="description" content="<%- htmlWebpackPlugin.options.description %>">
-    <meta name="og:title" property="og:title" content="<%- htmlWebpackPlugin.options.og.title %>" />
+    <meta name="og:title" property="og:title" content="<%- htmlWebpackPlugin.options.title %>" />
     <meta name="og:type" property="og:type" content="website" />
-    <meta name="og:url" property="og:url" content="<%- htmlWebpackPlugin.options.og.url %>" />
-    <meta name="og:description" property="og:description" content="<%- htmlWebpackPlugin.options.og.description %>" />
+    <meta name="og:locale" property="og:locale" content="uk_UA" />
+    <meta name="og:url" property="og:url" content="<%- htmlWebpackPlugin.options.location %>" />
+    <meta name="og:description" property="og:description" content="<%- htmlWebpackPlugin.options.description %>" />
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@PtashkaOne"/>
+    <meta name="twitter:title" content="<%- htmlWebpackPlugin.options.title %>"/>
+    <meta name="twitter:description" content="<%- htmlWebpackPlugin.options.description %>"/>
 
     <link rel="canonical" href="<%- htmlWebpackPlugin.options.location %>" />
   </head>

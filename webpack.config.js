@@ -17,11 +17,7 @@ module.exports = (env, argv) => {
   const title = `Підтримайте Україну за допомогою свого девайсу | ${APP_TITLE}`;
   const description =
     'Підтримайте Україну, поділившись обчислювальною потужністю свого девайсу для перевірки російських та білоруських веб-сайтів на стресостійкість.';
-  const ogMetadata = {
-    title,
-    url: APP_LOCATION,
-    description,
-  };
+  const location = APP_LOCATION;
 
   const mode = environment;
   const port = PORT;
@@ -36,8 +32,7 @@ module.exports = (env, argv) => {
       filename: 'index.html',
       publicPath: './',
       description,
-      location: APP_LOCATION,
-      og: ogMetadata,
+      location,
     }),
     new Dotenv({
       allowEmptyValues: true,
