@@ -6,11 +6,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-  const { NODE_ENV, HOST, PORT, APP_TITLE } = process.env;
+  const { NODE_ENV, HOST, PORT, APP_TITLE, APP_LOCATION } = process.env;
 
   const environment = argv.mode || NODE_ENV;
 
   const isProduction = environment === 'production';
+
+  // TODO: move to Helmet
+  // const title = `Support Ukraine with your device | ${APP_TITLE}`;
+  const title = `Підтримайте Україну за допомогою свого девайсу | ${APP_TITLE}`;
+  const description =
+    'Підтримайте Україну, поділившись обчислювальною потужністю свого девайсу для перевірки російських та білоруських веб-сайтів на стресостійкість.';
+  const ogMetadata = {
+    title,
+    url: APP_LOCATION,
+    description,
+  };
 
   const mode = environment;
   const port = PORT;
@@ -20,10 +31,13 @@ module.exports = (env, argv) => {
 
   const plugins = [
     new HtmlWebpackPlugin({
-      title: APP_TITLE,
+      title,
       template: 'assets/index.ejs',
       filename: 'index.html',
       publicPath: './',
+      description,
+      location: APP_LOCATION,
+      og: ogMetadata,
     }),
     new Dotenv({
       allowEmptyValues: true,

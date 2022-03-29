@@ -2,8 +2,16 @@
 <html>
   <head>
     <title><%= htmlWebpackPlugin.options.title %></title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
+    <meta name="description" content="<%- htmlWebpackPlugin.options.description %>">
+    <meta name="og:title" property="og:title" content="<%- htmlWebpackPlugin.options.og.title %>" />
+    <meta name="og:type" property="og:type" content="website" />
+    <meta name="og:url" property="og:url" content="<%- htmlWebpackPlugin.options.og.url %>" />
+    <meta name="og:description" property="og:description" content="<%- htmlWebpackPlugin.options.og.description %>" />
+
+    <link rel="canonical" href="<%- htmlWebpackPlugin.options.location %>" />
   </head>
   <body>
     <div id="root"></div>
