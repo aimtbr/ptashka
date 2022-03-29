@@ -70,10 +70,10 @@
       transition: background-color 0.5s ease;
       text-transform: capitalize;
       font-size: 0.875rem;
-      border: 2px solid $border-color-default;
+      border: 2px solid $color-4;
       border-radius: 15px;
       padding: 0.25rem 1.25rem;
-      background-color: silver;
+      background-color: $color-5;
       user-select: none;
 
       &_ready {

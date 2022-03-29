@@ -1,17 +1,21 @@
 @use '/assets/styles/variables' as *;
 @use '/assets/styles/mixins' as *;
+@use '/assets/styles/animations' as *;
 
 .info-banner {
   $info-banner-height: 4.5rem;
-  $hide-width: $info-banner-height;
 
   display: flex;
   align-items: center;
   height: $info-banner-height;
   width: 100%;
-  padding: 0 4%;
+  padding: 0;
+  padding: {
+    left: 6%;
+    right: 4%;
+  }
   background-color: $color-1;
-  border-bottom: 1px solid silver;
+  border-bottom: 1px solid $color-5;
 
   &-message {
     font-size: 16px;
@@ -21,7 +25,6 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin-left: $hide-width;
     padding: 0.5rem 0;
 
     &-info {
@@ -29,16 +32,16 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      height: 1.375em;
-      width: 1.375em;
-      line-height: 1.375em;
-      font-size: 1.125em;
+      height: 1.375rem;
+      width: 1.375rem;
+      line-height: 1.375rem;
+      font-size: 1.125rem;
       font-weight: 550;
       color: $color-3;
       background-color: white;
       border: 1px solid $color-3;
       border-radius: 50%;
-      margin-right: 2em;
+      margin-right: 1.75em;
       user-select: none;
     }
 
@@ -50,17 +53,29 @@
       font-size: 1em;
       line-height: 1.5;
       font-weight: 575;
+      padding-right: 1em;
       overflow: auto;
+      word-break: break-all;
+      hyphens: auto;
     }
   }
 
   &-hide {
+    $width: $info-banner-height;
+
+    transition: background-color 0.2s ease;
     height: $info-banner-height;
-    width: $hide-width;
+    width: $width;
     flex-shrink: 0;
     margin-left: auto;
 
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
     .icon {
+      @include paintSVG($color-4);
+
       height: 30%;
     }
   }

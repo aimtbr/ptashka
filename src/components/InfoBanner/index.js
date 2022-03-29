@@ -8,6 +8,7 @@ import {
 
 const mapStateToProps = (state) => ({
   ...state.infoBanner,
+  localeCode: state.locale.code,
 });
 
 const mapDispatchToProps = (dispatch) => ({

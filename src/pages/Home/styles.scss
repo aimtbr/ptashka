@@ -171,7 +171,7 @@
         padding: 1rem 0;
         width: 65%;
         border-top: 1px solid white;
-        border-bottom: 1px solid silver;
+        border-bottom: 1px solid $color-5;
         line-height: 1.85;
         user-select: none;
       }
@@ -195,7 +195,7 @@
       align-items: center;
       margin: 0;
       width: 50%;
-      border: 2px solid $border-color-default;
+      border: 2px solid $color-4;
       outline: transparent solid 3px;
       outline-offset: 2px;
       border-radius: 30px;

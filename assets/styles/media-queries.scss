@@ -140,6 +140,18 @@
       }
     }
   }
+
+  .info-banner {
+    padding-right: 0;
+
+    &-message {
+      font-size: 14px;
+    }
+
+    &-hide {
+      width: 4rem;
+    }
+  }
 }
 
 @media screen and (max-width: 375px) {
@@ -168,6 +180,12 @@
       &__button {
         height: $input-height;
       }
+    }
+  }
+
+  .info-banner {
+    &-hide {
+      width: 3.75rem;
     }
   }
 }
