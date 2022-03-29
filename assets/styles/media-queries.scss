@@ -14,7 +14,7 @@
   }
 
   .home-body {
-    &-heading__text {
+    &-heading__description {
       width: 70%;
       font-size: 2rem;
     }
@@ -47,7 +47,7 @@
     }
 
     &-body {
-      &-heading__text {
+      &-heading__description {
         width: 80%;
         font-size: 1.75rem;
       }
@@ -113,7 +113,7 @@
     }
 
     &-body {
-      &-heading__text {
+      &-heading__description {
         width: 90%;
         font-size: 1.375rem;
       }
@@ -156,7 +156,7 @@
 
 @media screen and (max-width: 375px) {
   .home-body {
-    &-heading__text {
+    &-heading__description {
       width: 95%;
       font-size: 1.25rem;
     }
