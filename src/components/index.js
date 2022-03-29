@@ -3,3 +3,4 @@ export { Button } from './Button';
 export { Icon } from './Icon';
 export { Anchor } from './Anchor';
 export { Warning } from './Warning';
+export { InfoBanner } from './InfoBanner';

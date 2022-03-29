@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { ResourceList } from './ResourceList';
-import { InputURL, Button } from '/src/components';
+import { InputURL, Button, InfoBanner } from '/src/components';
 import { RESOURCE_LIST_MAX_LENGTH } from '/src/lib/constants.js';
 import { isURL } from '/src/lib/validations.js';
 
@@ -137,10 +137,12 @@ const Body = (props) => {
     <main className="home-body" role="main">
       <div className="home-body-heading">
         <h2 className="home-body-heading__text">
-          Підтримай Україну перевіривши російські та білоруські веб-сайти на
+          Підтримай Україну, перевіривши російські та білоруські веб-сайти на
           стресостійкість 😉
         </h2>
       </div>
+
+      <InfoBanner />
 
       <div className="home-body-main-form-container">
         <form

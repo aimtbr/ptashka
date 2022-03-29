@@ -4,8 +4,9 @@ import { appTypes } from '../actions';
 
 import locale from './locale.js';
 import warning from './warning.js';
+import infoBanner from './infoBanner.js';
 
-const reducers = combineReducers({ locale, warning });
+const reducers = combineReducers({ locale, warning, infoBanner });
 
 const reducer = (state, action) => {
   switch (action.type) {

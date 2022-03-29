@@ -1,6 +1,6 @@
 import { warningTypes } from './types.js';
 
-const setMessage = (message) => ({
+const setWarningMessage = (message) => ({
   type: warningTypes.SET_MESSAGE,
   message,
 });
@@ -13,11 +13,16 @@ const hideWarning = () => ({
   type: warningTypes.HIDE_WARNING,
 });
 
-const setMessageAndShow = (message) => {
+const setWarningMessageAndShow = (message) => {
   return async (dispatch) => {
-    dispatch(setMessage(message));
+    dispatch(setWarningMessage(message));
     dispatch(showWarning());
   };
 };
 
-export { setMessage, setMessageAndShow, showWarning, hideWarning };
+export {
+  setWarningMessage,
+  setWarningMessageAndShow,
+  showWarning,
+  hideWarning,
+};

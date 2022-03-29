@@ -1,32 +1,31 @@
 import { persistReducer } from 'redux-persist';
 
 import { composePersistConfig } from '../storage.js';
-import { warningTypes } from '../actions';
+import { infoBannerTypes } from '../actions';
 
 const persistConfig = composePersistConfig({
-  key: 'warning',
+  key: 'infoBanner',
   version: 1,
-  whitelist: [],
 });
 
 const initialState = {
-  message: '',
-  isVisible: false,
+  message: process.env.INFO_BANNER_MESSAGE,
+  isVisible: true,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case warningTypes.WARNING_SET_MESSAGE: {
+    case infoBannerTypes.INFO_BANNER_SET_MESSAGE: {
       const { message } = action;
 
       return { ...state, message };
     }
 
-    case warningTypes.WARNING_SHOW: {
+    case infoBannerTypes.INFO_BANNER_SHOW: {
       return { ...state, isVisible: true };
     }
 
-    case warningTypes.WARNING_HIDE: {
+    case infoBannerTypes.INFO_BANNER_HIDE: {
       return { ...state, isVisible: false };
     }
 
@@ -35,4 +34,5 @@ const reducer = (state = initialState, action) => {
     }
   }
 };
+
 export default persistReducer(persistConfig, reducer);

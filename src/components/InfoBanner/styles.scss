@@ -1,0 +1,67 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+
+.info-banner {
+  $info-banner-height: 4.5rem;
+  $hide-width: $info-banner-height;
+
+  display: flex;
+  align-items: center;
+  height: $info-banner-height;
+  width: 100%;
+  padding: 0 4%;
+  background-color: $color-1;
+  border-bottom: 1px solid silver;
+
+  &-message {
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-left: $hide-width;
+    padding: 0.5rem 0;
+
+    &-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      height: 1.375em;
+      width: 1.375em;
+      line-height: 1.375em;
+      font-size: 1.125em;
+      font-weight: 550;
+      color: $color-3;
+      background-color: white;
+      border: 1px solid $color-3;
+      border-radius: 50%;
+      margin-right: 2em;
+      user-select: none;
+    }
+
+    &-text {
+      @include hide-scrollbar;
+
+      max-height: 100%;
+      max-width: 80%;
+      font-size: 1em;
+      line-height: 1.5;
+      font-weight: 575;
+      overflow: auto;
+    }
+  }
+
+  &-hide {
+    height: $info-banner-height;
+    width: $hide-width;
+    flex-shrink: 0;
+    margin-left: auto;
+
+    .icon {
+      height: 30%;
+    }
+  }
+}

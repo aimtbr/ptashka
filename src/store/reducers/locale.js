@@ -19,13 +19,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case localeTypes.SET_LOCALE: {
+    case localeTypes.LOCALE_SET: {
       const { language, country, code } = action.locale;
 
       return { ...state, language, country, code };
     }
 
-    case localeTypes.RESET_LOCALE: {
+    case localeTypes.LOCALE_RESET: {
       return initialState;
     }
 
