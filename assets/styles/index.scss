@@ -10,22 +10,14 @@ html {
   color: $font-color-default;
   font-size: $font-size-default;
   font-family: $font-family-sans-serif;
-}
-
-html,
-body,
-#root {
-  width: 100vw;
+  width: 100%;
   height: 100%;
 }
 
 body {
   position: relative;
-  margin: 0;
   background: linear-gradient(75deg, $color-1, $color-2, $color-1);
   background-color: aliceblue;
-}
-
-.app {
-  height: 100%;
+  margin: 0;
+  overflow: auto;
 }
