@@ -1,0 +1,25 @@
+@use '/assets/styles/variables' as *;
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: $font-color-default;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0;
+  margin-left: 10%;
+  overflow-wrap: anywhere;
+  user-select: none;
+
+  &::first-letter {
+    font-size: 1.125em;
+    font-weight: 400;
+    color: $color-main;
+    letter-spacing: 0;
+    text-shadow: $color-main 0 0 3px;
+    padding: 0 0.125rem;
+    margin-right: 2px;
+    background-color: $font-color-default;
+  }
+}

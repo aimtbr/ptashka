@@ -8,20 +8,22 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .home-body {
-    &-heading__description {
-      width: 70%;
-      font-size: 2rem;
-    }
+  .home {
+    &-body {
+      &-heading__description {
+        width: 70%;
+        font-size: 2rem;
+      }
 
-    &-main-form {
-      width: 65%;
-    }
+      &-main-form {
+        width: 65%;
+      }
 
-    &-resource-list {
-      &-header-content,
-      &-body-item-content {
-        width: 85%;
+      &-resource-list {
+        &-header-content,
+        &-body-item-content {
+          width: 85%;
+        }
       }
     }
   }
@@ -30,9 +32,8 @@
 @media screen and (max-width: 768px) {
   .home {
     &-header {
-      &-heading {
+      &-logo {
         margin-left: 5%;
-        font-size: 1.125rem;
       }
     }
 
@@ -82,14 +83,17 @@
       }
     }
   }
+
+  .logo {
+    font-size: 1.125rem;
+  }
 }
 
 @media screen and (max-width: 425px) {
   .home {
     &-header {
-      &-heading {
+      &-logo {
         margin-left: 0;
-        font-size: 1rem;
       }
     }
 
@@ -133,33 +137,39 @@
       width: 4rem;
     }
   }
+
+  .logo {
+    font-size: 1rem;
+  }
 }
 
 @media screen and (max-width: 375px) {
-  .home-body {
-    &-heading__description {
-      width: 95%;
-      font-size: 1.25rem;
-    }
-
-    &-main-form {
-      $input-height: 3.5rem;
-
-      width: 95%;
-      border-radius: 10px;
-
-      &__input {
-        font-size: 0.875rem;
-        height: $input-height;
-        line-height: $input-height;
-        padding: {
-          left: 1rem;
-          right: 1rem;
-        }
+  .home {
+    &-body {
+      &-heading__description {
+        width: 95%;
+        font-size: 1.25rem;
       }
 
-      &__button {
-        height: $input-height;
+      &-main-form {
+        $input-height: 3.5rem;
+
+        width: 95%;
+        border-radius: 10px;
+
+        &__input {
+          font-size: 0.875rem;
+          height: $input-height;
+          line-height: $input-height;
+          padding: {
+            left: 1rem;
+            right: 1rem;
+          }
+        }
+
+        &__button {
+          height: $input-height;
+        }
       }
     }
   }

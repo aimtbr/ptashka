@@ -112,8 +112,6 @@ const Body = (props) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // VALIDATE THE URL ON SUBMIT
-
     await addResource(resource);
   };
 
@@ -136,10 +134,10 @@ const Body = (props) => {
   return (
     <main className="home-body" role="main">
       <div className="home-body-heading">
-        <h2 className="home-body-heading__description">
+        <h1 className="home-body-heading__description">
           Підтримайте Україну, перевіривши російські та білоруські веб-сайти на
           стресостійкість 😉
-        </h2>
+        </h1>
       </div>
 
       <InfoBanner />

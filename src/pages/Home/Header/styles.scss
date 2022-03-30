@@ -1,0 +1,130 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+
+$height: 4rem;
+
+@mixin header {
+  @include header-layer;
+
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  height: $height;
+  width: 100%;
+  background-color: transparentize($color-1, 0.025);
+
+  &-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: $font-color-default;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    margin-left: 10%;
+    overflow-wrap: anywhere;
+    user-select: none;
+
+    &::first-letter {
+      font-size: 1.2em;
+      color: $color-main;
+      letter-spacing: 0;
+      text-shadow: $color-main 0 0 3px;
+      padding: 0 0.125rem;
+      margin-right: 2px;
+      background-color: $font-color-default;
+    }
+  }
+
+  // TEMP
+  &-love {
+    transition: text-shadow 0.3s ease;
+    font-size: 1.5rem;
+    margin-left: auto;
+    margin-right: 10%;
+    text-shadow: 0 0 20px yellow;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      text-shadow: 0 0 20px rgb(80, 80, 255);
+    }
+  }
+
+  // TEMP
+  &-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      25deg,
+      rgba(255, 192, 203),
+      rgba(135, 207, 235),
+      rgba(127, 218, 127)
+    );
+
+    &-text {
+      font-size: 64px;
+      text-align: center;
+      position: relative;
+      user-select: none;
+      line-height: 1.5;
+
+      &__beloved {
+        font-size: 1.125em;
+        display: inline-block;
+        color: white;
+        padding: 0 0.5em;
+        margin: 0.75em 0;
+        border-radius: 5px;
+        background-color: pink;
+        box-shadow: 0 0 5px 4px rgb(204, 156, 164);
+
+        &:hover {
+          &::before {
+            animation-name: love;
+            animation-duration: 0.5s;
+            animation-direction: alternate;
+            animation-iteration-count: 20;
+          }
+        }
+
+        @keyframes love {
+          from {
+            opacity: 0.5;
+            font-size: 3em;
+            z-index: -1;
+          }
+
+          to {
+            opacity: 0.75;
+            font-size: 3.5em;
+            z-index: +1;
+          }
+        }
+
+        &::before {
+          content: '💘';
+          font-size: 3em;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0.5;
+          z-index: -1;
+        }
+      }
+    }
+  }
+}
