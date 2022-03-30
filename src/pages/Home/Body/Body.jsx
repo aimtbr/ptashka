@@ -6,7 +6,7 @@ import { RESOURCE_LIST_MAX_LENGTH } from '/src/lib/constants.js';
 import { isURL } from '/src/lib/validations.js';
 
 const Body = (props) => {
-  const { setWarning } = props;
+  const { showWarningMessage } = props;
 
   const defaultResource = 'https://';
   const initialResource = '';
@@ -22,7 +22,7 @@ const Body = (props) => {
     const isResourceListFull = resourceList.length === RESOURCE_LIST_MAX_LENGTH;
 
     if (isResourceListFull) {
-      setWarning(
+      showWarningMessage(
         `Досягнута максимальна кількість веб-сайтів: ${RESOURCE_LIST_MAX_LENGTH}.`
       );
 
@@ -30,8 +30,10 @@ const Body = (props) => {
     }
 
     if (!isURL(resource)) {
-      // setWarning('The provided resource is not a URL.');
-      setWarning('Введена адреса не є коректним посиланням на веб-сайт.');
+      // showWarningMessage('The provided resource is not a URL.');
+      showWarningMessage(
+        'Введена адреса не є коректним посиланням на веб-сайт.'
+      );
 
       return;
     }
@@ -50,8 +52,8 @@ const Body = (props) => {
     });
 
     if (isUrlExists) {
-      // setWarning(`Ptashka is already working on "${origin}".`);
-      setWarning(`Пташка вже працює над "${resource}".`);
+      // showWarningMessage(`Ptashka is already working on "${origin}".`);
+      showWarningMessage(`Пташка вже працює над "${resource}".`);
 
       return;
     }

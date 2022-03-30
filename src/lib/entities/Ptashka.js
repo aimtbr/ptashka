@@ -100,8 +100,6 @@ class Ptashka extends EventTarget {
 
       this.#setSent(this.sent + this.batchSize);
 
-      console.log('RESPONSES', responses);
-
       const isBreakpointReached = this.#isBatchSizeDirectionIncreasing
         ? this.batchSize >= this.batchSizeBreakpoint
         : this.batchSize <= this.batchSizeBreakpoint;

@@ -7,14 +7,8 @@ import crossIcon from '/assets/icons/cross.svg';
 import './styles.scss';
 
 const InfoBanner = (props) => {
-  const {
-    className,
-    message,
-    isVisible,
-    localeCode,
-    refreshInfoBanner,
-    hideInfoBanner,
-  } = props;
+  const { className, message, isVisible, refreshInfoBanner, hideInfoBanner } =
+    props;
 
   const defaultClassName = 'info-banner';
   const classNames = [defaultClassName, className].join(' ');
@@ -29,9 +23,7 @@ const InfoBanner = (props) => {
     <div className={classNames}>
       <div className={composeClassName('-message')}>
         <div className={composeClassName('-message-info')}>i</div>
-        <div className={composeClassName('-message-text')} lang={localeCode}>
-          {message}
-        </div>
+        <div className={composeClassName('-message-text')}>{message}</div>
       </div>
 
       <Button className={composeClassName('-hide')} onClick={hideInfoBanner}>

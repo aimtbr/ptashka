@@ -9,6 +9,14 @@
   }
 }
 
+@mixin withPrefixes($prop, $value) {
+  -moz-#{$prop}: $value;
+  -o-#{$prop}: $value;
+  -ms-#{$prop}: $value;
+  -webkit-#{$prop}: $value;
+  #{$prop}: $value;
+}
+
 @mixin paintSVG($color) {
   &,
   & * {

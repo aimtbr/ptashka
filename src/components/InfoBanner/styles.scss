@@ -56,7 +56,7 @@
       padding-right: 1em;
       overflow: auto;
       word-break: break-all;
-      hyphens: auto;
+      @include withPrefixes(hyphens, auto);
     }
   }
 
