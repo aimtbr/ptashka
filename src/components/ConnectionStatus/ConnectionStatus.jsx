@@ -16,23 +16,27 @@ const ConnectionStatus = () => {
   const [status, setStatus] = useState(CONNECTION_STATUS_ONLINE);
 
   useEffect(() => {
-    window.addEventListener('online', function (e) {
+    const handleOnlineStatusChange = () => {
       const hideIn = 5000;
 
       setOnline();
 
       setTimeout(hideConnectionStatus, hideIn);
-    });
+    };
 
-    window.addEventListener('offline', function (e) {
+    const handleOfflineStatusChange = () => {
       setOffline();
 
       showConnectionStatus();
-    });
+    };
+
+    window.addEventListener('online', handleOnlineStatusChange);
+
+    window.addEventListener('offline', handleOfflineStatusChange);
 
     return () => {
-      window.removeEventListener('online');
-      window.removeEventListener('offline');
+      window.removeEventListener('online', handleOnlineStatusChange);
+      window.removeEventListener('offline', handleOfflineStatusChange);
     };
   }, []);
 
