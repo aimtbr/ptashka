@@ -1,0 +1,36 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+
+.connection-status {
+  @include system-notification-layer;
+
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2.5rem;
+  box-shadow: 0 -2px 6px 0 rgba(121, 121, 121, 0.4);
+
+  &_online {
+    background-color: $color-green;
+  }
+
+  &_offline {
+    background-color: $color-red;
+  }
+
+  &-content {
+    @include hide-scrollbar;
+
+    text-align: center;
+    width: 90%;
+    font-size: 0.875rem;
+    font-weight: 550;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    white-space: nowrap;
+    user-select: none;
+  }
+}

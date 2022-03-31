@@ -25,6 +25,11 @@
   }
 }
 
+// LAYERS
+@mixin system-notification-layer {
+  z-index: 600;
+}
+
 @mixin notification-layer {
   z-index: 500;
 }

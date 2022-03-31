@@ -23,3 +23,8 @@ export const RESOURCE_LIST_MAX_LENGTH = 3;
 export const PTASHKA_STATUS_READY = 'Готовий';
 export const PTASHKA_STATUS_RUNNING = 'Працює';
 export const PTASHKA_STATUS_PAUSED = 'Призупинений';
+
+// CONNECTION STATUSES
+// TODO: assign a message to constants
+export const CONNECTION_STATUS_ONLINE = 'Відновлено з’єднання з Інтернетом!';
+export const CONNECTION_STATUS_OFFLINE = 'Втрачено з’єднання з Інтернетом...';

@@ -5,3 +5,4 @@ export { Anchor } from './Anchor';
 export { Warning } from './Warning';
 export { InfoBanner } from './InfoBanner';
 export { Logo } from './Logo';
+export { ConnectionStatus } from './ConnectionStatus';
