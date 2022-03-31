@@ -1,5 +1,5 @@
 import React from 'react';
-import { Logo } from '/src/components';
+import { Logo, Greeting } from '/src/components';
 
 const Header = () => {
   const defaultClassName = 'home-header';
@@ -7,6 +7,7 @@ const Header = () => {
   return (
     <header className="home-header">
       <Logo baseClassName={defaultClassName} />
+      <Greeting baseClassName={defaultClassName} />
     </header>
   );
 };

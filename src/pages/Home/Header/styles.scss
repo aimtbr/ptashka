@@ -51,80 +51,84 @@ $height: 4rem;
     &:hover {
       text-shadow: 0 0 20px rgb(80, 80, 255);
     }
-  }
 
-  // TEMP
-  &-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(
-      25deg,
-      rgba(255, 192, 203),
-      rgba(135, 207, 235),
-      rgba(127, 218, 127)
-    );
+    // TEMP
+    &-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(
+        25deg,
+        rgba(255, 192, 203),
+        rgba(135, 207, 235),
+        rgba(127, 218, 127)
+      );
 
-    &-text {
-      font-size: 64px;
-      text-align: center;
-      position: relative;
-      user-select: none;
-      line-height: 1.5;
+      &-text {
+        font-size: 64px;
+        text-align: center;
+        position: relative;
+        user-select: none;
+        line-height: 1.5;
 
-      &__beloved {
-        font-size: 1.125em;
-        display: inline-block;
-        color: white;
-        padding: 0 0.5em;
-        margin: 0.75em 0;
-        border-radius: 5px;
-        background-color: pink;
-        box-shadow: 0 0 5px 4px rgb(204, 156, 164);
+        &__beloved {
+          font-size: 1.125em;
+          display: inline-block;
+          color: white;
+          padding: 0 0.5em;
+          margin: 0.75em 0;
+          border-radius: 5px;
+          background-color: pink;
+          box-shadow: 0 0 5px 4px rgb(204, 156, 164);
 
-        &:hover {
-          &::before {
-            animation-name: love;
-            animation-duration: 0.5s;
-            animation-direction: alternate;
-            animation-iteration-count: 20;
+          &:hover {
+            &::before {
+              animation-name: love;
+              animation-duration: 0.5s;
+              animation-direction: alternate;
+              animation-iteration-count: 20;
+            }
           }
-        }
 
-        @keyframes love {
-          from {
-            opacity: 0.5;
+          @keyframes love {
+            from {
+              opacity: 0.5;
+              font-size: 3em;
+              z-index: -1;
+            }
+
+            to {
+              opacity: 0.75;
+              font-size: 3.5em;
+              z-index: +1;
+            }
+          }
+
+          &::before {
+            content: '💘';
             font-size: 3em;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.5;
             z-index: -1;
           }
-
-          to {
-            opacity: 0.75;
-            font-size: 3.5em;
-            z-index: +1;
-          }
-        }
-
-        &::before {
-          content: '💘';
-          font-size: 3em;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          opacity: 0.5;
-          z-index: -1;
         }
       }
     }
+  }
+
+  &-greeting {
+    margin-left: auto;
   }
 }
