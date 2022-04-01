@@ -27,6 +27,25 @@ const EVENING_RANGE_END = 0;
 const EVENING_RANGE = [EVENING_RANGE_START, EVENING_RANGE_END];
 const EVENING_GREETING = 'Доброго вечора ☁️';
 
+const timesOfDay = {
+  [TIME_OF_DAY_NIGHTTIME]: {
+    range: NIGHTTIME_RANGE,
+    greeting: NIGHTTIME_GREETING,
+  },
+  [TIME_OF_DAY_MORNING]: {
+    range: MORNING_RANGE,
+    greeting: MORNING_GREETING,
+  },
+  [TIME_OF_DAY_DAYTIME]: {
+    range: DAYTIME_RANGE,
+    greeting: DAYTIME_GREETING,
+  },
+  [TIME_OF_DAY_EVENING]: {
+    range: EVENING_RANGE,
+    greeting: EVENING_GREETING,
+  },
+};
+
 const Greeting = (props) => {
   const { baseClassName = '' } = props;
 
@@ -36,39 +55,6 @@ const Greeting = (props) => {
   const classNames = [defaultClassName, className].join(' ');
 
   const currentDate = new Date();
-
-  const timesOfDay = {
-    [TIME_OF_DAY_NIGHTTIME]: {
-      range: NIGHTTIME_RANGE,
-      greeting: NIGHTTIME_GREETING,
-    },
-    [TIME_OF_DAY_MORNING]: {
-      range: MORNING_RANGE,
-      greeting: MORNING_GREETING,
-    },
-    [TIME_OF_DAY_DAYTIME]: {
-      range: DAYTIME_RANGE,
-      greeting: DAYTIME_GREETING,
-    },
-    [TIME_OF_DAY_EVENING]: {
-      range: EVENING_RANGE,
-      greeting: EVENING_GREETING,
-    },
-  };
-
-  const [currentTimeOfDay, setTimeOfDay] = useState(TIME_OF_DAY_NIGHTTIME);
-
-  const { greeting } = timesOfDay[currentTimeOfDay];
-
-  useEffect(() => {
-    const nextTimeOfDay = getTimeOfDay();
-
-    setTimeOfDay(nextTimeOfDay);
-  }, []);
-
-  useEffect(() => {
-    scheduleNextTimeOfDay();
-  }, [currentTimeOfDay]);
 
   const getTimeOfDay = () => {
     // TODO: localize
@@ -86,6 +72,16 @@ const Greeting = (props) => {
     }
   };
 
+  const initialTimeOfDay = getTimeOfDay();
+
+  const [currentTimeOfDay, setTimeOfDay] = useState(initialTimeOfDay);
+
+  const { greeting } = timesOfDay[currentTimeOfDay];
+
+  useEffect(() => {
+    scheduleNextTimeOfDay();
+  }, [currentTimeOfDay]);
+
   const scheduleNextTimeOfDay = () => {
     let nextTimeOfDay = TIME_OF_DAY_MORNING;
 
@@ -94,20 +90,24 @@ const Greeting = (props) => {
     const currentDateSeconds = currentDate.getSeconds();
 
     switch (currentTimeOfDay) {
-      case [TIME_OF_DAY_NIGHTTIME]: {
+      case TIME_OF_DAY_NIGHTTIME: {
         nextTimeOfDay = TIME_OF_DAY_MORNING;
+        break;
       }
 
-      case [TIME_OF_DAY_MORNING]: {
+      case TIME_OF_DAY_MORNING: {
         nextTimeOfDay = TIME_OF_DAY_DAYTIME;
+        break;
       }
 
-      case [TIME_OF_DAY_DAYTIME]: {
+      case TIME_OF_DAY_DAYTIME: {
         nextTimeOfDay = TIME_OF_DAY_EVENING;
+        break;
       }
 
-      case [TIME_OF_DAY_EVENING]: {
+      case TIME_OF_DAY_EVENING: {
         nextTimeOfDay = TIME_OF_DAY_NIGHTTIME;
+        break;
       }
     }
 
