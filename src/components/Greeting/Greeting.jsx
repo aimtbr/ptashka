@@ -23,9 +23,9 @@ const DAYTIME_RANGE = [DAYTIME_RANGE_START, DAYTIME_RANGE_END];
 const DAYTIME_GREETING = 'Доброго дня ☀️';
 
 const EVENING_RANGE_START = 18;
-const EVENING_RANGE_END = 0;
+const EVENING_RANGE_END = 24;
 const EVENING_RANGE = [EVENING_RANGE_START, EVENING_RANGE_END];
-const EVENING_GREETING = 'Доброго вечора ☁️';
+const EVENING_GREETING = 'Доброго вечора ✨';
 
 const timesOfDay = {
   [TIME_OF_DAY_NIGHTTIME]: {
@@ -65,7 +65,12 @@ const Greeting = (props) => {
       const [timeOfDayStart, timeOfDayEnd] = timesOfDay[timeOfDay].range;
 
       const isInRange = hours >= timeOfDayStart && hours < timeOfDayEnd;
-
+      console.log(
+        isInRange,
+        hours,
+        timesOfDay[timeOfDay].range,
+        hours >= timeOfDayStart
+      );
       if (isInRange) {
         return timeOfDay;
       }
@@ -125,7 +130,7 @@ const Greeting = (props) => {
     const secondsDelay = nextTimeOfDayStartsInSeconds * 1000;
 
     const refreshDelay = hoursDelay + minutesDelay + secondsDelay;
-
+    console.log(new Date(currentDate.valueOf() + refreshDelay));
     setTimeout(() => {
       setTimeOfDay(nextTimeOfDay);
     }, refreshDelay);
