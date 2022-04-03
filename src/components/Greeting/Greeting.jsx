@@ -65,12 +65,7 @@ const Greeting = (props) => {
       const [timeOfDayStart, timeOfDayEnd] = timesOfDay[timeOfDay].range;
 
       const isInRange = hours >= timeOfDayStart && hours < timeOfDayEnd;
-      console.log(
-        isInRange,
-        hours,
-        timesOfDay[timeOfDay].range,
-        hours >= timeOfDayStart
-      );
+
       if (isInRange) {
         return timeOfDay;
       }
@@ -130,7 +125,7 @@ const Greeting = (props) => {
     const secondsDelay = nextTimeOfDayStartsInSeconds * 1000;
 
     const refreshDelay = hoursDelay + minutesDelay + secondsDelay;
-    console.log(new Date(currentDate.valueOf() + refreshDelay));
+
     setTimeout(() => {
       setTimeOfDay(nextTimeOfDay);
     }, refreshDelay);

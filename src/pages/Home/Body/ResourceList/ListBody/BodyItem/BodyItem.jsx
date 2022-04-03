@@ -28,7 +28,9 @@ const BodyItem = (props) => {
 
   const [data, setData] = useState(ptashka.toJSON());
 
-  const { url, sent, status, startedAt, pausedAt } = data;
+  const { url, requestsSent, successRate, status, startedAt } = data;
+
+  // TODO: display a success rate
 
   const stateTitle = ptashka.isStatusPaused
     ? // ? "Resume the process"
@@ -68,7 +70,10 @@ const BodyItem = (props) => {
       <div className={contentClassName}>
         <ItemCellUrl baseClassName={contentClassName} url={url} />
 
-        <ItemCellSent baseClassName={contentClassName} sent={sent} />
+        <ItemCellSent
+          baseClassName={contentClassName}
+          requestsSent={requestsSent}
+        />
 
         <ItemCellStatus baseClassName={contentClassName} status={status} />
 

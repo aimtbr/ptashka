@@ -3,7 +3,7 @@ import React from 'react';
 import { ItemCell } from '../../ItemCell';
 
 const ItemCellSent = (props) => {
-  const { baseClassName, sent } = props;
+  const { baseClassName, requestsSent } = props;
 
   const className = `${baseClassName}-sent`;
 
@@ -11,7 +11,7 @@ const ItemCellSent = (props) => {
 
   return (
     <ItemCell baseClassName={baseClassName} type="sent">
-      <div className={className}>{sent}</div>
+      <div className={className}>{requestsSent}</div>
     </ItemCell>
   );
 };

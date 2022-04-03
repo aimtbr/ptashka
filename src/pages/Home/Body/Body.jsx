@@ -167,7 +167,7 @@ const Body = (props) => {
             <option value="https://www.economy.gov.ru" />
             <option value="https://www.ved.gov.ru" />
             <option value="https://www.mid.ru" />
-            <option value="https://cdek.ru" />
+            <option value="https://www.cdek.ru" />
             <option value="https://www.gosuslugi.ru" />
             <option value="https://ok.ru" />
           </datalist>
