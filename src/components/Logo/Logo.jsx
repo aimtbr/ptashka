@@ -1,10 +1,12 @@
 import React from 'react';
 
+import config from '/config';
+
 import './styles.scss';
 
 const Logo = (props) => {
   const { baseClassName = '', className = '' } = props;
-  const { APP_VERSION } = process.env;
+  const { version } = config;
 
   const defaultClassName = 'logo';
 
@@ -14,7 +16,7 @@ const Logo = (props) => {
 
   return (
     <div className={classNames}>
-      PTASHKA<sup className="logo-version">v{APP_VERSION}</sup>
+      PTASHKA<sup className="logo-version">v{version}</sup>
     </div>
   );
 };
