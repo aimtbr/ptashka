@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
 
+    <meta name="application-name" content="<%- htmlWebpackPlugin.options.title %>">
     <meta name="description" content="<%- htmlWebpackPlugin.options.description %>">
+
     <meta name="og:title" property="og:title" content="<%- htmlWebpackPlugin.options.title %>" />
     <meta name="og:type" property="og:type" content="website" />
     <meta name="og:locale" property="og:locale" content="uk_UA" />
@@ -19,6 +21,8 @@
     <meta name="twitter:description" content="<%- htmlWebpackPlugin.options.description %>"/>
 
     <link rel="canonical" href="<%- htmlWebpackPlugin.options.location %>" />
+
+    <link rel="icon" href="./images/favicon.svg" />
   </head>
   <body>
     <div id="root"></div>
