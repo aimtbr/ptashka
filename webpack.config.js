@@ -1,23 +1,24 @@
 require('dotenv/config');
 
+const config = require('./config');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-  const { NODE_ENV, HOST, PORT, APP_TITLE, APP_LOCATION } = process.env;
+  const { NODE_ENV, HOST, PORT } = process.env;
+  const { name, location } = config;
 
   const environment = argv.mode || NODE_ENV;
 
   const isProduction = environment === 'production';
 
   // TODO: move to Helmet
-  // const title = `Support Ukraine with your device | ${APP_TITLE}`;
-  const title = `Підтримайте Україну за допомогою свого девайсу | ${APP_TITLE}`;
+  // const title = `Support Ukraine with your device | ${name}`;
+  const title = `Підтримайте Україну за допомогою свого девайсу | ${name}`;
   const description =
     'Підтримайте Україну, поділившись обчислювальною потужністю свого девайсу для перевірки російських та білоруських веб-сайтів на стресостійкість.';
-  const location = APP_LOCATION;
 
   const mode = environment;
   const port = PORT;
@@ -56,11 +57,13 @@ module.exports = (env, argv) => {
       devtool,
       output: {
         filename: '[name].[contenthash].js',
+        assetModuleFilename: 'assets/[name]_[hash][ext][query]',
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
         clean: true,
       },
       devServer: {
-        static: [{ directory: path.resolve(__dirname, 'assets') }],
+        static: path.resolve(__dirname, 'assets'),
         host,
         port,
         open: true,
@@ -91,35 +94,19 @@ module.exports = (env, argv) => {
             use: [styleLoader, 'css-loader', 'sass-loader'],
           },
           {
-            test: /\.(png|jpe?g|gif|woff|woff2|eot|ttf|otf)$/,
-            include: [path.resolve(__dirname, 'assets')],
-            exclude: [
-              path.resolve(__dirname, 'node_modules'),
-              path.resolve(__dirname, 'src'),
-            ],
+            test: /\.(svg|png|jpe?g|gif)$/,
+            include: [path.resolve(__dirname, 'assets', 'images')],
+            type: 'asset/resource',
+          },
+          {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            include: [path.resolve(__dirname, 'assets', 'fonts')],
             type: 'asset/resource',
           },
           {
             test: /\.svg$/,
             include: [path.resolve(__dirname, 'assets', 'icons')],
             use: ['@svgr/webpack'],
-          },
-          {
-            test: /\.svg$/,
-            exclude: [
-              path.resolve(__dirname, 'assets', 'icons'),
-              path.resolve(__dirname, 'node_modules'),
-            ],
-            type: 'asset/resource',
-          },
-          {
-            test: /\.html$/,
-            include: [path.resolve(__dirname, 'assets')],
-            exclude: [
-              path.resolve(__dirname, 'node_modules'),
-              path.resolve(__dirname, 'src'),
-            ],
-            use: ['html-loader'],
           },
         ],
       },
