@@ -26,7 +26,11 @@ const InfoBanner = (props) => {
         <div className={composeClassName('-message-text')}>{message}</div>
       </div>
 
-      <Button className={composeClassName('-hide')} onClick={hideInfoBanner}>
+      <Button
+        className={composeClassName('-hide')}
+        aria-label="Сховати інформаційне повідомлення"
+        onClick={hideInfoBanner}
+      >
         <Icon icon={crossIcon} />
       </Button>
     </div>
