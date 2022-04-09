@@ -31,10 +31,11 @@ module.exports = (env, argv) => {
 
   const plugins = [
     new HtmlWebpackPlugin({
-      title,
       template: `${assetsPublicPath}index.ejs`,
       filename: 'index.html',
       publicPath: './',
+      name,
+      title,
       description,
       location,
     }),
