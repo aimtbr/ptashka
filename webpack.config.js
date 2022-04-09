@@ -42,11 +42,6 @@ module.exports = (env, argv) => {
       allowEmptyValues: true,
       systemvars: true,
     }),
-    new GenerateSW({
-      maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10 MB
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
   ];
 
   if (isProduction) {
@@ -55,7 +50,14 @@ module.exports = (env, argv) => {
 
     styleLoader = MiniCssExtractPlugin.loader;
 
-    plugins.push(new MiniCssExtractPlugin());
+    plugins.push(
+      new MiniCssExtractPlugin(),
+      new GenerateSW({
+        maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10 MB
+        clientsClaim: true,
+        skipWaiting: true,
+      })
+    );
   }
 
   return [
@@ -78,8 +80,7 @@ module.exports = (env, argv) => {
         host,
         port,
         open: true,
-        hot: false,
-        liveReload: false,
+        hot: true,
         historyApiFallback: true,
         devMiddleware: {
           writeToDisk: true,

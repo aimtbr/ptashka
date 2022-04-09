@@ -6,9 +6,21 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Home } from './pages';
 import { Warning, ConnectionStatus } from './components';
 import { store, persistor } from './store';
+import { isProduction } from './lib/helpers.js';
 
 import 'normalize.css';
 import '/assets/styles';
+
+const registerServiceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(() => console.log('Service Worker registration succeeded.'))
+        .catch(() => console.error('Service Worker registration failed.'));
+    });
+  }
+};
 
 const app = (
   <Provider store={store}>
@@ -26,12 +38,4 @@ const container = document.getElementById('root');
 
 render(app, container);
 
-// TODO: refactor below
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then(() => console.log('Service Worker registration succeeded.'))
-      .catch(() => console.error('Service Worker registration failed.'));
-  });
-}
+registerServiceWorker();
