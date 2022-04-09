@@ -10,7 +10,7 @@ $height: 4rem;
   top: 0;
   display: flex;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 5vw;
   height: $height;
   width: 100%;
   background-color: transparentize($color-1, 0.025);
@@ -23,7 +23,7 @@ $height: 4rem;
     text-align: center;
     text-transform: uppercase;
     margin: 0;
-    margin-left: 10%;
+    margin-left: 7vw;
     overflow-wrap: anywhere;
     user-select: none;
 
