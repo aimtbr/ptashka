@@ -1,0 +1,21 @@
+{
+  "name": "Ptashka",
+  "short_name": "Ptashka",
+  "description": "Підтримайте Україну за допомогою свого девайсу",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "uk-UA",
+  "background_color": "#e6e6fa",
+  "theme_color": "#e6e6fa",
+  "categories": ["utilities", "social"],
+  "orientation": "portrait-secondary",
+  "icons": [
+    {
+      "src": "/images/favicon.svg",
+      "sizes": "16x16 32x32 48x48 72x72 96x96 128x128 256x256 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -25,3 +25,13 @@ const app = (
 const container = document.getElementById('root');
 
 render(app, container);
+
+// TODO: refactor below
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(() => console.log('Service Worker registration succeeded.'))
+      .catch(() => console.error('Service Worker registration failed.'));
+  });
+}

@@ -4,6 +4,7 @@ const config = require('./config');
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
@@ -39,6 +40,11 @@ module.exports = (env, argv) => {
       allowEmptyValues: true,
       systemvars: true,
     }),
+    new GenerateSW({
+      excludeChunks: ['vendors'],
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ];
 
   if (isProduction) {
@@ -63,12 +69,19 @@ module.exports = (env, argv) => {
         clean: true,
       },
       devServer: {
-        static: path.resolve(__dirname, 'assets'),
+        static: {
+          directory: path.resolve(__dirname, 'assets'),
+          watch: false,
+        },
         host,
         port,
         open: true,
-        hot: true,
+        hot: false,
+        liveReload: false,
         historyApiFallback: true,
+        devMiddleware: {
+          writeToDisk: true,
+        },
       },
       resolve: {
         extensions: ['*', '.js', '.jsx', '.json', '.scss'],
@@ -101,6 +114,11 @@ module.exports = (env, argv) => {
           {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
             include: [path.resolve(__dirname, 'assets', 'fonts')],
+            type: 'asset/resource',
+          },
+          {
+            test: /\.webmanifest$/,
+            include: [path.resolve(__dirname, 'assets')],
             type: 'asset/resource',
           },
           {
