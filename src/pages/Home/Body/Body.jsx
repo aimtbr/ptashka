@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { ResourceList } from './ResourceList';
 import { InputURL, Button, InfoBanner } from '/src/components';
 import { RESOURCE_LIST_MAX_LENGTH } from '/src/lib/constants.js';
 import { isURL } from '/src/lib/validations.js';
+import config from '/config';
 
 const Body = (props) => {
   const { showWarningMessage } = props;
@@ -92,8 +93,15 @@ const Body = (props) => {
     setResource(initialResource);
   };
 
-  // TODO: implement
-  const hideBodyHeading = () => {};
+  const TargetResources = useCallback(() => {
+    const targetResources = config.targetResources.map((target, index) => {
+      return <option value={target} key={index} />;
+    }, []);
+
+    return (
+      <datalist id="home-body-main-form__input">{targetResources}</datalist>
+    );
+  }, []);
 
   const handleResourceChange = async (event) => {
     const { value } = event.target;
@@ -162,15 +170,7 @@ const Body = (props) => {
             onFocus={handleInputFocus}
           />
 
-          <datalist id="home-body-main-form__input">
-            <option value="https://www.minobrnauki.gov.ru" />
-            <option value="https://www.economy.gov.ru" />
-            <option value="https://www.ved.gov.ru" />
-            <option value="https://www.mid.ru" />
-            <option value="https://www.cdek.ru" />
-            <option value="https://www.gosuslugi.ru" />
-            <option value="https://ok.ru" />
-          </datalist>
+          <TargetResources />
 
           <Button className="home-body-main-form__button" type="submit">
             {/* Send Ptashka */}

@@ -1,5 +1,18 @@
 {
   "name": "Ptashka",
   "location": "https://ptashka.one",
-  "version": "0.1"
+  "version": "0.1",
+  "targetResources": [
+    "https://okko.tv",
+    "https://wink.ru",
+    "https://aeroflotbonus.okko.tv",
+    "https://cabinet.okko.tv",
+    "https://www.agent.okko.tv/",
+    "https://agents.okko.tv",
+    "https://premiere.okko.tv/",
+    "https://show.okko.tv",
+    "https://mimimi.okko.team/",
+    "https://pobeda.okko.tv",
+    "https://www.ontvtime.ru"
+  ]
 }
