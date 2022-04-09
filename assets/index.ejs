@@ -10,8 +10,16 @@
 
     <meta name="application-name" content="<%- htmlWebpackPlugin.options.title %>">
     <meta name="description" content="<%- htmlWebpackPlugin.options.description %>">
+    <meta name="theme-color" content="#e6e6fa">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#e6e6fa">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#4e2e81">
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta name="apple-mobile-web-app-title" content="<%- htmlWebpackPlugin.options.title %>" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#e6e6fa" />
+    <meta name="apple-mobile-web-app-status-bar-style" media="(prefers-color-scheme: light)" content="#e6e6fa" />
+    <meta name="apple-mobile-web-app-status-bar-style" media="(prefers-color-scheme: dark)" content="#4e2e81" />
 
     <meta name="og:title" property="og:title" content="<%- htmlWebpackPlugin.options.title %>" />
     <meta name="og:type" property="og:type" content="website" />
@@ -24,9 +32,9 @@
     <meta name="twitter:title" content="<%- htmlWebpackPlugin.options.title %>"/>
     <meta name="twitter:description" content="<%- htmlWebpackPlugin.options.description %>"/>
 
-    <link rel="manifest" href="<%= require('/assets/manifest.webmanifest') %>" />
-    <link rel="apple-touch-icon" href="<%= require('/assets/images/favicon.svg') %>" />
-    <link rel="icon" href="<%= require('/assets/images/favicon.svg') %>" />
+    <link rel="manifest" href="<%= require('/manifest.webmanifest') %>" />
+    <link rel="apple-touch-icon" href="<%= require('/assets/images/favicons/favicon.svg') %>" />
+    <link rel="icon" href="<%= require('/assets/images/favicons/favicon.svg') %>" />
   </head>
   <body>
     <div id="root"></div>

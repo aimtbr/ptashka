@@ -15,6 +15,8 @@ module.exports = (env, argv) => {
 
   const isProduction = environment === 'production';
 
+  const assetsPublicPath = 'assets/';
+
   // TODO: move to Helmet
   // const title = `Support Ukraine with your device | ${name}`;
   const title = `Підтримайте Україну за допомогою свого девайсу | ${name}`;
@@ -30,7 +32,7 @@ module.exports = (env, argv) => {
   const plugins = [
     new HtmlWebpackPlugin({
       title,
-      template: 'assets/index.ejs',
+      template: `${assetsPublicPath}index.ejs`,
       filename: 'index.html',
       publicPath: './',
       description,
@@ -41,7 +43,7 @@ module.exports = (env, argv) => {
       systemvars: true,
     }),
     new GenerateSW({
-      excludeChunks: ['vendors'],
+      maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10 MB
       clientsClaim: true,
       skipWaiting: true,
     }),
@@ -63,14 +65,14 @@ module.exports = (env, argv) => {
       devtool,
       output: {
         filename: '[name].[contenthash].js',
-        assetModuleFilename: 'assets/[name]_[hash][ext][query]',
+        assetModuleFilename: `${assetsPublicPath}[name]_[hash][ext][query]`,
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
         clean: true,
       },
       devServer: {
         static: {
-          directory: path.resolve(__dirname, 'assets'),
+          directory: path.resolve(__dirname, assetsPublicPath),
           watch: false,
         },
         host,
@@ -96,10 +98,6 @@ module.exports = (env, argv) => {
           {
             test: /\.jsx?$/,
             include: [path.resolve(__dirname, 'src')],
-            exclude: [
-              path.resolve(__dirname, 'node_modules'),
-              path.resolve(__dirname, 'assets'),
-            ],
             use: ['babel-loader'],
           },
           {
@@ -108,23 +106,41 @@ module.exports = (env, argv) => {
           },
           {
             test: /\.(svg|png|jpe?g|gif)$/,
-            include: [path.resolve(__dirname, 'assets', 'images')],
+            include: [path.resolve(__dirname, assetsPublicPath, 'images')],
+            exclude: [
+              path.resolve(__dirname, assetsPublicPath, 'images', 'favicons'),
+            ],
             type: 'asset/resource',
           },
           {
+            // transform the included resources into React components
+            test: /\.svg$/,
+            include: [path.resolve(__dirname, assetsPublicPath, 'icons')],
+            use: ['@svgr/webpack'],
+          },
+          {
+            test: /\.(svg|png)$/,
+            include: [
+              path.resolve(__dirname, assetsPublicPath, 'images', 'favicons'),
+            ],
+            type: 'asset/resource',
+            // do not add a hash to these resources
+            generator: {
+              filename: `${assetsPublicPath}[name][ext]`,
+            },
+          },
+          {
             test: /\.(woff|woff2|eot|ttf|otf)$/,
-            include: [path.resolve(__dirname, 'assets', 'fonts')],
+            include: [path.resolve(__dirname, assetsPublicPath, 'fonts')],
             type: 'asset/resource',
           },
           {
             test: /\.webmanifest$/,
-            include: [path.resolve(__dirname, 'assets')],
             type: 'asset/resource',
-          },
-          {
-            test: /\.svg$/,
-            include: [path.resolve(__dirname, 'assets', 'icons')],
-            use: ['@svgr/webpack'],
+            // do not add a hash to these resources
+            generator: {
+              filename: `${assetsPublicPath}[name][ext]`,
+            },
           },
         ],
       },
