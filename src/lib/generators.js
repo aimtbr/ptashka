@@ -27,24 +27,16 @@ export const generateManifest = async (options) => {
           '../../assets/images/favicons/favicon.svg',
           import.meta.url
         ),
-        sizes: '16x16 32x32 48x48 72x72 96x96 128x128',
+        sizes: '16x16 32x32 48x48 72x72 80x80 96x96 128x128',
         type: 'image/svg+xml',
       },
       {
         src: new URL(
-          '../../assets/images/favicons/favicon_x80.png',
-          import.meta.url
-        ),
-        sizes: '80x80',
-        type: 'image/png',
-      },
-      {
-        src: new URL(
-          '../../assets/images/favicons/favicon_x180.png',
+          '../../assets/images/favicons/favicon_x180.svg',
           import.meta.url
         ),
         sizes: '180x180',
-        type: 'image/png',
+        type: 'image/svg+xml',
       },
       {
         src: new URL(
