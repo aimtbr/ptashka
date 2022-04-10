@@ -8,8 +8,8 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-  const { NODE_ENV, HOST, PORT } = process.env;
-  const { name, location } = config;
+  const { NODE_ENV, HOST, PORT, APP_LOCATION } = process.env;
+  const { name } = config;
 
   const environment = argv.mode || NODE_ENV;
 
@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
       name,
       title,
       description,
-      location,
+      location: APP_LOCATION,
     }),
     new Dotenv({
       allowEmptyValues: true,
