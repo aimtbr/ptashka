@@ -63,7 +63,7 @@ module.exports = (env, argv) => {
 
   return [
     {
-      entry: ['./src/main.jsx'],
+      entry: ['./src/index.jsx'],
       mode,
       devtool,
       output: {
@@ -74,10 +74,7 @@ module.exports = (env, argv) => {
         clean: true,
       },
       devServer: {
-        static: {
-          directory: path.resolve(__dirname, assetsPublicPath),
-          watch: false,
-        },
+        static: path.resolve(__dirname, assetsPublicPath),
         host,
         port,
         open: true,

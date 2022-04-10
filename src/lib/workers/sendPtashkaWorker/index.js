@@ -1,6 +1,6 @@
 import { RESOURCES_LIMIT } from './constants.js';
 import { errorWorkerUnavailable, errorResourceExists } from '../../errors.js';
-import { sendPtashka } from '../../scripts';
+// import { sendPtashka } from '../../scripts';
 
 const resources = [];
 

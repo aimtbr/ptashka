@@ -32,8 +32,14 @@
     <meta name="twitter:title" content="<%- htmlWebpackPlugin.options.title %>"/>
     <meta name="twitter:description" content="<%- htmlWebpackPlugin.options.description %>"/>
 
-    <link rel="manifest" href="<%= require('/manifest.webmanifest') %>" />
+    <link id="manifest" rel="manifest" />
+
     <link rel="apple-touch-icon" href="<%= require('/assets/images/favicons/favicon.svg') %>" />
+    <link rel="apple-touch-icon" sizes="80x80" href="<%= require('/assets/images/favicons/favicon_x80.png') %>" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= require('/assets/images/favicons/favicon_x180.png') %>" />
+    <link rel="apple-touch-startup-image" href="<%= require('/assets/images/favicons/favicon-splash_x512.png') %>">
+    <link rel="apple-touch-startup-image" sizes="512x512" href="<%= require('/assets/images/favicons/favicon-splash_x512.png') %>">
+
     <link rel="icon" href="<%= require('/assets/images/favicons/favicon.svg') %>" />
   </head>
   <body>

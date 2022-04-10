@@ -3,10 +3,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { Home } from './pages';
-import { Warning, ConnectionStatus } from './components';
 import { store, persistor } from './store';
-import { isProduction } from './lib/helpers.js';
+import App from './App';
 
 import 'normalize.css';
 import '/assets/styles';
@@ -25,15 +23,10 @@ const registerServiceWorker = () => {
 const app = (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <div className="app">
-        <ConnectionStatus />
-        <Warning />
-        <Home />
-      </div>
+      <App />
     </PersistGate>
   </Provider>
 );
-
 const container = document.getElementById('root');
 
 render(app, container);
