@@ -37,6 +37,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '48x48',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -45,6 +46,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '72x72',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -53,6 +55,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '80x80',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -61,6 +64,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '96x96',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -69,6 +73,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '128x128',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -77,6 +82,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '180x180',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
@@ -85,6 +91,7 @@ export const generateManifest = async (options) => {
         ),
         sizes: '256x256',
         type: 'image/png',
+        // purpose: 'maskable',
       },
       {
         src: new URL(
