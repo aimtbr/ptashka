@@ -4,7 +4,6 @@
 
 @use '../Header/styles' as header;
 
-
 @mixin body {
   width: 100%;
   height: calc(100% - header.$height);
@@ -29,7 +28,7 @@
     }
 
     &__description {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 600;
       text-shadow: 0 0 3px $color-main;
       text-transform: uppercase;
@@ -38,7 +37,7 @@
       white-space: pre-wrap;
       margin: 0;
       padding: 1rem 0;
-      width: 65%;
+      width: 60%;
       border-top: 1px solid white;
       border-bottom: 1px solid $color-5;
       line-height: 1.85;

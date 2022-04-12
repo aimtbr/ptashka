@@ -10,9 +10,16 @@
 @media screen and (max-width: 1024px) {
   .home {
     &-body {
-      &-heading__description {
-        width: 70%;
-        font-size: 2rem;
+      &-heading {
+        padding: {
+          top: 2.25rem;
+          bottom: 2.25rem;
+        }
+
+        &__description {
+          width: 75%;
+          font-size: 1.75rem;
+        }
       }
 
       &-main-form {
@@ -38,9 +45,16 @@
     }
 
     &-body {
-      &-heading__description {
-        width: 80%;
-        font-size: 1.75rem;
+      &-heading {
+        padding: {
+          top: 2rem;
+          bottom: 2rem;
+        }
+
+        &__description {
+          width: 85%;
+          font-size: 1.625rem;
+        }
       }
 
       &-main-form {
@@ -98,9 +112,16 @@
     }
 
     &-body {
-      &-heading__description {
-        width: 90%;
-        font-size: 1.375rem;
+      &-heading {
+        padding: {
+          top: 1.75rem;
+          bottom: 1.75rem;
+        }
+
+        &__description {
+          width: 90%;
+          font-size: 1.375rem;
+        }
       }
 
       &-main-form {
