@@ -27,16 +27,56 @@ export const generateManifest = async (options) => {
           '../../assets/images/favicons/favicon.svg',
           import.meta.url
         ),
-        sizes: '16x16 32x32 48x48 72x72 80x80 96x96 128x128',
+        sizes: '16x16 32x32',
         type: 'image/svg+xml',
       },
       {
         src: new URL(
-          '../../assets/images/favicons/favicon_x180.svg',
+          '../../assets/images/favicons/favicon_x48.png',
+          import.meta.url
+        ),
+        sizes: '48x48',
+        type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/favicon_x72.png',
+          import.meta.url
+        ),
+        sizes: '72x72',
+        type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/apple-touch-icon_x80.png',
+          import.meta.url
+        ),
+        sizes: '80x80',
+        type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/favicon_x96.png',
+          import.meta.url
+        ),
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/favicon_x128.png',
+          import.meta.url
+        ),
+        sizes: '128x128',
+        type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/favicon_x180.png',
           import.meta.url
         ),
         sizes: '180x180',
-        type: 'image/svg+xml',
+        type: 'image/png',
       },
       {
         src: new URL(
@@ -48,20 +88,20 @@ export const generateManifest = async (options) => {
       },
       {
         src: new URL(
-          '../../assets/images/favicons/favicon-maskable_x384.png',
-          import.meta.url
-        ),
-        sizes: '384x384',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src: new URL(
           '../../assets/images/favicons/favicon-splash_x512.png',
           import.meta.url
         ),
         sizes: '512x512',
         type: 'image/png',
+      },
+      {
+        src: new URL(
+          '../../assets/images/favicons/maskable_icon_x1024.png',
+          import.meta.url
+        ),
+        sizes: '1024x1024',
+        type: 'image/png',
+        purpose: 'maskable',
       },
     ],
   };
