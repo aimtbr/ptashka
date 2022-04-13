@@ -2,11 +2,11 @@
   "name": "Ptashka",
   "version": "0.2",
   "targetResources": [
-    "https://okko.tv",
-    "https://wink.ru",
-    "https://kino-teatr.ru",
-    "https://www.amediateka.ru",
-    "https://www.1tv.ru/live",
-    "https://www.ontvtime.ru"
+    "https://www.crpt.ru",
+    "https://markirovka.crpt.ru/login-kep",
+    "https://milk.crpt.ru/",
+    "https://ismp.crpt.ru",
+    "https://api.mdlp.crpt.ru",
+    "https://api.sb.mdlp.crpt.ru"
   ]
 }
