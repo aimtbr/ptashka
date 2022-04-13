@@ -147,8 +147,7 @@ class Ptashka extends EventTarget {
           // if the batch size is rising
           case BATCH_SIZE_DIRECTION_GROW: {
             // then decrease the next breakpoint by multiplying by the fall factor
-            nextBreakpoint =
-              this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_SHRINK_FACTOR;
+            nextBreakpoint = this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_SHRINK_FACTOR;
 
             break;
           }
@@ -156,8 +155,7 @@ class Ptashka extends EventTarget {
           // if the batch size is falling
           case BATCH_SIZE_DIRECTION_SHRINK: {
             // then increase the next breakpoint by multiplying by the rise factor
-            nextBreakpoint =
-              this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_GROW_FACTOR;
+            nextBreakpoint = this.batchSizeBreakpoint * BATCH_SIZE_DIRECTION_GROW_FACTOR;
 
             // and check whether the next batch size breakpoint is not higher than a limit
             const isLimitReached = nextBreakpoint > BATCH_SIZE_LIMIT;
@@ -190,21 +188,6 @@ class Ptashka extends EventTarget {
       ).then(() => {
         this.#calculateSuccessRate();
       });
-
-      // NOTE: temporary disabled since unnecessary
-      // const isAnyRequestAborted = responses.some((response) => {
-      // const isResponseRejected = response?.reason && response.reason?.name;
-
-      // if (isResponseRejected) {
-      //   return response.reason.name === 'AbortError';
-      // }
-
-      //   return false;
-      // });
-
-      // if (isAnyRequestAborted) {
-      //   return;
-      // }
 
       this.#incrementBatchesSent();
     };
@@ -354,9 +337,7 @@ class Ptashka extends EventTarget {
   }
 
   #calculateSuccessRate() {
-    const successRate = Math.round(
-      (this.requestsSucceed / this.requestsSent) * 100
-    );
+    const successRate = Math.round((this.requestsSucceed / this.requestsSent) * 100);
 
     const isSuccessRateValid = Number.isInteger(successRate);
 
@@ -373,8 +354,7 @@ class Ptashka extends EventTarget {
   }
 
   #adjustBatchSize() {
-    this.batchSize +=
-      this.batchSizeDirection * (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
+    this.batchSize += this.batchSizeDirection * (this.batchSizeBreakpoint * BATCH_STEP_FACTOR);
   }
 
   #restartController() {
