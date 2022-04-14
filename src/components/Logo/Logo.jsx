@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { unifyClassNames } from '/src/lib/helpers.js';
 import config from '/config';
 
 import './styles.scss';
@@ -10,13 +11,13 @@ const Logo = (props) => {
 
   const defaultClassName = 'logo';
 
-  const extendedClassName = `${baseClassName}-${defaultClassName}`;
+  const baseClassNameExtended = unifyClassNames(baseClassName, defaultClassName);
 
-  const classNames = [defaultClassName, className, extendedClassName].join(' ');
+  const classNames = [defaultClassName, baseClassNameExtended, className].join(' ');
 
   return (
     <div className={classNames}>
-      PTASHKA<sup className="logo-version">v{version}</sup>
+      PTASHKA<sup className={unifyClassNames(classNames, 'version')}>v{version}</sup>
     </div>
   );
 };

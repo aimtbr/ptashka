@@ -1,13 +1,15 @@
 import React from 'react';
 import { Logo, Greeting } from '/src/components';
 
-const Header = () => {
-  const defaultClassName = 'home-header';
+const Header = (props) => {
+  const { baseClassName } = props;
+
+  const className = `${baseClassName}-header`;
 
   return (
-    <header className="home-header">
-      <Logo baseClassName={defaultClassName} />
-      <Greeting baseClassName={defaultClassName} />
+    <header className={className}>
+      <Logo baseClassName={className} />
+      <Greeting baseClassName={className} />
     </header>
   );
 };

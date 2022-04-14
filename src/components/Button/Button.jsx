@@ -5,11 +5,15 @@ import './styles.scss';
 const Button = (props) => {
   const { className, children, type = 'button', ...rest } = props;
 
-  const classNameDefault = 'button';
-  const classNames = [classNameDefault, className].join(' ');
+  const defaultClassName = 'button';
+  const classNames = [defaultClassName, className].join(' ');
 
   return (
-    <button className={classNames} type={type} {...rest}>
+    <button
+      className={classNames}
+      type={type}
+      {...rest}
+    >
       {children}
     </button>
   );

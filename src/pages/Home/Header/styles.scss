@@ -3,7 +3,7 @@
 
 $height: 4rem;
 
-@mixin header {
+@mixin styles {
   @include header-layer;
 
   position: sticky;
@@ -14,7 +14,7 @@ $height: 4rem;
   height: $height;
   width: 100%;
   background-color: transparentize($color-1, 0.025);
-  box-shadow: 0 -1px 10px 1px $color-7;
+  box-shadow: 0 -1px 10px 1px $color-6;
 
   &-heading {
     font-size: 1.25rem;

@@ -1,0 +1,14 @@
+@use '/assets/styles/mixins' as *;
+
+.header-cell {
+  @include hide-scrollbar;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-shrink: 0;
+  overflow: auto;
+  overflow-wrap: anywhere;
+  white-space: nowrap;
+  margin: 0 0.5rem;
+}

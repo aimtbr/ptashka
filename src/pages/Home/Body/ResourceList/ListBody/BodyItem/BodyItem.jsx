@@ -1,26 +1,18 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 
+import { Anchor, Icon, GloDot } from '/src/components';
+import { urlToReadable } from '/src/lib/converters.js';
+import { unifyClassNames } from '/src/lib/helpers.js';
 import { Ptashka } from '/src/lib/entities';
-import { Button, Icon } from '/src/components';
-import { ItemCell } from './ItemCell';
-import {
-  ItemCellSent,
-  ItemCellStatus,
-  ItemCellStartedAt,
-  ItemCellUrl,
-} from './cells';
 
-import playIcon from '/assets/icons/play.svg';
-import pauseIcon from '/assets/icons/pause.svg';
-import bombIcon from '/assets/icons/bomb.svg';
+import { ItemHiddenContent } from './ItemHiddenContent';
+
+import collapseArrowDownIcon from '/assets/icons/collapse-arrow-down.svg';
 
 import './styles.scss';
 
 const BodyItem = (props) => {
   const { baseClassName, resource, deleteResource } = props;
-
-  const className = `${baseClassName}-item`;
-  const contentClassName = `${className}-content`;
 
   const itemRef = useRef(null);
 
@@ -28,16 +20,26 @@ const BodyItem = (props) => {
 
   const [data, setData] = useState(ptashka.toJSON());
 
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const className = `${baseClassName}-item`;
+
+  const contentClassName = useMemo(() => {
+    const contentFlag = isCollapsed ? 'collapsed' : 'expanded';
+
+    const defaultClassName = `${className}-content`;
+    const classNameModified = `${defaultClassName}_${contentFlag}`;
+
+    const classNames = [defaultClassName, classNameModified].join(' ');
+
+    return classNames;
+  }, [isCollapsed]);
+
   const { url, requestsSent, successRate, status, startedAt } = data;
 
-  // TODO: display a success rate
+  const urlReadable = useMemo(() => urlToReadable(url), [url]);
 
-  const stateTitle = ptashka.isStatusPaused
-    ? // ? "Resume the process"
-      'Відновити процес'
-    : // : "Pause the process"
-      'Призупинити процес';
-  const stateIcon = ptashka.isStatusPaused ? playIcon : pauseIcon;
+  // TODO: display a success rate
 
   useEffect(() => {
     itemRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -48,14 +50,17 @@ const BodyItem = (props) => {
       setData((data) => ({ ...data, [key]: value }));
     };
 
-    ptashka.send();
+    // TEMP DISABLED
+    // ptashka.send();
 
-    return () => {
-      ptashka.pause();
-    };
+    // return () => {
+    //   ptashka.pause();
+    // };
   }, []);
 
-  const handleStateChange = () => {
+  const toggleHiddenContent = () => setIsCollapsed((isCollapsed) => !isCollapsed);
+
+  const toggleItemState = () => {
     if (ptashka.isStatusPaused) {
       ptashka.resume();
     } else {
@@ -63,51 +68,42 @@ const BodyItem = (props) => {
     }
   };
 
-  const handleDeletion = () => deleteResource(resource);
+  const deleteItem = () => deleteResource(resource);
 
   return (
-    <li className={className} ref={itemRef}>
-      <div className={contentClassName}>
-        <ItemCellUrl baseClassName={contentClassName} url={url} />
+    <li
+      className={className}
+      ref={itemRef}
+    >
+      <div
+        className={contentClassName}
+        onClick={toggleHiddenContent}
+      >
+        <GloDot />
 
-        <ItemCellSent
+        <Anchor
+          className={unifyClassNames(contentClassName, 'url')}
+          href={url}
+          target="_blank"
+        >
+          {urlReadable}
+        </Anchor>
+
+        <Icon
           baseClassName={contentClassName}
-          requestsSent={requestsSent}
+          icon={collapseArrowDownIcon}
         />
-
-        <ItemCellStatus baseClassName={contentClassName} status={status} />
-
-        <ItemCellStartedAt
-          baseClassName={contentClassName}
-          startedAt={startedAt}
-        />
-
-        <ItemCell baseClassName={contentClassName} type="state">
-          <Button
-            className={`${contentClassName}-state`}
-            title={stateTitle}
-            onClick={handleStateChange}
-          >
-            <Icon
-              className={`${contentClassName}-state__icon`}
-              icon={stateIcon}
-            />
-          </Button>
-        </ItemCell>
-
-        <ItemCell baseClassName={contentClassName} type="delete">
-          <Button
-            className={`${contentClassName}-delete`}
-            title="Видалити процес"
-            // title="Delete the process"
-            onClick={handleDeletion}
-          >
-            <Icon icon={bombIcon} />
-          </Button>
-        </ItemCell>
-
-        {/* <div className={`${contentClassName}__paused-at`}>{pausedAt}</div> */}
       </div>
+
+      <ItemHiddenContent
+        baseClassName={contentClassName}
+        requestsSent={requestsSent}
+        status={status}
+        startedAt={startedAt}
+        toggleItemState={toggleItemState}
+        deleteItem={deleteItem}
+        isHidden={isCollapsed}
+      />
     </li>
   );
 };

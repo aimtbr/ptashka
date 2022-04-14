@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 
 import { Button, Icon } from '/src/components/';
+import { unifyClassNames } from '/src/lib/helpers.js';
 
 import crossIcon from '/assets/icons/cross.svg';
 
 import './styles.scss';
 
 const InfoBanner = (props) => {
-  const { className, message, isVisible, refreshInfoBanner, hideInfoBanner } =
-    props;
+  const { className = '', message, isVisible, refreshInfoBanner, hideInfoBanner } = props;
 
   const defaultClassName = 'info-banner';
   const classNames = [defaultClassName, className].join(' ');
-
-  const composeClassName = (className) => `${defaultClassName}${className}`;
 
   useEffect(() => {
     refreshInfoBanner();
@@ -21,13 +19,13 @@ const InfoBanner = (props) => {
 
   return isVisible ? (
     <div className={classNames}>
-      <div className={composeClassName('-message')}>
-        <div className={composeClassName('-message-info')}>i</div>
-        <div className={composeClassName('-message-text')}>{message}</div>
+      <div className={unifyClassNames(classNames, 'message')}>
+        <div className={unifyClassNames(classNames, 'message-info')}>i</div>
+        <div className={unifyClassNames(classNames, 'message-text')}>{message}</div>
       </div>
 
       <Button
-        className={composeClassName('-hide')}
+        className={unifyClassNames(classNames, 'hide')}
         aria-label="Сховати інформаційне повідомлення"
         onClick={hideInfoBanner}
       >

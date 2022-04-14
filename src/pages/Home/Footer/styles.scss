@@ -1,7 +1,7 @@
 @use '/assets/styles/variables' as *;
 
-@mixin footer {
+@mixin styles {
   margin-top: 2rem;
   // height: 10rem;
-  background-color: $color-7;
+  background-color: $color-6;
 }

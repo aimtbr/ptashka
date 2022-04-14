@@ -7,13 +7,15 @@ import { Footer } from './Footer';
 import './styles.scss';
 
 const Home = () => {
+  const className = 'home';
+
   return (
-    <div className="home">
-      <Header />
+    <div className={className}>
+      <Header baseClassName={className} />
 
-      <Body />
+      <Body baseClassName={className} />
 
-      <Footer />
+      <Footer baseClassName={className} />
     </div>
   );
 };

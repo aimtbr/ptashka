@@ -1,0 +1,14 @@
+.glo-dot {
+  $size: 10px;
+  $background-color: yellow;
+
+  display: flex;
+  flex-shrink: 0;
+  width: $size;
+  height: $size;
+  margin: 0 7px;
+  border-radius: 50%;
+  background-color: $background-color;
+  box-shadow: 0 0 15px 2px darken($background-color, 10%);
+  cursor: pointer;
+}

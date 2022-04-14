@@ -7,7 +7,9 @@ import { isURL } from '/src/lib/validations.js';
 import config from '/config';
 
 const Body = (props) => {
-  const { showWarningMessage } = props;
+  const { baseClassName, showWarningMessage } = props;
+
+  const className = `${baseClassName}-body`;
 
   const defaultResource = 'https://';
   const initialResource = '';
@@ -32,9 +34,7 @@ const Body = (props) => {
 
     if (!isURL(resource)) {
       // showWarningMessage('The provided resource is not a URL.');
-      showWarningMessage(
-        'Введена адреса не є коректним посиланням на веб-сайт.'
-      );
+      showWarningMessage('Введена адреса не є коректним посиланням на веб-сайт.');
 
       return;
     }
@@ -81,9 +81,7 @@ const Body = (props) => {
     const isResourceExists = resourceList.includes(resource);
 
     if (isResourceExists) {
-      const filteredResourceList = resourceList.filter(
-        (oldResource) => oldResource !== resource
-      );
+      const filteredResourceList = resourceList.filter((oldResource) => oldResource !== resource);
 
       setResourceList(filteredResourceList);
     }
@@ -95,12 +93,15 @@ const Body = (props) => {
 
   const TargetResources = useCallback(() => {
     const targetResources = config.targetResources.map((target, index) => {
-      return <option value={target} key={index} />;
+      return (
+        <option
+          value={target}
+          key={index}
+        />
+      );
     }, []);
 
-    return (
-      <datalist id="home-body-main-form__input">{targetResources}</datalist>
-    );
+    return <datalist id="home-body-main-form__input">{targetResources}</datalist>;
   }, []);
 
   const handleResourceChange = async (event) => {
@@ -110,9 +111,7 @@ const Body = (props) => {
     const httpsProtocol = 'https://';
     const protocols = [httpProtocol, httpsProtocol];
 
-    const isProtocolSupported = protocols.some((protocol) =>
-      value.startsWith(protocol)
-    );
+    const isProtocolSupported = protocols.some((protocol) => value.startsWith(protocol));
 
     if (isProtocolSupported) {
       setResource(value);
@@ -142,11 +141,13 @@ const Body = (props) => {
   };
 
   return (
-    <main className="home-body" role="main">
+    <main
+      className={className}
+      role="main"
+    >
       <div className="home-body-heading">
         <h1 className="home-body-heading__description">
-          Підтримайте Україну, перевіривши російські та білоруські веб-сайти на
-          стресостійкість
+          Підтримайте Україну, перевіривши російські та білоруські веб-сайти на стресостійкість
         </h1>
       </div>
 
@@ -164,7 +165,7 @@ const Body = (props) => {
             // title="For example, 'https://www.gosuslugi.ru'"
             title="Наприклад, 'https://www.gosuslugi.ru'"
             // placeholder="Enter a website link"
-            placeholder="Введіть посилання на веб-сайт"
+            placeholder="Посилання на веб-сайт"
             value={resource}
             onChange={handleResourceChange}
             onFocus={handleInputFocus}
@@ -172,14 +173,20 @@ const Body = (props) => {
 
           <TargetResources />
 
-          <Button className="home-body-main-form__button" type="submit">
+          <Button
+            className="home-body-main-form__button"
+            type="submit"
+          >
             {/* Send Ptashka */}
             Надіслати Пташку
           </Button>
         </form>
       </div>
 
-      <ResourceList list={resourceList} deleteResource={deleteResource} />
+      <ResourceList
+        list={resourceList}
+        deleteResource={deleteResource}
+      />
     </main>
   );
 };

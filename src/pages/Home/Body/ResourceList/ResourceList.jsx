@@ -14,8 +14,7 @@ const ResourceList = (props) => {
 
   return isListEmpty ? null : (
     <div className={listClassName}>
-      <ListHeader baseClassName={listClassName} />
-
+      {/* <ListHeader baseClassName={listClassName} /> */}
       <ListBody
         baseClassName={listClassName}
         list={list}

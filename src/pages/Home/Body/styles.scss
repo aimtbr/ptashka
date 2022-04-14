@@ -4,7 +4,7 @@
 
 @use '../Header/styles' as header;
 
-@mixin body {
+@mixin styles {
   width: 100%;
   height: calc(100% - header.$height);
 
@@ -117,8 +117,10 @@
       background-color: #85ffa2;
 
       &:hover {
-        box-shadow: 0px 0 6px 2px #9dffb4;
-        background-color: #9bffb4;
+        $background-color: #9bffb4;
+
+        box-shadow: 0px 0 6px 2px darken($background-color, 25%);
+        background-color: $background-color;
       }
 
       &:active {

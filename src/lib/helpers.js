@@ -13,33 +13,37 @@ export const setCustomInterval = (func, delay, leading = false, ...args) => {
   return intervalId;
 };
 
-// TODO: implement
-// export const throttle = () => {
-// };
+export const unifyClassNames = (baseClassName, classNameExtension) => {
+  const classNameSeparator = ' ';
+  const elementSeparator = '__';
+  const modifierSeparator = '_';
 
-// TODO: implement
-// export const composeClassName = (parentClassName) => {
-//   const parentPointer = '&';
-//   const parentSeparator = '-';
-//   const childSeparator = '__';
-//   const modifierSeparator = '_';
-//   const classSeparator = ' ';
+  const classNames = baseClassName
+    .split(classNameSeparator)
+    .filter((className) => className?.length > 0);
 
-//   const isChild = (className) => className.indexOf(parentPointer) !== -1;
-//   const hasModifier = (className) =>
-//     className.indexOf(modifierSeparator) !== -1;
+  const unifyClassName = (className) => {
+    let baseLastIndexOf = className.length;
 
-//   return (elementClassName) => {
-//     const classes = elementClassName.split(classSeparator);
+    const elementIndexOf = className.indexOf(elementSeparator);
+    const modifierIndexOf = className.indexOf(modifierSeparator);
 
-//     const aggregatedClasses = classes.map((className) => {
-//       let extendedClassName = className;
+    if (elementIndexOf !== -1) {
+      baseLastIndexOf = elementIndexOf;
+    } else if (modifierIndexOf !== -1) {
+      baseLastIndexOf = modifierIndexOf;
+    }
 
-//       if (isChild(className)) {
-//         extendedClassName = className.replace(parentPointer, parentClassName);
-//       }
-//     });
+    const classNameBase = className.slice(0, baseLastIndexOf);
+    const classNameEnding = className.slice(baseLastIndexOf);
 
-//     return className;
-//   };
-// };
+    // const unifiedClassName = `${classNameBase}-${classNameExtension}${classNameEnding}`;
+    const unifiedClassName = `${className}-${classNameExtension}`;
+
+    return unifiedClassName;
+  };
+
+  const unifiedClassNames = classNames.map(unifyClassName).join(classNameSeparator);
+
+  return unifiedClassNames;
+};

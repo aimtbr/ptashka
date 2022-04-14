@@ -1,7 +1,6 @@
-@use './Header/styles' as *;
-@use './Body/styles' as *;
-@use './Footer/styles' as *;
-
+@use './Header/styles' as header;
+@use './Body/styles' as body;
+@use './Footer/styles' as footer;
 
 .home {
   position: relative;
@@ -9,14 +8,14 @@
   width: 100%;
 
   &-header {
-    @include header;
+    @include header.styles;
   }
 
   &-body {
-    @include body;
+    @include body.styles;
   }
 
   &-footer {
-    @include footer;
+    @include footer.styles;
   }
 }

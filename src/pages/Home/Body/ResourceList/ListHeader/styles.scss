@@ -1,5 +1,4 @@
 @use '/assets/styles/variables' as *;
-@use '/assets/styles/mixins' as *;
 
 .home-body-resource-list-header {
   display: flex;
@@ -16,18 +15,6 @@
     padding: 0 1rem;
 
     &-cell {
-      @include hide-scrollbar;
-
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      flex-shrink: 0;
-      min-width: fit-content;
-      overflow: auto;
-      overflow-wrap: anywhere;
-      white-space: nowrap;
-      margin: 0 0.5rem;
-
       &:first-child {
         margin-left: 0;
       }
@@ -42,7 +29,6 @@
       }
 
       &_sent {
-        justify-content: flex-start;
         width: 10%;
       }
 
@@ -51,7 +37,6 @@
       }
 
       &_started-at {
-        justify-content: flex-start;
         width: 15%;
       }
 

@@ -7,3 +7,4 @@ export { InfoBanner } from './InfoBanner';
 export { Logo } from './Logo';
 export { ConnectionStatus } from './ConnectionStatus';
 export { Greeting } from './Greeting';
+export { GloDot } from './GloDot';
