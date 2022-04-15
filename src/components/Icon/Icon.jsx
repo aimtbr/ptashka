@@ -9,11 +9,11 @@ const Icon = (props) => {
 
   const defaultClassName = 'icon';
 
-  const baseClassNameExtended = baseClassName
+  const baseClassNameUnified = baseClassName
     ? unifyClassNames(baseClassName, defaultClassName)
     : '';
 
-  const classNames = [defaultClassName, baseClassNameExtended, className].join(' ');
+  const classNames = [defaultClassName, baseClassNameUnified, className].join(' ');
 
   const isSrcProvided = src !== undefined;
 

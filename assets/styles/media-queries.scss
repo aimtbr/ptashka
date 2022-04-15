@@ -11,14 +11,10 @@
   .home {
     &-body {
       &-heading {
-        padding: {
-          top: 2.25rem;
-          bottom: 2.25rem;
-        }
+        font-size: 14px;
 
         &__description {
           width: 75%;
-          font-size: 1.75rem;
         }
       }
 
@@ -46,14 +42,17 @@
 
     &-body {
       &-heading {
-        padding: {
-          top: 2rem;
-          bottom: 2rem;
-        }
+        font-size: 13px;
 
         &__description {
           width: 85%;
-          font-size: 1.625rem;
+        }
+
+        &__hashtag {
+          font-size: 1.25em;
+          bottom: 0.4125em;
+          transform: translateX(50%);
+          right: 50%;
         }
       }
 
@@ -113,14 +112,10 @@
 
     &-body {
       &-heading {
-        padding: {
-          top: 1.75rem;
-          bottom: 1.75rem;
-        }
+        font-size: 11px;
 
         &__description {
           width: 90%;
-          font-size: 1.375rem;
         }
       }
 
@@ -178,9 +173,12 @@
 @media screen and (max-width: 375px) {
   .home {
     &-body {
-      &-heading__description {
-        width: 95%;
-        font-size: 1.25rem;
+      &-heading {
+        font-size: 10px;
+
+        &__description {
+          width: 95%;
+        }
       }
 
       &-main-form {

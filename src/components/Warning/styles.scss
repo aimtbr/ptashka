@@ -18,7 +18,7 @@
   background-color: rgb(255, 167, 167);
 
   &__message {
-    @include hide-scrollbar;
+    @include hideScrollbar;
 
     max-width: 100%;
     max-height: 100%;

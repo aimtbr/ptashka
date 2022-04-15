@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 
 import { ResourceList } from './ResourceList';
-import { InputURL, Button, InfoBanner } from '/src/components';
+import { Anchor, InputURL, Button, InfoBanner } from '/src/components';
 import { RESOURCE_LIST_MAX_LENGTH } from '/src/lib/constants.js';
 import { isURL } from '/src/lib/validations.js';
+import { unifyClassNames } from '/src/lib/helpers.js';
 import config from '/config';
 
 const Body = (props) => {
@@ -101,7 +102,9 @@ const Body = (props) => {
       );
     }, []);
 
-    return <datalist id="home-body-main-form__input">{targetResources}</datalist>;
+    return (
+      <datalist id={unifyClassNames(className, 'main-form__input')}>{targetResources}</datalist>
+    );
   }, []);
 
   const handleResourceChange = async (event) => {
@@ -145,23 +148,30 @@ const Body = (props) => {
       className={className}
       role="main"
     >
-      <div className="home-body-heading">
-        <h1 className="home-body-heading__description">
+      <div className={unifyClassNames(className, 'heading')}>
+        <h1 className={unifyClassNames(className, 'heading__description')}>
           Підтримайте Україну, перевіривши російські та білоруські веб-сайти на стресостійкість
         </h1>
+        <Anchor
+          className={unifyClassNames(className, 'heading__hashtag')}
+          href="https://brave.ua"
+          target="_blank"
+        >
+          #braveukraine
+        </Anchor>
       </div>
 
       <InfoBanner />
 
-      <div className="home-body-main-form-container">
+      <div className={unifyClassNames(className, 'main-form-container')}>
         <form
-          className="home-body-main-form"
+          className={unifyClassNames(className, 'main-form')}
           onSubmit={handleFormSubmit}
           onBlur={handleInputBlur}
         >
           <InputURL
-            className="home-body-main-form__input"
-            list="home-body-main-form__input"
+            className={unifyClassNames(className, 'main-form__input')}
+            list={unifyClassNames(className, 'main-form__input')}
             // title="For example, 'https://www.gosuslugi.ru'"
             title="Наприклад, 'https://www.gosuslugi.ru'"
             // placeholder="Enter a website link"
@@ -174,7 +184,7 @@ const Body = (props) => {
           <TargetResources />
 
           <Button
-            className="home-body-main-form__button"
+            className={unifyClassNames(className, 'main-form__button')}
             type="submit"
           >
             {/* Send Ptashka */}

@@ -46,7 +46,7 @@
     }
 
     &-text {
-      @include hide-scrollbar;
+      @include hideScrollbar;
 
       max-height: 100%;
       max-width: 80%;

@@ -1,7 +1,7 @@
 @use '/assets/styles/mixins' as *;
 
 @mixin styles {
-  @include hide-scrollbar;
+  @include hideScrollbar;
 
   display: flex;
   justify-content: center;
@@ -10,5 +10,8 @@
   overflow: auto;
   overflow-wrap: anywhere;
   white-space: nowrap;
-  margin: 0 0.5rem;
+  margin: {
+    right: 1.5rem;
+    bottom: 1rem;
+  }
 }

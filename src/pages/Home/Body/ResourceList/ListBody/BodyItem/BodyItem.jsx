@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 
-import { Anchor, Icon, GloDot } from '/src/components';
-import { urlToReadable } from '/src/lib/converters.js';
 import { unifyClassNames } from '/src/lib/helpers.js';
 import { Ptashka } from '/src/lib/entities';
 
-import { ItemHiddenContent } from './ItemHiddenContent';
-
-import collapseArrowDownIcon from '/assets/icons/collapse-arrow-down.svg';
+import { ItemContent } from './ItemContent';
+import { ItemDetails } from './ItemDetails';
 
 import './styles.scss';
 
@@ -22,22 +19,9 @@ const BodyItem = (props) => {
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  const className = `${baseClassName}-item`;
-
-  const contentClassName = useMemo(() => {
-    const contentFlag = isCollapsed ? 'collapsed' : 'expanded';
-
-    const defaultClassName = `${className}-content`;
-    const classNameModified = `${defaultClassName}_${contentFlag}`;
-
-    const classNames = [defaultClassName, classNameModified].join(' ');
-
-    return classNames;
-  }, [isCollapsed]);
+  const className = unifyClassNames(baseClassName, 'item');
 
   const { url, requestsSent, successRate, status, startedAt } = data;
-
-  const urlReadable = useMemo(() => urlToReadable(url), [url]);
 
   // TODO: display a success rate
 
@@ -58,7 +42,7 @@ const BodyItem = (props) => {
     // };
   }, []);
 
-  const toggleHiddenContent = () => setIsCollapsed((isCollapsed) => !isCollapsed);
+  const toggleDetails = () => setIsCollapsed((isCollapsed) => !isCollapsed);
 
   const toggleItemState = () => {
     if (ptashka.isStatusPaused) {
@@ -75,28 +59,15 @@ const BodyItem = (props) => {
       className={className}
       ref={itemRef}
     >
-      <div
-        className={contentClassName}
-        onClick={toggleHiddenContent}
-      >
-        <GloDot />
+      <ItemContent
+        baseClassName={className}
+        url={url}
+        isCollapsed={isCollapsed}
+        toggleDetails={toggleDetails}
+      />
 
-        <Anchor
-          className={unifyClassNames(contentClassName, 'url')}
-          href={url}
-          target="_blank"
-        >
-          {urlReadable}
-        </Anchor>
-
-        <Icon
-          baseClassName={contentClassName}
-          icon={collapseArrowDownIcon}
-        />
-      </div>
-
-      <ItemHiddenContent
-        baseClassName={contentClassName}
+      <ItemDetails
+        baseClassName={className}
         requestsSent={requestsSent}
         status={status}
         startedAt={startedAt}

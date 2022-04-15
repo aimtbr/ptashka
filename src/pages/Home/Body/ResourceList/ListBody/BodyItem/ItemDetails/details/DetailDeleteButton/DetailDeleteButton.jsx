@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { HiddenContentCell } from '../../HiddenContentCell';
+import { Detail } from '../../Detail';
 import { Button, Icon } from '/src/components';
 import { unifyClassNames } from '/src/lib/helpers.js';
 
 import bombIcon from '/assets/icons/bomb.svg';
 
-const CellDelete = (props) => {
+const DetailDeleteButton = (props) => {
   const { baseClassName, onClick } = props;
 
   // const className = `${baseClassName}-cell-delete`;
-  const className = unifyClassNames(baseClassName, 'cell-delete');
+  const className = unifyClassNames(baseClassName, 'detail-delete');
   const contentClassName = `${className}__content`;
 
   return (
-    <HiddenContentCell
+    <Detail
       className={className}
       baseClassName={baseClassName}
     >
@@ -26,8 +26,8 @@ const CellDelete = (props) => {
       >
         <Icon icon={bombIcon} />
       </Button>
-    </HiddenContentCell>
+    </Detail>
   );
 };
 
-export default CellDelete;
+export default DetailDeleteButton;

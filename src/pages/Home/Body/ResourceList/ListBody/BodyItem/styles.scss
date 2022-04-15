@@ -2,7 +2,8 @@
 @use '/assets/styles/mixins' as *;
 @use '/assets/styles/animations' as *;
 
-@use './ItemHiddenContent/styles' as hidden-content;
+@use './ItemContent/styles' as content;
+@use './ItemDetails/styles' as details;
 
 .home-body-resource-list-body-item {
   display: flex;
@@ -14,28 +15,12 @@
     border-bottom: 1px solid $color-1;
   }
 
+  &-content_collapsed:hover & {
+    background-color: $color-2;
+  }
+
   &-content {
-    display: flex;
-    align-items: center;
-    overflow: auto;
-    width: 60%;
-    height: 4rem;
-    padding: 0 1rem;
-    cursor: pointer;
-
-    &-hidden {
-      @include hidden-content.styles;
-    }
-
-    &-icon {
-      @include paintSVG($color-3);
-
-      height: 1rem;
-    }
-
-    &:hover {
-      background-color: $color-2;
-    }
+    @include content.styles;
 
     // &-cell {
     //   &:first-child {
@@ -159,5 +144,9 @@
     //     }
     //   }
     // }
+  }
+
+  &-details {
+    @include details.styles;
   }
 }

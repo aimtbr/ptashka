@@ -1,41 +1,47 @@
 import React from 'react';
 
-import { CellSent, CellStatus, CellStartedAt, CellState, CellDelete } from './cells';
+import {
+  DetailRequestsSent,
+  DetailStatus,
+  DetailStartedAt,
+  DetailStateButton,
+  DetailDeleteButton,
+} from './details';
 import { unifyClassNames } from '/src/lib/helpers.js';
 import { PTASHKA_STATUS_PAUSED } from '/src/lib/constants.js';
 
-const ItemHiddenContent = (props) => {
+const ItemDetails = (props) => {
   const { baseClassName, requestsSent, status, startedAt, isHidden, toggleItemState, deleteItem } =
     props;
 
-  const className = unifyClassNames(baseClassName, 'hidden');
+  const className = unifyClassNames(baseClassName, 'details');
 
   const isStatusPaused = status === PTASHKA_STATUS_PAUSED;
 
   return isHidden ? null : (
     <div className={className}>
-      <CellSent
+      <DetailRequestsSent
         baseClassName={className}
         requestsSent={requestsSent}
       />
 
-      <CellStatus
+      <DetailStatus
         baseClassName={className}
         status={status}
       />
 
-      <CellStartedAt
+      <DetailStartedAt
         baseClassName={className}
         startedAt={startedAt}
       />
 
-      <CellState
+      <DetailStateButton
         baseClassName={className}
         isStatusPaused={isStatusPaused}
         onClick={toggleItemState}
       />
 
-      <CellDelete
+      <DetailDeleteButton
         baseClassName={className}
         startedAt={startedAt}
         onClick={deleteItem}
@@ -44,4 +50,4 @@ const ItemHiddenContent = (props) => {
   );
 };
 
-export default ItemHiddenContent;
+export default ItemDetails;

@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { HiddenContentCell } from '../../HiddenContentCell';
+import { Detail } from '../../Detail';
 import { dateToReadable } from '/src/lib/converters.js';
 import { unifyClassNames } from '/src/lib/helpers.js';
 
-const CellStartedAt = (props) => {
+const DetailStartedAt = (props) => {
   const { baseClassName, startedAt, locale } = props;
 
-  // const className = `${baseClassName}-cell-started-at`;
-  const className = unifyClassNames(baseClassName, 'cell-started-at');
+  const className = unifyClassNames(baseClassName, 'detail-started-at');
   const contentClassName = `${className}__content`;
 
   const startedAtReadable = dateToReadable(startedAt, locale.code);
 
   return (
-    <HiddenContentCell
+    <Detail
       className={className}
       baseClassName={baseClassName}
     >
       <div className={contentClassName}>{startedAtReadable}</div>
-    </HiddenContentCell>
+    </Detail>
   );
 };
 
-export default CellStartedAt;
+export default DetailStartedAt;

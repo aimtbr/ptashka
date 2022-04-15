@@ -1,9 +1,0 @@
-@use './HiddenContentCell/styles' as cell;
-
-@mixin styles {
-  display: flex;
-
-  &-cell {
-    @include cell.styles;
-  }
-}

@@ -55,14 +55,12 @@ $height: 4rem;
 
     // TEMP
     &-message {
+      @include stretchNonStatic;
+
       display: flex;
       justify-content: center;
       align-items: center;
       position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background: linear-gradient(
         25deg,
         rgba(255, 192, 203),
@@ -111,13 +109,11 @@ $height: 4rem;
           }
 
           &::before {
+            @include stretchNonStatic;
+
             content: '💘';
             font-size: 3em;
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
             display: flex;
             justify-content: center;
             align-items: center;

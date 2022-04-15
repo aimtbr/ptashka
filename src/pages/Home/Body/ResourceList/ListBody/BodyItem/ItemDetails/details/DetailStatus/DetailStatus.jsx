@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HiddenContentCell } from '../../HiddenContentCell';
+import { Detail } from '../../Detail';
 import {
   PTASHKA_STATUS_READY,
   PTASHKA_STATUS_RUNNING,
@@ -8,11 +8,10 @@ import {
 } from '/src/lib/constants.js';
 import { unifyClassNames } from '/src/lib/helpers.js';
 
-const CellStatus = (props) => {
+const DetailStatus = (props) => {
   const { baseClassName, status } = props;
 
-  // const className = `${baseClassName}-cell-status`;
-  const className = unifyClassNames(baseClassName, 'cell-status');
+  const className = unifyClassNames(baseClassName, 'detail-status');
   const contentClassName = `${className}__content`;
 
   const getClassNameModifier = () => {
@@ -30,13 +29,13 @@ const CellStatus = (props) => {
   const classNames = [className, getClassNameModifier()].join(' ');
 
   return (
-    <HiddenContentCell
+    <Detail
       className={classNames}
       baseClassName={baseClassName}
     >
       <div className={contentClassName}>{status}</div>
-    </HiddenContentCell>
+    </Detail>
   );
 };
 
-export default CellStatus;
+export default DetailStatus;

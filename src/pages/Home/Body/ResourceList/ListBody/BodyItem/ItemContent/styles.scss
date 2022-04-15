@@ -1,0 +1,47 @@
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/mixins' as *;
+
+@mixin styles {
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  width: 60%;
+  height: 4rem;
+  padding: 0 1rem;
+  cursor: pointer;
+
+  &_expanded {
+    border: 1px solid $color-5;
+    border: {
+      top-left-radius: 5px;
+      top-right-radius: 5px;
+    }
+    box-shadow: 0 7px 10px -10px rgba(0, 0, 0, 0.5);
+    z-index: +1;
+
+    &-icon {
+      transform: rotateX(180deg);
+    }
+
+    &:hover {
+      background-color: $color-2;
+    }
+  }
+
+  &-url {
+    @include hideScrollbar;
+
+    width: 60%;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow-wrap: anywhere;
+    overflow: auto;
+  }
+
+  &-icon {
+    @include paintSVG($color-3);
+
+    transition: transform 0.3s ease;
+    height: 1rem;
+  }
+}

@@ -11,9 +11,9 @@ const Logo = (props) => {
 
   const defaultClassName = 'logo';
 
-  const baseClassNameExtended = unifyClassNames(baseClassName, defaultClassName);
+  const baseClassNameUnified = unifyClassNames(baseClassName, defaultClassName);
 
-  const classNames = [defaultClassName, baseClassNameExtended, className].join(' ');
+  const classNames = [defaultClassName, baseClassNameUnified, className].join(' ');
 
   return (
     <div className={classNames}>

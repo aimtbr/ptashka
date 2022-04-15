@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { Button, Icon } from '/src/components';
-import { HiddenContentCell } from '../../HiddenContentCell';
+import { Detail } from '../../Detail';
 import { unifyClassNames } from '/src/lib/helpers.js';
 
 import playIcon from '/assets/icons/play.svg';
 import pauseIcon from '/assets/icons/pause.svg';
 
-const CellState = (props) => {
+const DetailStateButton = (props) => {
   const { baseClassName, isStatusPaused, onClick } = props;
 
-  // const className = `${baseClassName}-cell-state`;
-  const className = unifyClassNames(baseClassName, 'cell-state');
+  const className = unifyClassNames(baseClassName, 'detail-state');
   const contentClassName = `${className}__content`;
 
   const stateTitle = isStatusPaused
@@ -22,7 +21,7 @@ const CellState = (props) => {
   const stateIcon = isStatusPaused ? playIcon : pauseIcon;
 
   return (
-    <HiddenContentCell
+    <Detail
       className={className}
       baseClassName={baseClassName}
     >
@@ -33,8 +32,8 @@ const CellState = (props) => {
       >
         <Icon icon={stateIcon} />
       </Button>
-    </HiddenContentCell>
+    </Detail>
   );
 };
 
-export default CellState;
+export default DetailStateButton;

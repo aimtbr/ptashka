@@ -1,7 +1,7 @@
 @use '/assets/styles/mixins' as *;
 
 .header-cell {
-  @include hide-scrollbar;
+  @include hideScrollbar;
 
   display: flex;
   justify-content: center;
