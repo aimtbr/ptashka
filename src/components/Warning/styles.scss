@@ -18,7 +18,7 @@
   background-color: rgb(255, 167, 167);
 
   &__message {
-    @include hideScrollbar;
+    @include hide-scrollbar;
 
     max-width: 100%;
     max-height: 100%;
@@ -27,7 +27,7 @@
     line-height: $warning-line-height;
     overflow: auto;
     word-break: break-all;
-    @include withPrefixes(hyphens, auto);
+    @include with-prefixes(hyphens, auto);
   }
 
   &__button {

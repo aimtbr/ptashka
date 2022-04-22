@@ -1,13 +1,18 @@
 import React, { useMemo } from 'react';
 
 import { Anchor, Icon, GloDot } from '/src/components';
-import { unifyClassNames } from '/src/lib/helpers.js';
+import { unifyClassNames, modifyClassNames } from '/src/lib/helpers.js';
 import { urlToReadable } from '/src/lib/converters.js';
+import {
+  PTASHKA_STATUS_READY,
+  PTASHKA_STATUS_RUNNING,
+  PTASHKA_STATUS_PAUSED,
+} from '/src/lib/constants.js';
 
 import collapseArrowDownIcon from '/assets/icons/collapse-arrow-down.svg';
 
 const ItemContent = (props) => {
-  const { baseClassName, url, isCollapsed, toggleDetails } = props;
+  const { baseClassName, status, url, isCollapsed, toggleDetails } = props;
 
   const defaultClassName = unifyClassNames(baseClassName, 'content');
 
@@ -21,6 +26,24 @@ const ItemContent = (props) => {
     return classNames;
   }, [isCollapsed]);
 
+  const statusClassName = useMemo(() => {
+    const statusClassNameBase = unifyClassNames(classNames, 'status');
+
+    const modifiers = {
+      [PTASHKA_STATUS_READY]: 'ready',
+      [PTASHKA_STATUS_RUNNING]: 'running',
+      [PTASHKA_STATUS_PAUSED]: 'paused',
+    };
+
+    const statusClassNameModifier = modifiers[status];
+
+    const statusClassNames = modifyClassNames(statusClassNameBase, statusClassNameModifier);
+
+    return statusClassNames;
+  }, [status]);
+
+  const urlClassName = unifyClassNames(classNames, 'url');
+
   const urlReadable = useMemo(() => urlToReadable(url), [url]);
 
   return (
@@ -28,11 +51,11 @@ const ItemContent = (props) => {
       className={classNames}
       onClick={toggleDetails}
     >
-      <GloDot />
+      <GloDot className={statusClassName}>{status}</GloDot>
 
-      <div className={unifyClassNames(classNames, 'url')}>
+      <div className={urlClassName}>
         <Anchor
-          baseClassName={unifyClassNames(classNames, 'url')}
+          baseClassName={urlClassName}
           href={url}
           target="_blank"
         >

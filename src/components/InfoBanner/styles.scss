@@ -46,7 +46,7 @@
     }
 
     &-text {
-      @include hideScrollbar;
+      @include hide-scrollbar;
 
       max-height: 100%;
       max-width: 80%;
@@ -56,7 +56,7 @@
       padding-right: 1em;
       overflow: auto;
       word-break: break-all;
-      @include withPrefixes(hyphens, auto);
+      @include with-prefixes(hyphens, auto);
     }
   }
 
@@ -74,7 +74,7 @@
     }
 
     .icon {
-      @include paintSVG($color-4);
+      @include paint-svg($color-4);
 
       height: 30%;
     }

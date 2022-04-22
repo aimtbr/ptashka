@@ -1,36 +1,69 @@
 @use '/assets/styles/variables' as *;
-@use '/assets/styles/mixins' as *;
+@use '/assets/styles/effects' as effects;
+@use '/assets/styles/mixins' as mixins;
 
 @mixin styles {
   display: flex;
   align-items: center;
   overflow: auto;
-  width: 60%;
+  width: 100%;
   height: 4rem;
+  border: 1px solid transparent;
   padding: 0 1rem;
   cursor: pointer;
+  transition: width 0.2s ease;
+  z-index: +1;
 
-  &_expanded {
-    border: 1px solid $color-5;
-    border: {
-      top-left-radius: 5px;
-      top-right-radius: 5px;
+  &-status {
+    &_ready {
+      $color: #eaf7ff;
+
+      &-dot {
+        @include effects.glow(darken($color, 30%));
+
+        background-color: $color;
+      }
+
+      &-content {
+        color: darken($color, 50%);
+      }
     }
-    box-shadow: 0 7px 10px -10px rgba(0, 0, 0, 0.5);
-    z-index: +1;
 
-    &-icon {
-      transform: rotateX(180deg);
+    &_running {
+      $color: #c5ffdb;
+
+      &-dot {
+        @include effects.glow(darken($color, 30%));
+
+        background-color: $color;
+      }
+
+      &-content {
+        color: darken($color, 50%);
+      }
     }
 
-    &:hover {
-      background-color: $color-2;
+    &_paused {
+      $color: #fff0a2;
+
+      &-dot {
+        @include effects.glow(darken($color, 30%));
+
+        background-color: $color;
+      }
+
+      &-content {
+        color: darken($color, 50%);
+      }
     }
   }
 
   &-url {
-    @include hideScrollbar;
+    @include mixins.hide-scrollbar;
 
+    display: flex;
+    align-items: center;
+    align-self: stretch;
     width: 60%;
     margin: 0 auto;
     white-space: nowrap;
@@ -39,9 +72,31 @@
   }
 
   &-icon {
-    @include paintSVG($color-3);
+    @include mixins.paint-svg($color-3);
 
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
     height: 1rem;
+  }
+
+  &_expanded {
+    $background-color: $color-1;
+    border: {
+      top-left-radius: 5px;
+      top-right-radius: 5px;
+      color: $color-7;
+    }
+    background-color: $background-color;
+
+    &-icon {
+      transform: rotateX(180deg);
+    }
+
+    &:hover {
+      background-color: lighten($background-color, 1%);
+    }
+
+    &:active {
+      background-color: darken($background-color, 1%);
+    }
   }
 }

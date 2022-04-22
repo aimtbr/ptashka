@@ -1,14 +1,48 @@
-.glo-dot {
-  $size: 10px;
-  $background-color: yellow;
+@use '/assets/styles/variables' as *;
+@use '/assets/styles/effects' as *;
 
+.glo-dot {
   display: flex;
-  flex-shrink: 0;
-  width: $size;
-  height: $size;
-  margin: 0 7px;
-  border-radius: 50%;
-  background-color: $background-color;
-  box-shadow: 0 0 15px 2px darken($background-color, 10%);
+  align-items: center;
+  padding: 0.375em 0.75em;
+  border: 2px solid transparent;
+  border-radius: 20px;
   cursor: pointer;
+  transition: width 0.3s ease;
+
+  &-dot {
+    $size: 10px;
+    $background-color: yellow;
+
+    @include glow(darken($background-color, 10%));
+
+    flex-shrink: 0;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    background-color: $background-color;
+  }
+
+  &-content {
+    color: $color-3;
+    font-size: 0.875em;
+    font-weight: 500;
+    text-transform: capitalize;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  &_expanded {
+    border-color: $color-7;
+
+    &-dot {
+      margin-right: 1.5em;
+    }
+
+    &-content {
+      width: auto;
+    }
+  }
 }

@@ -11,7 +11,7 @@ const DetailStateButton = (props) => {
   const { baseClassName, isStatusPaused, onClick } = props;
 
   const className = unifyClassNames(baseClassName, 'detail-state');
-  const contentClassName = `${className}__content`;
+  const contentClassName = `${className}-content`;
 
   const stateTitle = isStatusPaused
     ? // ? "Resume the process"

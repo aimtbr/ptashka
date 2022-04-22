@@ -18,7 +18,7 @@
     font-size: 16px;
     padding: 2.5em $before-element-width;
     background: linear-gradient(180deg, rgb(72, 72, 255, 0.65) 48%, rgb(255, 224, 0, 0.65) 52%);
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.75);
 
     &::before {
       content: '';
@@ -47,7 +47,7 @@
       user-select: none;
 
       &::before {
-        @include stretchNonStatic;
+        @include stretch-non-static;
 
         content: '';
         position: absolute;
@@ -104,10 +104,10 @@
     align-items: center;
     margin: 0;
     width: 50%;
-    border: 2px solid $color-4;
+    border: 1px solid $color-4;
     outline: transparent solid 3px;
     outline-offset: 2px;
-    border-radius: 30px;
+    border-radius: 20px;
 
     &:valid:focus-within {
       outline-color: $color-green;
@@ -134,7 +134,7 @@
       letter-spacing: 1px;
 
       &:focus {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.5);
       }
 
       &::-webkit-calendar-picker-indicator,

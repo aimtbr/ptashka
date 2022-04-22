@@ -4,14 +4,14 @@ import { Detail } from '../../Detail';
 import { Button, Icon } from '/src/components';
 import { unifyClassNames } from '/src/lib/helpers.js';
 
-import bombIcon from '/assets/icons/bomb.svg';
+import crossIcon from '/assets/icons/cross.svg';
 
 const DetailDeleteButton = (props) => {
   const { baseClassName, onClick } = props;
 
   // const className = `${baseClassName}-cell-delete`;
   const className = unifyClassNames(baseClassName, 'detail-delete');
-  const contentClassName = `${className}__content`;
+  const contentClassName = `${className}-content`;
 
   return (
     <Detail
@@ -24,7 +24,7 @@ const DetailDeleteButton = (props) => {
         // title="Delete the process"
         onClick={onClick}
       >
-        <Icon icon={bombIcon} />
+        <Icon icon={crossIcon} />
       </Button>
     </Detail>
   );

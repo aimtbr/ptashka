@@ -22,7 +22,7 @@
   }
 
   &-content {
-    @include hideScrollbar;
+    @include hide-scrollbar;
 
     text-align: center;
     width: 90%;

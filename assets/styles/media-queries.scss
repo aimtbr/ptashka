@@ -1,7 +1,8 @@
+@use 'variables' as *;
+
 @media screen and (max-width: 1440px) {
   .home-body-resource-list {
-    &-header-content,
-    &-body-item-content {
+    &-body-item {
       width: 75%;
     }
   }
@@ -23,9 +24,17 @@
       }
 
       &-resource-list {
-        &-header-content,
-        &-body-item-content {
+        &-body-item {
           width: 85%;
+
+          &-details {
+            &-detail {
+              &-state,
+              &-delete {
+                width: 25%;
+              }
+            }
+          }
         }
       }
     }
@@ -89,9 +98,35 @@
       }
 
       &-resource-list {
-        &-header-content,
-        &-body-item-content {
+        &-body-item {
           width: 100%;
+
+          &-content {
+            &_expanded {
+              border: {
+                left: none;
+                right: none;
+                color: $color-7;
+              }
+            }
+          }
+
+          &-details {
+            border: {
+              bottom-left-radius: 0;
+              bottom-right-radius: 0;
+              left: none;
+              right: none;
+              color: $color-7;
+            }
+
+            &-detail {
+              &-state,
+              &-delete {
+                width: 30%;
+              }
+            }
+          }
         }
       }
     }
@@ -144,6 +179,19 @@
         padding: {
           left: 0;
           right: 0;
+        }
+      }
+
+      &-resource-list {
+        &-body-item {
+          &-details {
+            &-detail {
+              &-state,
+              &-delete {
+                width: 37.5%;
+              }
+            }
+          }
         }
       }
     }

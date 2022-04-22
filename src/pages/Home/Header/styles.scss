@@ -14,7 +14,7 @@ $height: 4rem;
   height: $height;
   width: 100%;
   background-color: transparentize($color-1, 0.025);
-  box-shadow: 0 -1px 10px 1px $color-6;
+  box-shadow: 0 6px 10px -10px $color-6;
 
   &-heading {
     font-size: 1.25rem;
@@ -55,7 +55,7 @@ $height: 4rem;
 
     // TEMP
     &-message {
-      @include stretchNonStatic;
+      @include stretch-non-static;
 
       display: flex;
       justify-content: center;
@@ -109,7 +109,7 @@ $height: 4rem;
           }
 
           &::before {
-            @include stretchNonStatic;
+            @include stretch-non-static;
 
             content: '💘';
             font-size: 3em;

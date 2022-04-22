@@ -1,0 +1,3 @@
+@mixin glow($glow-color) {
+  box-shadow: 0 0 15px 2px $glow-color;
+}

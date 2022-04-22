@@ -1,4 +1,4 @@
-@mixin hideScrollbar {
+@mixin hide-scrollbar {
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -9,14 +9,14 @@
   }
 }
 
-@mixin stretchNonStatic {
+@mixin stretch-non-static {
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
 }
 
-@mixin withPrefixes($prop, $value) {
+@mixin with-prefixes($prop, $value) {
   -moz-#{$prop}: $value;
   -o-#{$prop}: $value;
   -ms-#{$prop}: $value;
@@ -24,7 +24,7 @@
   #{$prop}: $value;
 }
 
-@mixin paintSVG($color) {
+@mixin paint-svg($color) {
   &,
   & * {
     color: $color;

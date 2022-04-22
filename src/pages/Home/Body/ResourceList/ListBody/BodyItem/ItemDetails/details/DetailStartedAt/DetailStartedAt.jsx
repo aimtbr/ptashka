@@ -8,7 +8,8 @@ const DetailStartedAt = (props) => {
   const { baseClassName, startedAt, locale } = props;
 
   const className = unifyClassNames(baseClassName, 'detail-started-at');
-  const contentClassName = `${className}__content`;
+  const contentClassName = `${className}-content`;
+  const spanClassName = `${className}-span`;
 
   const startedAtReadable = dateToReadable(startedAt, locale.code);
 
@@ -17,7 +18,9 @@ const DetailStartedAt = (props) => {
       className={className}
       baseClassName={baseClassName}
     >
-      <div className={contentClassName}>{startedAtReadable}</div>
+      <div className={contentClassName}>Час створення:</div>
+
+      <span className={spanClassName}>{startedAtReadable}</span>
     </Detail>
   );
 };

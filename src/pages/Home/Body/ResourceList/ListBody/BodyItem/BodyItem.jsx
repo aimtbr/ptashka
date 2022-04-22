@@ -34,12 +34,11 @@ const BodyItem = (props) => {
       setData((data) => ({ ...data, [key]: value }));
     };
 
-    // TEMP DISABLED
-    // ptashka.send();
+    ptashka.send();
 
-    // return () => {
-    //   ptashka.pause();
-    // };
+    return () => {
+      ptashka.pause();
+    };
   }, []);
 
   const toggleDetails = () => setIsCollapsed((isCollapsed) => !isCollapsed);
@@ -61,6 +60,7 @@ const BodyItem = (props) => {
     >
       <ItemContent
         baseClassName={className}
+        status={status}
         url={url}
         isCollapsed={isCollapsed}
         toggleDetails={toggleDetails}

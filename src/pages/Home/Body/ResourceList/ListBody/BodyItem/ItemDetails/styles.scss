@@ -1,20 +1,24 @@
 @use '/assets/styles/variables' as *;
+@use '/assets/styles/animations' as *;
+@use '/assets/styles/mixins' as *;
 
 @use './Detail/styles' as detail;
 
 @mixin styles {
+  @include animate-slide-bottom(0.5s);
+
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
-  width: 60%;
+  width: 100%;
   padding: {
-    top: 1rem;
-    bottom: 1rem;
     left: 1.5rem;
     right: 0.75rem;
+    top: 0.5rem;
+    bottom: 1rem;
   }
   background-color: white;
-  border: 1px solid $color-5;
+  border: 1px solid $color-7;
   border: {
     top: none;
     bottom-left-radius: 5px;
@@ -23,5 +27,114 @@
 
   &-detail {
     @include detail.styles;
+
+    &-sent,
+    &-started-at {
+      align-items: flex-end;
+      border-bottom: 1px solid $color-8;
+      width: 80%;
+      padding: {
+        bottom: 0.5em;
+        left: 1em;
+      }
+
+      &-content {
+        margin-right: 1em;
+      }
+
+      &-span {
+        @include hide-scrollbar;
+
+        width: 100%;
+        text-align: left;
+        overflow: auto;
+        overflow-wrap: anywhere;
+        white-space: nowrap;
+      }
+    }
+
+    &-started-at {
+      margin-bottom: 2em;
+    }
+
+    &-state,
+    &-delete {
+      justify-content: center;
+      border: {
+        width: 2px;
+        style: solid;
+        radius: 5px;
+      }
+      width: 20%;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+
+      &-content {
+        width: 100%;
+      }
+    }
+
+    &-state {
+      $color: $color-3;
+
+      border-color: lighten($color, 20%);
+
+      margin-right: 5%;
+
+      &-content {
+        .icon {
+          @include paint-svg($color);
+        }
+      }
+
+      &:hover {
+        border-color: $color;
+        background-color: $color;
+
+        .icon {
+          @include paint-svg(white);
+        }
+      }
+
+      &:active {
+        border-color: darken($color, 20%);
+        background-color: darken($color, 20%);
+
+        .icon {
+          @include paint-svg(white);
+        }
+      }
+    }
+
+    &-delete {
+      $color: $color-red;
+
+      border-color: lighten($color, 15%);
+
+      &-content {
+        .icon {
+          @include paint-svg($color);
+
+          height: 70%;
+        }
+      }
+
+      &:hover {
+        border-color: $color;
+        background-color: $color;
+
+        .icon {
+          @include paint-svg(white);
+        }
+      }
+
+      &:active {
+        border-color: darken($color, 30%);
+        background-color: darken($color, 30%);
+
+        .icon {
+          @include paint-svg(white);
+        }
+      }
+    }
   }
 }

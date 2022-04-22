@@ -7,7 +7,8 @@ const DetailRequestsSent = (props) => {
   const { baseClassName, requestsSent } = props;
 
   const className = unifyClassNames(baseClassName, 'detail-sent');
-  const contentClassName = `${className}__content`;
+  const contentClassName = `${className}-content`;
+  const spanClassName = `${className}-span`;
 
   // TODO: get it displayed in the format of 2 to the power of n
 
@@ -16,7 +17,9 @@ const DetailRequestsSent = (props) => {
       className={className}
       baseClassName={baseClassName}
     >
-      <div className={contentClassName}>{requestsSent}</div>
+      <div className={contentClassName}>Надіслано запитів:</div>
+
+      <span className={spanClassName}>{requestsSent}</span>
     </Detail>
   );
 };

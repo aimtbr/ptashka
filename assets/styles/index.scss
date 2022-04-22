@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  outline-color: $outline-color;
 }
 
 html {
@@ -16,8 +17,8 @@ html {
 
 body {
   position: relative;
-  background: linear-gradient(75deg, $color-1, $color-2, $color-1);
-  background-color: aliceblue;
+  background: linear-gradient(35deg, #ebe9f0, #ebe6ff, #ede8ff, #ebe5ff, #ebe9f0);
+  background-color: lavender;
   margin: 0;
   overflow: auto;
 }

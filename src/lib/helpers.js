@@ -1,8 +1,8 @@
 import { ENV_PRODUCTION } from './constants.js';
 
-export const isProduction = () => process.env.NODE_ENV === ENV_PRODUCTION;
+const isProduction = () => process.env.NODE_ENV === ENV_PRODUCTION;
 
-export const setCustomInterval = (func, delay, leading = false, ...args) => {
+const setCustomInterval = (func, delay, leading = false, ...args) => {
   const isLeading = leading === true;
   if (isLeading) {
     func(...args);
@@ -13,7 +13,7 @@ export const setCustomInterval = (func, delay, leading = false, ...args) => {
   return intervalId;
 };
 
-export const unifyClassNames = (baseClassName, classNameExtension) => {
+const unifyClassNames = (baseClassName, classNameExtension) => {
   const classNameSeparator = ' ';
   const elementSeparator = '__';
   const modifierSeparator = '_';
@@ -34,10 +34,6 @@ export const unifyClassNames = (baseClassName, classNameExtension) => {
       baseLastIndexOf = modifierIndexOf;
     }
 
-    const classNameBase = className.slice(0, baseLastIndexOf);
-    const classNameEnding = className.slice(baseLastIndexOf);
-
-    // const unifiedClassName = `${classNameBase}-${classNameExtension}${classNameEnding}`;
     const unifiedClassName = `${className}-${classNameExtension}`;
 
     return unifiedClassName;
@@ -47,3 +43,23 @@ export const unifyClassNames = (baseClassName, classNameExtension) => {
 
   return unifiedClassNames;
 };
+
+const modifyClassNames = (classNames, modifier) => {
+  const classNameSeparator = ' ';
+  const modifierSeparator = '_';
+
+  const classNamesModified = classNames
+    .split(classNameSeparator)
+    .map((className) => {
+      const classNameModified = `${className}${modifierSeparator}${modifier}`;
+
+      const classNames = [className, classNameModified].join(classNameSeparator);
+
+      return classNames;
+    })
+    .join(classNameSeparator);
+
+  return classNamesModified;
+};
+
+export { isProduction, setCustomInterval, unifyClassNames, modifyClassNames };

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import {
   DetailRequestsSent,
-  DetailStatus,
   DetailStartedAt,
   DetailStateButton,
   DetailDeleteButton,
@@ -14,20 +13,30 @@ const ItemDetails = (props) => {
   const { baseClassName, requestsSent, status, startedAt, isHidden, toggleItemState, deleteItem } =
     props;
 
+  const detailsRef = useRef();
+
+  useEffect(() => {
+    if (!isHidden) {
+      scrollToElement();
+    }
+  }, [isHidden]);
+
   const className = unifyClassNames(baseClassName, 'details');
 
   const isStatusPaused = status === PTASHKA_STATUS_PAUSED;
 
+  const scrollToElement = () => {
+    detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
   return isHidden ? null : (
-    <div className={className}>
+    <div
+      className={className}
+      ref={detailsRef}
+    >
       <DetailRequestsSent
         baseClassName={className}
         requestsSent={requestsSent}
-      />
-
-      <DetailStatus
-        baseClassName={className}
-        status={status}
       />
 
       <DetailStartedAt
