@@ -15,6 +15,8 @@
   z-index: +1;
 
   &-status {
+    margin-right: 1em;
+
     &_ready {
       $color: #eaf7ff;
 
@@ -74,8 +76,9 @@
   &-icon {
     @include mixins.paint-svg($color-3);
 
-    transition: transform 0.5s ease;
     height: 1rem;
+    padding-left: 0.5em;
+    transition: transform 0.5s ease;
   }
 
   &_expanded {
