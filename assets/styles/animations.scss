@@ -157,6 +157,6 @@
   }
 }
 
-@mixin animate-slide-bottom($duration: 0.5s) {
+@mixin animate-slide-bottom($duration: 0.75s) {
   @include use-animation(slide-bottom, $duration, both);
 }
