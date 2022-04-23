@@ -16,29 +16,6 @@ $height: 4rem;
   background-color: transparentize($color-1, 0.025);
   box-shadow: 0 6px 10px -10px $color-6;
 
-  &-heading {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: $font-color-default;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 0;
-    margin-left: 7vw;
-    overflow-wrap: anywhere;
-    user-select: none;
-
-    &::first-letter {
-      font-size: 1.2em;
-      color: $color-main;
-      letter-spacing: 0;
-      text-shadow: $color-main 0 0 3px;
-      padding: 0 0.125rem;
-      margin-right: 2px;
-      background-color: $font-color-default;
-    }
-  }
-
   // TEMP
   &-love {
     transition: text-shadow 0.3s ease;
