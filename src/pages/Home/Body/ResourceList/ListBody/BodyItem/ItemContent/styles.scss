@@ -15,7 +15,7 @@
   z-index: +1;
 
   &-status {
-    margin-right: 1em;
+    border-color: transparent;
 
     &_ready {
       $color: #eaf7ff;
@@ -29,6 +29,11 @@
       &-content {
         color: darken($color, 50%);
       }
+
+      &_expanded {
+        border-color: darken($color, 10%);
+        background-color: transparentize($color, 0.75);
+      }
     }
 
     &_running {
@@ -41,7 +46,12 @@
       }
 
       &-content {
-        color: darken($color, 50%);
+        color: darken($color, 40%);
+      }
+
+      &_expanded {
+        border-color: darken($color, 10%);
+        background-color: transparentize($color, 0.75);
       }
     }
 
@@ -55,7 +65,12 @@
       }
 
       &-content {
-        color: darken($color, 50%);
+        color: darken($color, 40%);
+      }
+
+      &_expanded {
+        border-color: darken($color, 10%);
+        background-color: transparentize($color, 0.75);
       }
     }
   }
@@ -68,6 +83,10 @@
     align-self: stretch;
     width: 60%;
     margin: 0 auto;
+    padding: {
+      left: 1em;
+      right: 0.5em;
+    }
     white-space: nowrap;
     overflow-wrap: anywhere;
     overflow: auto;
@@ -83,6 +102,7 @@
 
   &_expanded {
     $background-color: $color-1;
+
     border: {
       top-left-radius: 5px;
       top-right-radius: 5px;

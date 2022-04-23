@@ -99,27 +99,17 @@
 
       &-resource-list {
         &-body-item {
-          width: 100%;
+          width: 95%;
 
           &-content {
             &_expanded {
               border: {
-                left: none;
-                right: none;
                 color: $color-7;
               }
             }
           }
 
           &-details {
-            border: {
-              bottom-left-radius: 0;
-              bottom-right-radius: 0;
-              left: none;
-              right: none;
-              color: $color-7;
-            }
-
             &-detail {
               &-state,
               &-delete {
@@ -186,9 +176,11 @@
         &-body-item {
           &-details {
             &-detail {
+              width: 95%;
+
               &-state,
               &-delete {
-                width: 37.5%;
+                width: 45%;
               }
             }
           }

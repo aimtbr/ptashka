@@ -5,7 +5,7 @@
 @use './Detail/styles' as detail;
 
 @mixin styles {
-  @include animate-slide-bottom(0.5s);
+  @include animate-slide-bottom;
 
   display: flex;
   flex-wrap: wrap;
@@ -31,7 +31,6 @@
     &-sent,
     &-started-at {
       align-items: flex-end;
-      border-bottom: 1px solid $color-8;
       width: 80%;
       padding: {
         bottom: 0.5em;
@@ -51,6 +50,10 @@
         overflow-wrap: anywhere;
         white-space: nowrap;
       }
+    }
+
+    &-sent {
+      border-bottom: 1px solid $color-8;
     }
 
     &-started-at {
@@ -87,6 +90,8 @@
       }
 
       &:hover {
+        $color: lighten($color, 5%);
+
         border-color: $color;
         background-color: $color;
 
@@ -96,8 +101,10 @@
       }
 
       &:active {
-        border-color: darken($color, 20%);
-        background-color: darken($color, 20%);
+        $color: darken($color, 20%);
+
+        border-color: $color;
+        background-color: $color;
 
         .icon {
           @include paint-svg(white);
@@ -119,6 +126,8 @@
       }
 
       &:hover {
+        $color: $color;
+
         border-color: $color;
         background-color: $color;
 
@@ -128,8 +137,10 @@
       }
 
       &:active {
-        border-color: darken($color, 30%);
-        background-color: darken($color, 30%);
+        $color: darken($color, 30%);
+
+        border-color: $color;
+        background-color: $color;
 
         .icon {
           @include paint-svg(white);
