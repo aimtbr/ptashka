@@ -10,22 +10,22 @@ const TIME_OF_DAY_EVENING = 'evening';
 const NIGHTTIME_RANGE_START = 0;
 const NIGHTTIME_RANGE_END = 6;
 const NIGHTTIME_RANGE = [NIGHTTIME_RANGE_START, NIGHTTIME_RANGE_END];
-const NIGHTTIME_GREETING = 'Доброї ночі 🌙';
+const NIGHTTIME_GREETING = '🌙 Доброї ночі!';
 
 const MORNING_RANGE_START = 6;
 const MORNING_RANGE_END = 12;
 const MORNING_RANGE = [MORNING_RANGE_START, MORNING_RANGE_END];
-const MORNING_GREETING = 'Доброго ранку ⛅';
+const MORNING_GREETING = '⛅ Доброго ранку!';
 
 const DAYTIME_RANGE_START = 12;
 const DAYTIME_RANGE_END = 18;
 const DAYTIME_RANGE = [DAYTIME_RANGE_START, DAYTIME_RANGE_END];
-const DAYTIME_GREETING = 'Доброго дня ☀️';
+const DAYTIME_GREETING = '☀️ Доброго дня!';
 
 const EVENING_RANGE_START = 18;
 const EVENING_RANGE_END = 24;
 const EVENING_RANGE = [EVENING_RANGE_START, EVENING_RANGE_END];
-const EVENING_GREETING = 'Доброго вечора ✨';
+const EVENING_GREETING = '✨ Доброго вечора!';
 
 const timesOfDay = {
   [TIME_OF_DAY_NIGHTTIME]: {
@@ -114,9 +114,7 @@ const Greeting = (props) => {
     const [nextTimeOfDayRangeStart] = timesOfDay[nextTimeOfDay].range;
 
     const nextTimeOfDayStartsInHours =
-      (nextTimeOfDayRangeStart === 0 ? 24 : nextTimeOfDayRangeStart) -
-      currentDateHours -
-      1;
+      (nextTimeOfDayRangeStart === 0 ? 24 : nextTimeOfDayRangeStart) - currentDateHours - 1;
     const nextTimeOfDayStartsInMinutes = 59 - currentDateMinutes;
     const nextTimeOfDayStartsInSeconds = 60 - currentDateSeconds;
 
