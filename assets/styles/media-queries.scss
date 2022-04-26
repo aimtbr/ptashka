@@ -38,6 +38,10 @@
         }
       }
     }
+
+    &-footer {
+      font-size: 15px;
+    }
   }
 }
 
@@ -120,6 +124,26 @@
         }
       }
     }
+
+    &-footer {
+      &-social {
+        flex-direction: column;
+        align-items: center;
+
+        &-links {
+          width: 95%;
+
+          &:not(:last-child) {
+            margin-bottom: 2em;
+          }
+        }
+
+        &-email {
+          width: 95%;
+          align-items: flex-start;
+        }
+      }
+    }
   }
 
   .logo {
@@ -186,6 +210,10 @@
           }
         }
       }
+    }
+
+    &-footer {
+      font-size: 14px;
     }
   }
 

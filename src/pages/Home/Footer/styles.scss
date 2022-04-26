@@ -1,7 +1,83 @@
 @use '/assets/styles/variables' as *;
 
 @mixin styles {
-  margin-top: 2rem;
-  // height: 10rem;
+  $color: $color-7;
+
+  display: flex;
+  flex-direction: column;
+  padding: {
+    top: 1.5em;
+    bottom: 2.5em;
+    left: 5vw;
+    right: 5vw;
+  }
+  min-height: 4em;
+  color: $color;
   background-color: $color-6;
+
+  & .anchor {
+    color: $color-8;
+
+    &:hover {
+      border-color: $color-8;
+    }
+  }
+
+  &-social {
+    display: flex;
+    justify-content: space-between;
+
+    &-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 45%;
+
+      &-text {
+        padding: 0.25em 0;
+        margin-bottom: 1em;
+        border-bottom: 1px dashed $color;
+      }
+
+      &-anchor {
+        &:not(:last-child) {
+          margin-bottom: 0.5em;
+        }
+      }
+    }
+
+    &-email {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 50%;
+      min-height: 4em;
+
+      &-address {
+        display: flex;
+        flex-wrap: wrap;
+        font-style: normal;
+        line-height: 1.5em;
+        padding: 0.25em 0;
+        margin-bottom: 1em;
+
+        &-text {
+          margin-right: 0.75em;
+        }
+
+        &-anchor {
+          align-self: center;
+        }
+      }
+    }
+  }
+
+  &-version {
+    align-self: flex-end;
+    letter-spacing: 1px;
+    font-size: 1em;
+    font-weight: 500;
+    color: $color-7;
+  }
 }
