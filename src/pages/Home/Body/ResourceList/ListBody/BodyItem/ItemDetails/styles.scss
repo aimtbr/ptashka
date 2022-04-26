@@ -28,6 +28,7 @@
   &-detail {
     @include detail.styles;
 
+    &-success-rate,
     &-sent,
     &-started-at {
       align-items: flex-end;
@@ -52,6 +53,7 @@
       }
     }
 
+    &-success-rate,
     &-sent {
       border-bottom: 1px solid $color-8;
     }

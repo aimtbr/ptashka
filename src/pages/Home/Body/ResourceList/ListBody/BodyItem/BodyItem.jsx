@@ -68,6 +68,7 @@ const BodyItem = (props) => {
 
       <ItemDetails
         baseClassName={className}
+        successRate={successRate}
         requestsSent={requestsSent}
         status={status}
         startedAt={startedAt}

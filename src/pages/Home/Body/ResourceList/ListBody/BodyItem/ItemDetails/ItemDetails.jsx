@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 import {
+  DetailSuccessRate,
   DetailRequestsSent,
   DetailStartedAt,
   DetailStateButton,
@@ -10,8 +11,16 @@ import { unifyClassNames } from '/src/lib/helpers.js';
 import { PTASHKA_STATUS_PAUSED } from '/src/lib/constants.js';
 
 const ItemDetails = (props) => {
-  const { baseClassName, requestsSent, status, startedAt, isHidden, toggleItemState, deleteItem } =
-    props;
+  const {
+    baseClassName,
+    successRate,
+    requestsSent,
+    status,
+    startedAt,
+    isHidden,
+    toggleItemState,
+    deleteItem,
+  } = props;
 
   const detailsRef = useRef();
 
@@ -34,6 +43,11 @@ const ItemDetails = (props) => {
       className={className}
       ref={detailsRef}
     >
+      <DetailSuccessRate
+        baseClassName={className}
+        successRate={successRate}
+      />
+
       <DetailRequestsSent
         baseClassName={className}
         requestsSent={requestsSent}
