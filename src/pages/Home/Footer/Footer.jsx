@@ -6,7 +6,8 @@ import { unifyClassNames } from '/src/lib/helpers.js';
 
 const Footer = (props) => {
   const { baseClassName } = props;
-  const { version } = config;
+  const { version, social } = config;
+  const { telegram, twitter, email } = social;
 
   const className = `${baseClassName}-footer`;
   const socialClassName = unifyClassNames(className, 'social');
@@ -21,7 +22,7 @@ const Footer = (props) => {
 
           <Anchor
             baseClassName={unifyClassNames(socialClassName, 'links')}
-            href="https://t.me/ptashkaone"
+            href={telegram}
             target="_blank"
           >
             Telegram
@@ -29,7 +30,7 @@ const Footer = (props) => {
 
           <Anchor
             baseClassName={unifyClassNames(socialClassName, 'links')}
-            href="https://twitter.com/ptashkaone"
+            href={twitter}
             target="_blank"
           >
             Twitter
@@ -44,10 +45,10 @@ const Footer = (props) => {
 
             <Anchor
               baseClassName={unifyClassNames(socialClassName, 'email-address')}
-              href="mailto:ptashka.corp@gmail.com"
+              href={`mailto:${email}`}
               target="_blank"
             >
-              ptashka.corp@gmail.com
+              {email}
             </Anchor>
           </address>
 

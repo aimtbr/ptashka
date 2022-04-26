@@ -1,6 +1,11 @@
 {
   "name": "Ptashka",
   "version": "0.3",
+  "social": {
+    "twitter": "https://twitter.com/ptashkaone",
+    "telegram": "https://t.me/ptashkaone",
+    "email": "ptashka.info@gmail.com"
+  },
   "targetResources": [
     "https://www.crpt.ru",
     "https://markirovka.crpt.ru/login-kep",
